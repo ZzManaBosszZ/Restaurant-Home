@@ -17,13 +17,13 @@ function Header() {
                             <i class="fa fa-bars"></i>
                         </button>
                         <a class="navbar-brand" href="index.html">
-                            {/* <img src="~/assets/img/logo-light.png" class="logo logo-display" alt="Logo" />
-                            <img src="~/assets/img/logo-light.png" class="logo logo-scrolled" alt="Logo" /> */}
+                            <img src="assets/img/logo-light.png" class="logo logo-display" alt="Logo" />
+                            <img src="assets/img/logo-light.png" class="logo logo-scrolled" alt="Logo" />
                         </a>
                     </div>
                     <div class="collapse navbar-collapse" id="navbar-menu">
 
-                        {/* <img src="~/assets/img/logo-light.png" alt="Logo" /> */}
+                        <img src="assets/img/logo-light.png" alt="Logo" />
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
                             <i class="fa fa-times"></i>
                         </button>
@@ -36,7 +36,7 @@ function Header() {
                                         <div class="col-menu-wrap">
                                             <div class="col-item">
                                                 <div class="menu-thumb">
-                                                    {/* <img src="~/assets/img/demo/home-1.jpg" alt="Image Not Found" /> */}
+                                                    <img src="assets/img/demo/home-1.jpg" alt="Image Not Found" />
                                                     <div class="overlay">
                                                         <a href="index.html">Light Version</a>
                                                         <a href="index-dark.html">Dark Version</a>
@@ -46,7 +46,7 @@ function Header() {
                                             </div>
                                             <div class="col-item">
                                                 <div class="menu-thumb">
-                                                    {/* <img src="~/assets/img/demo/home-2.jpg" alt="Image Not Found" /> */}
+                                                    <img src="assets/img/demo/home-2.jpg" alt="Image Not Found" />
                                                     <div class="overlay">
                                                         <a href="index-2.html">Light Version</a>
                                                         <a href="index-2-dark.html">Dark Version</a>
@@ -56,7 +56,7 @@ function Header() {
                                             </div>
                                             <div class="col-item">
                                                 <div class="menu-thumb">
-                                                    {/* <img src="~/assets/img/demo/home-3.jpg" alt="Image Not Found" /> */}
+                                                    <img src="assets/img/demo/home-3.jpg" alt="Image Not Found" />
                                                     <div class="overlay">
                                                         <a href="index-3.html">Light Version</a>
                                                         <a href="index-3-dark.html">Dark Version</a>
@@ -66,7 +66,7 @@ function Header() {
                                             </div>
                                             <div class="col-item">
                                                 <div class="menu-thumb">
-                                                    {/* <img src="~/assets/img/demo/home-4.jpg" alt="Image Not Found" /> */}
+                                                    <img src="assets/img/demo/home-4.jpg" alt="Image Not Found" />
                                                     <div class="overlay">
                                                         <a href="index-4.html">Light Version</a>
                                                         <a href="index-4-dark.html">Dark Version</a>
@@ -76,7 +76,7 @@ function Header() {
                                             </div>
                                             <div class="col-item">
                                                 <div class="menu-thumb">
-                                                    {/* <img src="~/assets/img/demo/home-5.jpg" alt="Image Not Found" /> */}
+                                                    <img src="assets/img/demo/home-5.jpg" alt="Image Not Found" />
                                                     <div class="overlay">
                                                         <a href="index-5.html">Light Version</a>
                                                         <a href="index-5-dark.html">Dark Version</a>
@@ -183,5 +183,4 @@ function Header() {
         </header>
     );
 }
-
 export default Header;

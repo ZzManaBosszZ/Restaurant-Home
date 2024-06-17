@@ -1,5 +1,6 @@
 function Loading() {
     return ( 
+        <div id="preloader">
         <div id="restan-preloader" class="restan-preloader">
             <div class="animation-preloader">
                 <div class="spinner"></div>
@@ -21,7 +22,7 @@ function Loading() {
                 </div>
             </div>
         </div>
+    </div>
      );
 }
-
 export default Loading;

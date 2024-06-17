@@ -1,8 +1,6 @@
 function Banner() {
     return (
-        
-        // <div class="banner-style-four-area text-light text-center bg-cover" style="background-image: url(~/assets/img/banner/14.jpg)">
-            <div class="banner-style-four-area text-light text-center bg-cover">
+        <div class="banner-style-four-area text-light text-center bg-cover" style={{ backgroundImage: "url(/assets/img/banner/14.jpg)" }}>
             <div class="banner-style-four-content shadow dark">
                 <div class="container">
                     <div class="row">
@@ -22,5 +20,4 @@ function Banner() {
         </div>
     );
 }
-
 export default Banner;

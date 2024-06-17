@@ -2,16 +2,18 @@ import Loading from "./Loading"
 import HeaderTop from "./HeaderTop";
 import Header from "./Header"
 import Footer from "./Footer";
-function Layout({children}) {
-    return ( 
+import Banner from "./Banner";
+function Layout({ children }) {
+    return (
         <div className="bg-dark">
-            <Loading/>
-            <HeaderTop/>
-            <Header/>
+            {/* <Loading /> */}
+            <HeaderTop />
+            <Header />
+            <Banner />
             <div>{children}</div>
-            <Footer/>
+            <Footer />
         </div>
-     );
+    );
 }
 
 export default Layout;
