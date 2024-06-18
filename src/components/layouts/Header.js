@@ -1,13 +1,13 @@
-import { Link, NavLink } from "react-router-dom";
-import config from "../../config/index";
-import { isLoggedIn, getDecodedToken, removeAccessToken } from "../../utils/auth";
+// import { Link, NavLink } from "react-router-dom";
+// import config from "../../config/index";
+// import { isLoggedIn, getDecodedToken, removeAccessToken } from "../../utils/auth";
 
 function Header() {
-    const decodedToken = getDecodedToken();
+    // const decodedToken = getDecodedToken();
 
-    const handleLogout = () => {
-        removeAccessToken();
-    };
+    // const handleLogout = () => {
+    //     removeAccessToken();
+    // };
     return (
         <header>
             <nav class="navbar mobile-sidenav brand-center-style-two dark-layout brand-center navbar-default validnavs">

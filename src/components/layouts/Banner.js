@@ -1,6 +1,6 @@
 function Banner() {
     return (
-        <div class="banner-style-four-area text-light text-center bg-cover" style={{ backgroundImage: "url(/assets/img/banner/14.jpg)" }}>
+        <div class="banner-style-four-area text-light text-center bg-cover" style={{ backgroundImage: "url(assets/img/banner/14.jpg)" }}>
             <div class="banner-style-four-content shadow dark">
                 <div class="container">
                     <div class="row">
@@ -11,7 +11,7 @@ function Banner() {
                                     <path id="textPath" d="M 0,75 a 75,75 0 1,1 0,1 z"></path>
                                     <text><textPath href="#textPath">Best Food Since - 1865</textPath></text>
                                 </svg>
-                                <a href="https://www.youtube.com/watch?v=ipUuoMCEbDQ" class="popup-youtube"><i class="fas fa-arrow-right"></i></a>
+                                <a href="" class="popup-youtube"><i class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>

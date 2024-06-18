@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 function Footer() {
     return (
         <footer>
@@ -115,13 +114,13 @@ function Footer() {
             </div>
             <div class="footer-bottom text-light">
                 <div class="footer-bottom-shape">
-                    {/* <img src="~/assets/img/shape/9.png" alt="Image Not Found" /> */}
+                    <img src="assets/img/shape/9.png" alt="Image Not Found" />
                 </div>
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="footer-logo">
-                                {/* <img src="~/assets/img/logo-light.png" alt="Logo" /> */}
+                                <img src="assets/img/logo-light.png" alt="Logo" />
                             </div>
                         </div>
                         <div class="col-lg-6 text-end">

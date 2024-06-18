@@ -4183,7 +4183,7 @@ ul.list-quality li:last-child::after {
 }
 
 .banner-style-four-area, .banner-style-four-area div {
-    height: 100%;
+    height: 750px;
 }
 
 .banner-style-four-area .row div {
@@ -4195,7 +4195,7 @@ ul.list-quality li:last-child::after {
 }
 
 .banner-style-four-content {
-    padding-top: 100px;
+    padding-top: 50px;
 }
 
 .banner-style-four-content h2 {
