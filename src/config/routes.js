@@ -4,5 +4,6 @@ const routes = {
     // AboutUs and ContactUs routes
     aboutus: "/about",
     contactus: "/contact",
+    error: "/error",
 };
 export default routes;
