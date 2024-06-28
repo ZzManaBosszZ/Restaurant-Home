@@ -1,7 +1,7 @@
 import LayoutPages from "../../layouts/LayoutPage";
 function AboutUs() {
     return (
-        <LayoutPages title="Home Page">
+        <LayoutPages title="About Us">
             <div class="brand-area overflow-hidden default-padding bg-cover text-center bg-gray" style={{backgroundImage: "url(assets/img/shape/1.png)"}}>
                 <div class="container">
                     <div class="row">

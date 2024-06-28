@@ -121,7 +121,7 @@ function Header() {
                                 </ul>
                             </li>
                             <li class="dropdown megamenu-fw">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Home</a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu</a>
                                 <ul class="dropdown-menu megamenu-content" role="menu">
                                     <li>
                                         <div class="col-menu-wrap">
