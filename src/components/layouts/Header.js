@@ -120,19 +120,62 @@ function Header() {
                                     </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Menu</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="food-menu.html">Menu Style One</a></li>
-                                    <li><a href="food-menu-2.html">Menu Style Two</a></li>
-                                    <li><a href="food-menu-3.html">Menu Style Three</a></li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Dark Version</a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="food-menu-dark.html">Menu Style One</a></li>
-                                            <li><a href="food-menu-2-dark.html">Menu Style Two</a></li>
-                                            <li><a href="food-menu-3-dark.html">Menu Style Three</a></li>
-                                        </ul>
+                            <li class="dropdown megamenu-fw">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu</a>
+                                <ul class="dropdown-menu megamenu-content" role="menu">
+                                    <li>
+                                        <div class="col-menu-wrap">
+                                            <div class="col-item">
+                                                <div class="menu-thumb">
+                                                    <img src="assets/img/demo/home-1.jpg" alt="Image Not Found" />
+                                                    <div class="overlay">
+                                                        <a href="index.html">Light Version</a>
+                                                        <a href="index-dark.html">Dark Version</a>
+                                                    </div>
+                                                </div>
+                                                <h6 class="title"><a href="index.html">Home One</a></h6>
+                                            </div>
+                                            <div class="col-item">
+                                                <div class="menu-thumb">
+                                                    <img src="assets/img/demo/home-2.jpg" alt="Image Not Found" />
+                                                    <div class="overlay">
+                                                        <a href="index-2.html">Light Version</a>
+                                                        <a href="index-2-dark.html">Dark Version</a>
+                                                    </div>
+                                                </div>
+                                                <h6 class="title"><a href="index-2.html">Home Two</a></h6>
+                                            </div>
+                                            <div class="col-item">
+                                                <div class="menu-thumb">
+                                                    <img src="assets/img/demo/home-3.jpg" alt="Image Not Found" />
+                                                    <div class="overlay">
+                                                        <a href="index-3.html">Light Version</a>
+                                                        <a href="index-3-dark.html">Dark Version</a>
+                                                    </div>
+                                                </div>
+                                                <h6 class="title"><a href="index-3.html">Home Three</a></h6>
+                                            </div>
+                                            <div class="col-item">
+                                                <div class="menu-thumb">
+                                                    <img src="assets/img/demo/home-4.jpg" alt="Image Not Found" />
+                                                    <div class="overlay">
+                                                        <a href="index-4.html">Light Version</a>
+                                                        <a href="index-4-dark.html">Dark Version</a>
+                                                    </div>
+                                                </div>
+                                                <h6 class="title"><a href="index-4.html">Home Four</a></h6>
+                                            </div>
+                                            <div class="col-item">
+                                                <div class="menu-thumb">
+                                                    <img src="assets/img/demo/home-5.jpg" alt="Image Not Found" />
+                                                    <div class="overlay">
+                                                        <a href="index-5.html">Light Version</a>
+                                                        <a href="index-5-dark.html">Dark Version</a>
+                                                    </div>
+                                                </div>
+                                                <h6 class="title"><a href="index-5.html">Home Five</a></h6>
+                                            </div>
+                                        </div>
                                     </li>
                                 </ul>
                             </li>

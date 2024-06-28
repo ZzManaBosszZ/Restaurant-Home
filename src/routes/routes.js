@@ -3,12 +3,34 @@ import config from "../config/index";
 import Home from "../components/pages/Home";
 import AboutUs from "../components/pages/AboutUs";
 import ContactUs from "../components/pages/ContactUs";
+import NotFound from "../components/pages/Other/NotFound";
+import Menu from "../components/pages/Menu";
+import ChefDetail from "../components/pages/Chefs/ChefDetail";
+import Chefs from "../components/pages/Chefs";
+import Blogs from "../components/pages/Blog";
+import BlogDetail from "../components/pages/Blog/BlogDetail";
+import FoodShop from "../components/pages/FoodShop";
+import FoodShopDetail from "../components/pages/FoodShop/FoodShopDetail/FoodShopDetail";
 
 const publicRoutes = [
     // Home routes
     { path: config.routes.home, component: Home },
+    //About Us and Contact Us
     { path: config.routes.aboutus, component: AboutUs },
     { path: config.routes.contactus, component: ContactUs },
+    //Menu
+    { path: config.routes.menu, component: Menu },
+    //Chef
+    { path: config.routes.chef, component: Chefs },
+    { path: config.routes.chefDetail, component: ChefDetail },
+    //Blog
+    { path: config.routes.blog, component: Blogs },
+    { path: config.routes.blogDetail, component: BlogDetail },
+    //Shop
+    { path: config.routes.shop, component: FoodShop },
+    { path: config.routes.shopDetail, component: FoodShopDetail },
+    //404
+    { path: config.routes.error, component: NotFound },
 ];
 
 const privateRoutes = [
