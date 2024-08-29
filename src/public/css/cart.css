@@ -1,0 +1,40 @@
+.cartItemsTable {
+    width: 100%;
+    border-collapse: collapse;
+    
+  }
+
+   .cartItems Table thead tr,.cartItems Table tbody tr{
+    display:grid;
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 50px;
+   }
+  .cartItems Table thead tr th{
+    width: 50px;
+  }
+  .cartItemsTable th, .cartItemsTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+
+  }
+  
+  .cartItemsTable th {
+    background-color: #f4f4f4;
+  }
+  
+  .cartItemImage {
+    max-width: 100px;
+    height: auto;
+  }
+  
+  .cartTotal {
+    margin-top: 20px;
+    text-align: right;
+    font-weight: bold;
+  }
+  
+  .quantityInput {
+    width: 60px;
+    text-align: center;
+  }

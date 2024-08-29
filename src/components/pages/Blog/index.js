@@ -4,24 +4,24 @@ import LayoutPages from '../../layouts/LayoutPage';
 function Blogs() {
     return (
         <LayoutPages>
-            <div class="blog-area full-blog default-padding">
-                <div class="container">
-                    <div class="blog-items">
-                        <div class="row">
-                            <div class="blog-content col-xl-8 col-lg-7 col-md-12 pr-35 pr-md-15 pl-md-15 pr-xs-15 pl-xs-15">
-                                <div class="blog-item-box">
-                                    <div class="item">
-                                        <div class="thumb">
+            <div className="blog-area full-blog default-padding">
+                <div className="container">
+                    <div className="blog-items">
+                        <div className="row">
+                            <div className="blog-content col-xl-8 col-lg-7 col-md-12 pr-35 pr-md-15 pl-md-15 pr-xs-15 pl-xs-15">
+                                <div className="blog-item-box">
+                                    <div className="item">
+                                        <div className="thumb">
                                             <a href="#"><img src="assets/img/blog/v4.jpg" alt="Thumb"/></a>
                                         </div>
-                                        <div class="info">
-                                            <div class="meta">
+                                        <div className="info">
+                                            <div className="meta">
                                                 <ul>
                                                     <li>
-                                                        <a href="#"><i class="far fa-calendar-alt"></i> 12 Auguest, 2023</a>
+                                                        <a href="#"><i className="far fa-calendar-alt"></i> 12 Auguest, 2023</a>
                                                     </li>
                                                     <li>
-                                                        <a href="#"><i class="far fa-user-circle"></i> Admin</a>
+                                                        <a href="#"><i className="far fa-user-circle"></i> Admin</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -29,21 +29,21 @@ function Blogs() {
                                             <p>
                                                 Bndulgence diminution so discovered mr apartments. Are off under folly death wrote cause her way spite. Plan upon yet way get cold spot its week. Almost do am or limits hearts. Resolve parties but why she shewing. She sang know now
                                             </p>
-                                            <a class="btn mt-10 btn-md circle btn-theme animation" href="#">Learn More</a>
+                                            <a className="btn mt-10 btn-md circle btn-theme animation" href="#">Learn More</a>
                                         </div>
                                     </div>
-                                    <div class="item">
-                                        <div class="thumb">
+                                    <div className="item">
+                                        <div className="thumb">
                                             <a href="#"><img src="assets/img/blog/v2.jpg" alt="Thumb"/></a>
                                         </div>
-                                        <div class="info">
-                                            <div class="meta">
+                                        <div className="info">
+                                            <div className="meta">
                                                 <ul>
                                                     <li>
-                                                        <a href="#"><i class="far fa-calendar-alt"></i> 12 July, 2023</a>
+                                                        <a href="#"><i className="far fa-calendar-alt"></i> 12 July, 2023</a>
                                                     </li>
                                                     <li>
-                                                        <a href="#"><i class="far fa-user-circle"></i> Admin</a>
+                                                        <a href="#"><i className="far fa-user-circle"></i> Admin</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -51,21 +51,21 @@ function Blogs() {
                                             <p>
                                                 Bndulgence diminution so discovered mr apartments. Are off under folly death wrote cause her way spite. Plan upon yet way get cold spot its week. Almost do am or limits hearts. Resolve parties but why she shewing. She sang know now
                                             </p>
-                                            <a class="btn mt-10 btn-md circle btn-theme animation" href="#">Learn More</a>
+                                            <a className="btn mt-10 btn-md circle btn-theme animation" href="#">Learn More</a>
                                         </div>
                                     </div>
-                                    <div class="item">
-                                        <div class="thumb">
+                                    <div className="item">
+                                        <div className="thumb">
                                             <a href="#"><img src="assets/img/blog/v3.jpg" alt="Thumb"/></a>
                                         </div>
-                                        <div class="info">
-                                            <div class="meta">
+                                        <div className="info">
+                                            <div className="meta">
                                                 <ul>
                                                     <li>
-                                                        <a href="#"><i class="far fa-calendar-alt"></i> 12 Auguest, 2023</a>
+                                                        <a href="#"><i className="far fa-calendar-alt"></i> 12 Auguest, 2023</a>
                                                     </li>
                                                     <li>
-                                                        <a href="#"><i class="far fa-user-circle"></i> Admin</a>
+                                                        <a href="#"><i className="far fa-user-circle"></i> Admin</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -73,83 +73,83 @@ function Blogs() {
                                             <p>
                                                 Bndulgence diminution so discovered mr apartments. Are off under folly death wrote cause her way spite. Plan upon yet way get cold spot its week. Almost do am or limits hearts. Resolve parties but why she shewing. She sang know now
                                             </p>
-                                            <a class="btn mt-10 btn-md circle btn-theme animation" href="#">Learn More</a>
+                                            <a className="btn mt-10 btn-md circle btn-theme animation" href="#">Learn More</a>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-12 pagi-area text-center">
+                                <div className="row">
+                                    <div className="col-md-12 pagi-area text-center">
                                         <nav aria-label="navigation">
-                                            <ul class="pagination">
-                                                <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-double-left"></i></a></li>
-                                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-double-right"></i></a></li>
+                                            <ul className="pagination">
+                                                <li className="page-item"><a className="page-link" href="#"><i className="fas fa-angle-double-left"></i></a></li>
+                                                <li className="page-item active"><a className="page-link" href="#">1</a></li>
+                                                <li className="page-item"><a className="page-link" href="#">2</a></li>
+                                                <li className="page-item"><a className="page-link" href="#">3</a></li>
+                                                <li className="page-item"><a className="page-link" href="#"><i className="fas fa-angle-double-right"></i></a></li>
                                             </ul>
                                         </nav>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="sidebar col-xl-4 col-lg-5 col-md-12 mt-md-50 mt-xs-50">
+                            <div className="sidebar col-xl-4 col-lg-5 col-md-12 mt-md-50 mt-xs-50">
                                 <aside>
-                                    <div class="sidebar-item search">
-                                        <div class="sidebar-info">
+                                    <div className="sidebar-item search">
+                                        <div className="sidebar-info">
                                             <form>
-                                                <input type="text" placeholder="Enter Keyword" name="text" class="form-control"/>
-                                                    <button type="submit"><i class="fas fa-search"></i></button>
+                                                <input type="text" placeholder="Enter Keyword" name="text" className="form-control"/>
+                                                    <button type="submit"><i className="fas fa-search"></i></button>
                                             </form>
                                         </div>
                                     </div>
-                                    <div class="sidebar-item recent-post">
-                                        <h4 class="title">Recent Post</h4>
+                                    <div className="sidebar-item recent-post">
+                                        <h4 className="title">Recent Post</h4>
                                         <ul>
                                             <li>
-                                                <div class="thumb">
+                                                <div className="thumb">
                                                     <a href="#">
                                                         <img src="assets/img/gallery/4.jpg" alt="Thumb"/>
                                                     </a>
                                                 </div>
-                                                <div class="info">
-                                                    <div class="meta-title">
-                                                        <span class="post-date">12 Feb, 2020</span>
+                                                <div className="info">
+                                                    <div className="meta-title">
+                                                        <span className="post-date">12 Feb, 2020</span>
                                                     </div>
                                                     <a href="#">Commanded household smallness delivered.</a>
                                                 </div>
                                             </li>
                                             <li>
-                                                <div class="thumb">
+                                                <div className="thumb">
                                                     <a href="#">
                                                         <img src="assets/img/gallery/2.jpg" alt="Thumb"/>
                                                     </a>
                                                 </div>
-                                                <div class="info">
-                                                    <div class="meta-title">
-                                                        <span class="post-date">05 Jul, 2023</span>
+                                                <div className="info">
+                                                    <div className="meta-title">
+                                                        <span className="post-date">05 Jul, 2023</span>
                                                     </div>
                                                     <a href="#">Future Plan & Strategy for Consutruction </a>
                                                 </div>
                                             </li>
                                             <li>
-                                                <div class="thumb">
+                                                <div className="thumb">
                                                     <a href="#">
                                                         <img src="assets/img/gallery/6.jpg" alt="Thumb"/>
                                                     </a>
                                                 </div>
-                                                <div class="info">
-                                                    <div class="meta-title">
-                                                        <span class="post-date">29 Aug, 2020</span>
+                                                <div className="info">
+                                                    <div className="meta-title">
+                                                        <span className="post-date">29 Aug, 2020</span>
                                                     </div>
                                                     <a href="#">Melancholy particular devonshire alteration</a>
                                                 </div>
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="sidebar-item category">
-                                        <h4 class="title">category list</h4>
-                                        <div class="sidebar-info">
+                                    <div className="sidebar-item category">
+                                        <h4 className="title">category list</h4>
+                                        <div className="sidebar-info">
                                             <ul>
                                                 <li>
                                                     <a href="#">Business <span>69</span></a>
@@ -169,9 +169,9 @@ function Blogs() {
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="sidebar-item gallery">
-                                        <h4 class="title">Gallery</h4>
-                                        <div class="sidebar-info">
+                                    <div className="sidebar-item gallery">
+                                        <h4 className="title">Gallery</h4>
+                                        <div className="sidebar-info">
                                             <ul>
                                                 <li>
                                                     <a href="#">
@@ -206,9 +206,9 @@ function Blogs() {
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="sidebar-item archives">
-                                        <h4 class="title">Archives</h4>
-                                        <div class="sidebar-info">
+                                    <div className="sidebar-item archives">
+                                        <h4 className="title">Archives</h4>
+                                        <div className="sidebar-info">
                                             <ul>
                                                 <li><a href="#">Aug 2020</a></li>
                                                 <li><a href="#">Sept 2020</a></li>
@@ -217,36 +217,36 @@ function Blogs() {
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="sidebar-item social-sidebar">
-                                        <h4 class="title">follow us</h4>
-                                        <div class="sidebar-info">
+                                    <div className="sidebar-item social-sidebar">
+                                        <h4 className="title">follow us</h4>
+                                        <div className="sidebar-info">
                                             <ul>
-                                                <li class="facebook">
+                                                <li className="facebook">
                                                     <a href="#">
-                                                        <i class="fab fa-facebook-f"></i>
+                                                        <i className="fab fa-facebook-f"></i>
                                                     </a>
                                                 </li>
-                                                <li class="twitter">
+                                                <li className="twitter">
                                                     <a href="#">
-                                                        <i class="fab fa-twitter"></i>
+                                                        <i className="fab fa-twitter"></i>
                                                     </a>
                                                 </li>
-                                                <li class="pinterest">
+                                                <li className="pinterest">
                                                     <a href="#">
-                                                        <i class="fab fa-pinterest"></i>
+                                                        <i className="fab fa-pinterest"></i>
                                                     </a>
                                                 </li>
-                                                <li class="linkedin">
+                                                <li className="linkedin">
                                                     <a href="#">
-                                                        <i class="fab fa-linkedin-in"></i>
+                                                        <i className="fab fa-linkedin-in"></i>
                                                     </a>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="sidebar-item tags">
-                                        <h4 class="title">tags</h4>
-                                        <div class="sidebar-info">
+                                    <div className="sidebar-item tags">
+                                        <h4 className="title">tags</h4>
+                                        <div className="sidebar-info">
                                             <ul>
                                                 <li><a href="#">Fashion</a>
                                                 </li>

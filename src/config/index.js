@@ -1,9 +1,9 @@
 import routes from "./routes";
-// import key from "./key";
+import key from "./key";
 
 const config = {
     routes,
-    // key,
+    key,
 };
 
 export default config;

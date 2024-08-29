@@ -4,26 +4,26 @@ import LayoutPages from '../../layouts/LayoutPage'
 function BlogDetail() {
     return (
         <LayoutPages>
-            <div class="blog-area single full-blog right-sidebar full-blog default-padding">
-                <div class="container">
-                    <div class="blog-items">
-                        <div class="row">
-                            <div class="blog-content col-xl-8 col-lg-7 col-md-12 pr-35 pr-md-15 pl-md-15 pr-xs-15 pl-xs-15">
-                                <div class="blog-style-two item">
+            <div className="blog-area single full-blog right-sidebar full-blog default-padding">
+                <div className="container">
+                    <div className="blog-items">
+                        <div className="row">
+                            <div className="blog-content col-xl-8 col-lg-7 col-md-12 pr-35 pr-md-15 pl-md-15 pr-xs-15 pl-xs-15">
+                                <div className="blog-style-two item">
 
-                                    <div class="blog-item-box">
+                                    <div className="blog-item-box">
 
-                                        <div class="thumb">
+                                        <div className="thumb">
                                             <a href="#"><img src="assets/img/blog/v4.jpg" alt="Thumb"/></a>
                                         </div>
-                                        <div class="info">
-                                            <div class="meta">
+                                        <div className="info">
+                                            <div className="meta">
                                                 <ul>
                                                     <li>
-                                                        <a href="#"><i class="fas fa-calendar-alt"></i> March 16, 2023</a>
+                                                        <a href="#"><i className="fas fa-calendar-alt"></i> March 16, 2023</a>
                                                     </li>
                                                     <li>
-                                                        <a href="#"><i class="fas fa-user-circle"></i> Md Sohag</a>
+                                                        <a href="#"><i className="fas fa-user-circle"></i> Md Sohag</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -54,11 +54,11 @@ function BlogDetail() {
                                     </div>
                                 </div>
 
-                                <div class="post-author">
-                                    <div class="thumb">
+                                <div className="post-author">
+                                    <div className="thumb">
                                         <img src="assets/img/team/1.jpg" alt="Thumb"/>
                                     </div>
-                                    <div class="info">
+                                    <div className="info">
                                         <h4><a href="#">Md Sohag</a></h4>
                                         <p>
                                             Grursus mal suada faci lisis Lorem ipsum dolarorit more ametion consectetur elit. Vesti at bulum nec at odio aea the dumm ipsumm ipsum that dolocons rsus mal suada and fadolorit to the consectetur elit. All the Lorem Ipsum generators on the Internet tend. Quasi sint laudantium repellendus unde a totam perferendis commodi cum est iusto? Minima, laborum.
@@ -66,59 +66,59 @@ function BlogDetail() {
                                     </div>
                                 </div>
 
-                                <div class="post-tags share">
-                                    <div class="tags">
+                                <div className="post-tags share">
+                                    <div className="tags">
                                         <h4>Tags: </h4>
                                         <a href="#">Algorithm</a>
                                         <a href="%24.html">Data science</a>
                                     </div>
 
-                                    <div class="social">
+                                    <div className="social">
                                         <h4>Share:</h4>
                                         <ul>
                                             <li>
-                                                <a class="facebook" href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                                <a className="facebook" href="#" target="_blank"><i className="fab fa-facebook-f"></i></a>
                                             </li>
                                             <li>
-                                                <a class="twitter" href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                                                <a className="twitter" href="#" target="_blank"><i className="fab fa-twitter"></i></a>
                                             </li>
                                             <li>
-                                                <a class="pinterest" href="#" target="_blank"><i class="fab fa-pinterest-p"></i></a>
+                                                <a className="pinterest" href="#" target="_blank"><i className="fab fa-pinterest-p"></i></a>
                                             </li>
                                             <li>
-                                                <a class="linkedin" href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                                <a className="linkedin" href="#" target="_blank"><i className="fab fa-linkedin-in"></i></a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
 
-                                <div class="post-pagi-area">
-                                    <div class="post-previous">
+                                <div className="post-pagi-area">
+                                    <div className="post-previous">
                                         <a href="#">
-                                            <div class="icon"><i class="fas fa-angle-double-left"></i></div>
-                                            <div class="nav-title"> Previus Post <h5>Discovery incommode</h5></div>
+                                            <div className="icon"><i className="fas fa-angle-double-left"></i></div>
+                                            <div className="nav-title"> Previus Post <h5>Discovery incommode</h5></div>
                                         </a>
                                     </div>
-                                    <div class="post-next">
+                                    <div className="post-next">
                                         <a href="#">
-                                            <div class="nav-title">Next Post <h5>Discovery incommode</h5></div>
-                                            <div class="icon"><i class="fas fa-angle-double-right"></i></div>
+                                            <div className="nav-title">Next Post <h5>Discovery incommode</h5></div>
+                                            <div className="icon"><i className="fas fa-angle-double-right"></i></div>
                                         </a>
                                     </div>
                                 </div>
 
-                                <div class="blog-comments">
-                                    <div class="comments-area">
-                                        <div class="comments-title">
+                                <div className="blog-comments">
+                                    <div className="comments-area">
+                                        <div className="comments-title">
                                             <h3>3 Comments On “Providing Top Quality Cleaning Related Services Charms.”</h3>
-                                            <div class="comments-list">
-                                                <div class="comment-item">
-                                                    <div class="avatar">
+                                            <div className="comments-list">
+                                                <div className="comment-item">
+                                                    <div className="avatar">
                                                         <img src="assets/img/team/5.jpg" alt="Author"/>
                                                     </div>
-                                                    <div class="content">
-                                                        <div class="title">
-                                                            <h5>Bubhan Prova <span class="reply"><a href="#"><i class="fas fa-reply"></i> Reply</a></span></h5>
+                                                    <div className="content">
+                                                        <div className="title">
+                                                            <h5>Bubhan Prova <span className="reply"><a href="#"><i className="fas fa-reply"></i> Reply</a></span></h5>
                                                             <span>28 Feb, 2023</span>
                                                         </div>
                                                         <p>
@@ -126,13 +126,13 @@ function BlogDetail() {
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <div class="comment-item reply">
-                                                    <div class="avatar">
+                                                <div className="comment-item reply">
+                                                    <div className="avatar">
                                                         <img src="assets/img/team/4.jpg" alt="Author"/>
                                                     </div>
-                                                    <div class="content">
-                                                        <div class="title">
-                                                            <h5>Mickel Jones <span class="reply"><a href="#"><i class="fas fa-reply"></i> Reply</a></span></h5>
+                                                    <div className="content">
+                                                        <div className="title">
+                                                            <h5>Mickel Jones <span className="reply"><a href="#"><i className="fas fa-reply"></i> Reply</a></span></h5>
                                                             <span>15 Mar, 2023</span>
                                                         </div>
                                                         <p>
@@ -142,28 +142,28 @@ function BlogDetail() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="comments-form">
-                                            <div class="title">
+                                        <div className="comments-form">
+                                            <div className="title">
                                                 <h3>Leave a comments</h3>
                                             </div>
-                                            <form action="#" class="contact-comments">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <input name="name" class="form-control" placeholder="Name *" type="text"/>
+                                            <form action="#" className="contact-comments">
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <div className="form-group">
+                                                            <input name="name" className="form-control" placeholder="Name *" type="text"/>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <input name="email" class="form-control" placeholder="Email *" type="email"/>
+                                                    <div className="col-md-6">
+                                                        <div className="form-group">
+                                                            <input name="email" className="form-control" placeholder="Email *" type="email"/>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-12">
-                                                        <div class="form-group comments">
-                                                            <textarea class="form-control" placeholder="Comment"></textarea>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group comments">
+                                                            <textarea className="form-control" placeholder="Comment"></textarea>
                                                         </div>
-                                                        <div class="form-group full-width submit">
-                                                            <button class="btn btn-theme effect" type="submit">Post Comment</button>
+                                                        <div className="form-group full-width submit">
+                                                            <button className="btn btn-theme effect" type="submit">Post Comment</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -173,63 +173,63 @@ function BlogDetail() {
                                 </div>
                             </div>
 
-                            <div class="sidebar col-xl-4 col-lg-5 col-md-12 mt-md-50 mt-xs-50">
+                            <div className="sidebar col-xl-4 col-lg-5 col-md-12 mt-md-50 mt-xs-50">
                                 <aside>
-                                    <div class="sidebar-item search">
-                                        <div class="sidebar-info">
+                                    <div className="sidebar-item search">
+                                        <div className="sidebar-info">
                                             <form>
-                                                <input type="text" placeholder="Enter Keyword" name="text" class="form-control"/>
-                                                    <button type="submit"><i class="fas fa-search"></i></button>
+                                                <input type="text" placeholder="Enter Keyword" name="text" className="form-control"/>
+                                                    <button type="submit"><i className="fas fa-search"></i></button>
                                             </form>
                                         </div>
                                     </div>
-                                    <div class="sidebar-item recent-post">
-                                        <h4 class="title">Recent Post</h4>
+                                    <div className="sidebar-item recent-post">
+                                        <h4 className="title">Recent Post</h4>
                                         <ul>
                                             <li>
-                                                <div class="thumb">
+                                                <div className="thumb">
                                                     <a href="#">
                                                         <img src="assets/img/gallery/4.jpg" alt="Thumb"/>
                                                     </a>
                                                 </div>
-                                                <div class="info">
-                                                    <div class="meta-title">
-                                                        <span class="post-date">12 Feb, 2020</span>
+                                                <div className="info">
+                                                    <div className="meta-title">
+                                                        <span className="post-date">12 Feb, 2020</span>
                                                     </div>
                                                     <a href="#">Commanded household smallness delivered.</a>
                                                 </div>
                                             </li>
                                             <li>
-                                                <div class="thumb">
+                                                <div className="thumb">
                                                     <a href="#">
                                                         <img src="assets/img/gallery/2.jpg" alt="Thumb"/>
                                                     </a>
                                                 </div>
-                                                <div class="info">
-                                                    <div class="meta-title">
-                                                        <span class="post-date">05 Jul, 2023</span>
+                                                <div className="info">
+                                                    <div className="meta-title">
+                                                        <span className="post-date">05 Jul, 2023</span>
                                                     </div>
                                                     <a href="#">Future Plan & Strategy for Consutruction </a>
                                                 </div>
                                             </li>
                                             <li>
-                                                <div class="thumb">
+                                                <div className="thumb">
                                                     <a href="#">
                                                         <img src="assets/img/gallery/6.jpg" alt="Thumb"/>
                                                     </a>
                                                 </div>
-                                                <div class="info">
-                                                    <div class="meta-title">
-                                                        <span class="post-date">29 Aug, 2020</span>
+                                                <div className="info">
+                                                    <div className="meta-title">
+                                                        <span className="post-date">29 Aug, 2020</span>
                                                     </div>
                                                     <a href="#">Melancholy particular devonshire alteration</a>
                                                 </div>
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="sidebar-item category">
-                                        <h4 class="title">category list</h4>
-                                        <div class="sidebar-info">
+                                    <div className="sidebar-item category">
+                                        <h4 className="title">category list</h4>
+                                        <div className="sidebar-info">
                                             <ul>
                                                 <li>
                                                     <a href="#">Business <span>69</span></a>
@@ -249,9 +249,9 @@ function BlogDetail() {
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="sidebar-item gallery">
-                                        <h4 class="title">Gallery</h4>
-                                        <div class="sidebar-info">
+                                    <div className="sidebar-item gallery">
+                                        <h4 className="title">Gallery</h4>
+                                        <div className="sidebar-info">
                                             <ul>
                                                 <li>
                                                     <a href="#">
@@ -286,9 +286,9 @@ function BlogDetail() {
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="sidebar-item archives">
-                                        <h4 class="title">Archives</h4>
-                                        <div class="sidebar-info">
+                                    <div className="sidebar-item archives">
+                                        <h4 className="title">Archives</h4>
+                                        <div className="sidebar-info">
                                             <ul>
                                                 <li><a href="#">Aug 2020</a></li>
                                                 <li><a href="#">Sept 2020</a></li>
@@ -297,36 +297,36 @@ function BlogDetail() {
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="sidebar-item social-sidebar">
-                                        <h4 class="title">follow us</h4>
-                                        <div class="sidebar-info">
+                                    <div className="sidebar-item social-sidebar">
+                                        <h4 className="title">follow us</h4>
+                                        <div className="sidebar-info">
                                             <ul>
-                                                <li class="facebook">
+                                                <li className="facebook">
                                                     <a href="#">
-                                                        <i class="fab fa-facebook-f"></i>
+                                                        <i className="fab fa-facebook-f"></i>
                                                     </a>
                                                 </li>
-                                                <li class="twitter">
+                                                <li className="twitter">
                                                     <a href="#">
-                                                        <i class="fab fa-twitter"></i>
+                                                        <i className="fab fa-twitter"></i>
                                                     </a>
                                                 </li>
-                                                <li class="pinterest">
+                                                <li className="pinterest">
                                                     <a href="#">
-                                                        <i class="fab fa-pinterest"></i>
+                                                        <i className="fab fa-pinterest"></i>
                                                     </a>
                                                 </li>
-                                                <li class="linkedin">
+                                                <li className="linkedin">
                                                     <a href="#">
-                                                        <i class="fab fa-linkedin-in"></i>
+                                                        <i className="fab fa-linkedin-in"></i>
                                                     </a>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="sidebar-item tags">
-                                        <h4 class="title">tags</h4>
-                                        <div class="sidebar-info">
+                                    <div className="sidebar-item tags">
+                                        <h4 className="title">tags</h4>
+                                        <div className="sidebar-info">
                                             <ul>
                                                 <li><a href="#">Fashion</a>
                                                 </li>

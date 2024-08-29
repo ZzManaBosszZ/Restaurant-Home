@@ -1,10 +1,10 @@
 function HeaderTopPages() {
     return ( 
-        <div class="top-bar-area top-bar-style-one bg-theme text-light">
-        <div class="container">
-            <div class="row align-center">
-                <div class="col-lg-7">
-                    <ul class="item-flex">
+        <div className="top-bar-area top-bar-style-one bg-theme text-light">
+        <div className="container">
+            <div className="row align-center">
+                <div className="col-lg-7">
+                    <ul className="item-flex">
                         <li>
                              <a href="tel:+4733378901"> 
                                 <img src="assets/img/icon/6.png" alt="Icon"/> Phone: +4733378901
@@ -17,38 +17,38 @@ function HeaderTopPages() {
                         </li>
                     </ul>
                 </div>
-                <div class="col-lg-5 text-end">
-                    <div class="item-flex">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <div className="col-lg-5 text-end">
+                    <div className="item-flex">
+                        <div className="dropdown">
+                            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="assets/img/icon/flag.png" alt="Image Not Found"/>
-                                English <i class="fas fa-angle-down"></i>
+                                English <i className="fas fa-angle-down"></i>
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                              <li><a class="dropdown-item" href="#">Spanish</a></li>
-                              <li><a class="dropdown-item" href="#">Arabic</a></li>
+                            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                              <li><a className="dropdown-item" href="#">Spanish</a></li>
+                              <li><a className="dropdown-item" href="#">Arabic</a></li>
                             </ul>
                         </div>
-                        <div class="social">
+                        <div className="social">
                             <ul>
                                 <li>
                                     <a href="#">
-                                        <i class="fab fa-facebook-f"></i>
+                                        <i className="fab fa-facebook-f"></i>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <i class="fab fa-twitter"></i>
+                                        <i className="fab fa-twitter"></i>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <i class="fab fa-youtube"></i>
+                                        <i className="fab fa-youtube"></i>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <i class="fab fa-linkedin-in"></i>
+                                        <i className="fab fa-linkedin-in"></i>
                                     </a>
                                 </li>
                             </ul>
