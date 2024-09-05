@@ -17,6 +17,9 @@ import ResetPassword from "../components/pages/Auth/ResetPassword";
 import CartTab from "../components/pages/Cart/CartTab";
 import CheckOut from "../components/pages/Cart/CheckOut";
 import Order from "../components/pages/Cart/Order";
+import BookTable from "../components/pages/Reservation/BookTable";
+import OrderFood from "../components/pages/Reservation/OrderFood";
+
 
 const publicRoutes = [
     { path: config.routes.login, component: Login },
@@ -58,6 +61,10 @@ const authenticationRoutes = [
     // { path: config.routes.register, component: Register },
     { path: config.routes.forgot_password, component: ForgotPassWord },
     { path: config.routes.reset_password, component: ResetPassword },
+
+    // Reservation
+    { path: config.routes.bookTable, component: BookTable},
+    // { path: config.routes.orderFood, component: OrderFood},
 ];
 
 export { publicRoutes, privateRoutes, authenticationRoutes };

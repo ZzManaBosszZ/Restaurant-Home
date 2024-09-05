@@ -25,6 +25,10 @@ const routes = {
     checkOut:"/check_out",
     order:"/order",
 
+    // Reservation
+    bookTable: "/book_table",
+    // orderFood: "order_food",
+
     // Authentication routes
     profile: "/profile",
     login: "/login",

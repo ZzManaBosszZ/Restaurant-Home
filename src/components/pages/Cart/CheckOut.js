@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import LayoutPages from "../../layouts/LayoutPage";
+import '../../../public/css/checkout.css';
 
 function CheckOut() {
   const [customerInfo, setCustomerInfo] = useState({
@@ -56,7 +57,7 @@ function CheckOut() {
     switch (customerInfo.paymentMethod) {
       case 'card':
         return (
-          <div className="payment-details">
+          <div className="payment-details-section">
             <h4>Card Details</h4>
             <input
               type="text"
@@ -86,7 +87,7 @@ function CheckOut() {
         );
       case 'bankTransfer':
         return (
-          <div className="payment-details">
+          <div className="payment-details-section">
             <h4>Bank Transfer Details</h4>
             <p>Please transfer to the following account:</p>
             <p>Bank: ABC Bank</p>
@@ -123,12 +124,12 @@ function CheckOut() {
   };
 
   return (
-    <LayoutPages>
-      <div className="checkout-area">
-        <div className="container">
-          <h2>Check Out</h2>
+    <LayoutPages showBreadCrumb={false}>
+      <div className="checkout-container">
+        <div className="checkout-content">
+          <h2 className="checkout-title">Check Out</h2>
           <form onSubmit={handleSubmit}>
-            <div className="customer-info">
+            <div className="customer-info-section">
               <h4>Customer Information</h4>
               <input
                 type="text"
@@ -156,7 +157,7 @@ function CheckOut() {
               />
             </div>
 
-            <div className="payment-method">
+            <div className="payment-method-section">
               <h4>Payment Method</h4>
               <select
                 name="paymentMethod"
@@ -171,7 +172,7 @@ function CheckOut() {
               {renderPaymentDetails()}
             </div>
 
-            <div className="order-summary">
+            <div className="order-summary-section">
               <h4>Order Summary</h4>
               <ul>
                 {cartItems.map(item => (
@@ -182,8 +183,9 @@ function CheckOut() {
               </ul>
               <h3>Total: ${totalPrice}</h3>
             </div>
-
-            <button type="submit">Place Order</button>
+            <div className="submit-check-button-container">
+            <button type="submit" className="submit-button">Place Order</button>
+            </div>
           </form>
         </div>
       </div>

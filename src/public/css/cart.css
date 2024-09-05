@@ -1,40 +1,109 @@
-.cartItemsTable {
-    width: 100%;
-    border-collapse: collapse;
-    
-  }
+/* cart.css */
 
-   .cartItems Table thead tr,.cartItems Table tbody tr{
-    display:grid;
-    grid-template-columns: repeat(5, 1fr);
-    column-gap: 50px;
-   }
-  .cartItems Table thead tr th{
-    width: 50px;
-  }
-  .cartItemsTable th, .cartItemsTable td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
+/* Container for the cart tab */
+.cart-tab-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  margin-top: 110px;
+}
 
-  }
-  
-  .cartItemsTable th {
-    background-color: #f4f4f4;
-  }
-  
-  .cartItemImage {
-    max-width: 100px;
-    height: auto;
-  }
-  
-  .cartTotal {
-    margin-top: 20px;
-    text-align: right;
-    font-weight: bold;
-  }
-  
-  .quantityInput {
-    width: 60px;
-    text-align: center;
-  }
+/* Main content of the cart tab */
+.cart-tab-content {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Title for the cart tab */
+.cart-tab-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Container for the cart items */
+.cart-tab-items {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 5%;
+}
+
+/* Table styling */
+.cart-tab-table {
+  padding: 5%;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cart-tab-header {
+  background-color: #f4f4f4;
+  color:#999;
+  padding: 10px;
+  text-align: left;
+}
+
+.cart-tab-item {
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-tab-image img {
+  width: 100px;
+}
+
+.cart-tab-name,
+.cart-tab-price,
+.cart-tab-quantity,
+.cart-tab-actions {
+  padding: 10px;
+}
+.cart-tab-quantity{
+  max-width: 20px;
+}
+.cart-tab-quantity input{
+  max-width: 100%;
+}
+.cart-tab-actions button {
+  background-color: #cf1b1b;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.cart-tab-actions button:hover {
+  background-color: #ff1a1a;
+}
+
+/* Total price container */
+.cart-tab-total {
+  padding: 20px;
+  text-align: right;
+  background-color: #fff;
+  border-top: 1px solid #bdbbbb;
+}
+
+.cart-tab-total h3 {
+  text-align: left;
+  color:#999;
+  margin: 0;
+  font-size: 20px;
+}
+
+.cart-tab-total button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.cart-tab-total button:hover {
+  background-color: #45a049;
+}
+
+/* Empty cart message */
+.cart-tab-empty {
+  text-align: center;
+  padding: 20px;
+  color: #999;
+}

@@ -149,7 +149,7 @@ function HeaderPages() {
                     </ul>
                   </li>
                   <li>
-                    <a href="reservation.html">Reservation</a>
+                    <a href="/book_table">Reservation</a>
                   </li>
                   <li>
                     <a href="contact.html">Contact Us</a>
@@ -183,7 +183,7 @@ function HeaderPages() {
                         </ul>
                       </li>
                       <li>
-                        <a href="reservation-dark.html">Reservation</a>
+                        <a href="/book_table">Reservation</a>
                       </li>
                       <li>
                         <a href="contact-dark.html">Contact Us</a>
@@ -335,7 +335,7 @@ function HeaderPages() {
             <div className="attr-nav">
               <ul>
                 <li className="button">
-                  <a href="contact.html">Reservation</a>
+                  <a href="/book_table">Reservation</a>
                 </li>
               </ul>
             </div>

@@ -1,0 +1,90 @@
+/* order.css */
+
+.order-summary {
+    padding: 20px;
+    background-color: #f4f4f9;
+    margin-top: 110px;
+  }
+  
+  .order-summary-content {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .order-summary-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #141414;
+  }
+  
+  .order-summary-info {
+    margin-bottom: 30px;
+    margin-left: 80px;
+  }
+  
+  .order-summary-info p {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #555;
+  }
+  
+  .order-summary-info strong {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .order-summary-items {
+    margin-bottom: 30px;
+    margin-left: 80px;
+  }
+  
+  .order-summary-items ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .order-summary-items li {
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+  }
+  
+  .order-summary-total {
+    font-size: 22px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .submit-order-button-container {
+    text-align: center; /* Center align button */
+    margin-top: 20px;   /* Add spacing from above elements */
+  }
+  
+  .submit-order-button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .submit-order-button:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+  }
+  

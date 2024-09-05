@@ -1,0 +1,52 @@
+.reservation-page-container {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 40px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+.reservation-page-container h2{
+    color:rgba(30, 29, 29, 0.88);
+    font-size: 30px;
+}
+.reservation-page-form-group {
+    margin-bottom: 15px;
+}
+
+.reservation-page-form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color:#878787;
+}
+
+.reservation-page-form-group input,
+.reservation-page-form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.reservation-page-button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.reservation-page-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    width: 40%;
+}
+
+.reservation-page-btn:hover {
+    background-color: #0056b3;
+}

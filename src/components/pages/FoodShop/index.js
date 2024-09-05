@@ -2,22 +2,36 @@ import LayoutPages from "../../layouts/LayoutPage";
 import { useState, useEffect } from "react";
 import api from "../../../services/api";
 import url from "../../../services/url";
-import {getAccessToken} from "../../../utils/auth"
+import { getAccessToken } from "../../../utils/auth";
+import BreadCrumb from "../../layouts/BreadCrumb";
 
 function FoodShop() {
-  const [foods, setFoods] = useState([]);
+  const breadcrumbPath = [
+    { href: "/", label: "Home" },
+    { href: "/shop", label: "Shop" }
+  ];
 
-    //show list data
-    useEffect(() => {
-        const loadFoods = async () => { 
-            try {
-                const response = await api.get(url.FOOD.LIST, { headers: { Authorization: `Bearer ${getAccessToken()}` } });
-                setFoods(response.data.data);
-                // console.log(response.data.data);
-            } catch (error) { }
-        };
-        loadFoods();
-    }, []);
+  const [foods, setFoods] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(8);
+  const [sortOption, setSortOption] = useState("default");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
+  // Load foods and categories
+  useEffect(() => {
+    const loadFoodsAndCategories = async () => {
+      try {
+        const foodResponse = await api.get(url.FOOD.LIST, { headers: { Authorization: `Bearer ${getAccessToken()}` } });
+        const categoryResponse = await api.get(url.CATEGORY.LIST, { headers: { Authorization: `Bearer ${getAccessToken()}` } });
+        setFoods(foodResponse.data.data);
+        setCategories(categoryResponse.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    loadFoodsAndCategories();
+  }, []);
 
   // Handle add to cart
   const handleAddToCart = (food) => {
@@ -32,8 +46,60 @@ function FoodShop() {
     alert("Item added to cart!");
   };
 
+  // Handle sorting
+  const handleSortChange = (e) => {
+    setSortOption(e.target.value);
+  };
+
+  // Handle category change
+  const handleCategoryChange = (e) => {
+    setSelectedCategory(e.target.value);
+  };
+
+  // Calculate paginated and sorted foods
+  const getSortedAndFilteredFoods = () => {
+    let filteredFoods = foods;
+
+    // Filter by category
+    if (selectedCategory !== "all") {
+      filteredFoods = filteredFoods.filter(food => food.category === selectedCategory);
+    }
+
+    // Sort by option
+    switch (sortOption) {
+      case "priceAsc":
+        filteredFoods.sort((a, b) => a.price - b.price);
+        break;
+      case "priceDesc":
+        filteredFoods.sort((a, b) => b.price - a.price);
+        break;
+      default:
+        break;
+    }
+
+    return filteredFoods;
+  };
+
+  const sortedAndFilteredFoods = getSortedAndFilteredFoods();
+  const indexOfLastFood = currentPage * itemsPerPage;
+  const indexOfFirstFood = indexOfLastFood - itemsPerPage;
+  const currentFoods = sortedAndFilteredFoods.slice(indexOfFirstFood, indexOfLastFood);
+
+  // Change page
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  // Pagination numbers
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(sortedAndFilteredFoods.length / itemsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
   return (
-    <LayoutPages>
+    <LayoutPages showBreadCrumb={false}>
+      <BreadCrumb title="Shop" path={breadcrumbPath} />
+
       <div className="validtheme-shop-area default-padding">
         <div className="container">
           <div className="shop-listing-contentes">
@@ -73,22 +139,24 @@ function FoodShop() {
               </div>
 
               <div className="col-lg-5 text-right">
-                {/* <p>Showing 1–10 of {foods.length} results</p> */}
-                <select name="cars" id="cars">
-                  <option value="volvo">Short by latest</option>
-                  <option value="saab">Short by Recent</option>
-                  <option value="mercedes">Short by Popular</option>
-                  <option value="audi">Short by Relevant</option>
+                <select name="sort" id="sort" value={sortOption} onChange={handleSortChange}>
+                  <option value="default">Sort by Price</option>
+                  <option value="priceAsc">Low to High</option>
+                  <option value="priceDesc">High to Low</option>
+                </select>
+
+                <select name="category" id="category" value={selectedCategory} onChange={handleCategoryChange}>
+                  <option value="all">All Categories</option>
+                  {categories.map(category => (
+                    <option key={category.id} value={category.name}>{category.name}</option>
+                  ))}
                 </select>
               </div>
             </div>
           </div>
           <div className="row">
             <div className="col-lg-12">
-              <div
-                className="tab-content tab-content-info text-center"
-                id="shop-tabContent"
-              >
+              <div className="tab-content tab-content-info text-center" id="shop-tabContent">
                 <div
                   className="tab-pane fade show active"
                   id="grid-tab"
@@ -96,7 +164,7 @@ function FoodShop() {
                   aria-labelledby="grid-tab-control"
                 >
                   <ul className="vt-products columns-4">
-                    {foods.map((food) => (
+                    {currentFoods.map((food) => (
                       <li className="product" key={food.id}>
                         <div className="product-contents">
                           <div className="product-image">
@@ -143,29 +211,39 @@ function FoodShop() {
                   role="tabpanel"
                   aria-labelledby="list-tab-control"
                 >
-                 
+                  {/* Add list view content here */}
                 </div>
               </div>
               <nav className="woocommerce-pagination">
                 <ul className="page-numbers">
                   <li>
-                    <a className="previous page-numbers" href="#">
+                    <a
+                      className="previous page-numbers"
+                      href="#"
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={currentPage === 1}
+                    >
                       <i className="fas fa-angle-left"></i>
                     </a>
                   </li>
-
+                  {pageNumbers.map(number => (
+                    <li key={number}>
+                      <a
+                        className={`page-numbers ${currentPage === number ? 'current' : ''}`}
+                        href="#"
+                        onClick={() => handlePageChange(number)}
+                      >
+                        {number}
+                      </a>
+                    </li>
+                  ))}
                   <li>
-                    <span aria-current="page" className="page-numbers current">
-                      1
-                    </span>
-                  </li>
-                  <li>
-                    <a className="page-numbers" href="#">
-                      2
-                    </a>
-                  </li>
-                  <li>
-                    <a className="next page-numbers" href="#">
+                    <a
+                      className="next page-numbers"
+                      href="#"
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={currentPage === pageNumbers.length}
+                    >
                       <i className="fas fa-angle-right"></i>
                     </a>
                   </li>
