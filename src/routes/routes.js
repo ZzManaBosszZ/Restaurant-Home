@@ -1,5 +1,4 @@
 import config from "../config/index";
-
 import Home from "../components/pages/Home";
 import AboutUs from "../components/pages/AboutUs";
 import ContactUs from "../components/pages/ContactUs";
@@ -46,6 +45,7 @@ const publicRoutes = [
 
     //404
     { path: config.routes.error, component: NotFound },
+    
 ];
 
 const privateRoutes = [
@@ -53,6 +53,10 @@ const privateRoutes = [
     { path: config.routes.cartTab, component: CartTab },
     { path: config.routes.checkOut, component: CheckOut },
     { path: config.routes.order, component: Order },
+    // 
+    { path: config.routes.bookTable, component: BookTable},
+    { path: config.routes.orderFood, component: OrderFood},
+
 
 ];
 
@@ -63,8 +67,7 @@ const authenticationRoutes = [
     { path: config.routes.reset_password, component: ResetPassword },
 
     // Reservation
-    { path: config.routes.bookTable, component: BookTable},
-    // { path: config.routes.orderFood, component: OrderFood},
+    // { path: config.routes.bookTable, component: BookTable},
 ];
 
 export { publicRoutes, privateRoutes, authenticationRoutes };

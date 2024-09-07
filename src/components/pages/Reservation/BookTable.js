@@ -27,15 +27,15 @@ function BookTable() {
     };
 
     const handleDepositPayment = () => {
-        // Logic for deposit payment
+        
         console.log("Proceeding to deposit payment", reservationDetails);
-        window.location.href = '/deposit_payment'; // Replace with actual route
+        window.location.href = '/deposit_payment';
     };
 
     const handleOrderFood = () => {
-        // Logic for ordering food
+       
         console.log("Proceeding to order food", reservationDetails);
-        window.location.href = '/order_food'; // Replace with actual route
+        window.location.href = '/order_food'; 
     };
 
     return (

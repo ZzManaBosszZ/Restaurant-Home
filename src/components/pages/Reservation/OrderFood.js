@@ -1,86 +1,62 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import url from "../../../services/url";
-import LayoutPages from "../../layouts/LayoutPage";
-import "../../../public/css/orderFood.css"; 
+// src/pages/OrderFood.js
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-function OrderFood() {
+const OrderFood = () => {
   const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [foods, setFoods] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("");
 
-  // Fetch categories from API
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${url.BASE_URL}/${url.CATEGORY.LIST}`);
+        const response = await axios.get('http://localhost:8083/api/v1/food/categories');
         setCategories(response.data);
       } catch (error) {
-        console.error("Error fetching categories:", error);
+        console.error('Error fetching categories:', error);
       }
     };
+
     fetchCategories();
   }, []);
 
-  // Fetch foods based on selected category
   useEffect(() => {
     const fetchFoods = async () => {
       if (selectedCategory) {
         try {
-          const response = await axios.get(`${url.BASE_URL}/${url.FOOD.LIST}`, {
-            params: { categoryId: selectedCategory },
-          });
+          const response = await axios.get(`http://localhost:8083/api/v1/food/category/${selectedCategory}`);
           setFoods(response.data);
         } catch (error) {
-          console.error("Error fetching foods:", error);
+          console.error('Error fetching foods:', error);
         }
       }
     };
+
     fetchFoods();
   }, [selectedCategory]);
 
-  // Handle category selection change
-  const handleCategoryChange = (e) => {
-    setSelectedCategory(e.target.value);
-  };
-
   return (
-    <LayoutPages>
-      <div className="order-food-page">
-        <h2>Order Your Food</h2>
-
-        {/* Category Selection */}
-        <div className="category-selection">
-          <label>Select Category: </label>
-          <select value={selectedCategory} onChange={handleCategoryChange}>
-            <option value="">Select a category</option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Display Foods */}
-        <div className="food-list">
-          {foods.length > 0 ? (
-            foods.map((food) => (
-              <div key={food.id} className="food-item">
-                <img src={food.image} alt={food.name} className="food-image" />
-                <h3>{food.name}</h3>
-                <p>{food.description}</p>
-                <p>Price: ${food.price}</p>
-                <button className="add-to-cart-btn">Add to Cart</button>
-              </div>
-            ))
-          ) : (
-            <p>No foods available for the selected category</p>
-          )}
-        </div>
+    <div>
+      <h1>Order Food</h1>
+      <select onChange={(e) => setSelectedCategory(e.target.value)} value={selectedCategory || ''}>
+        <option value="">Select a category</option>
+        {categories.map((category) => (
+          <option key={category.id} value={category.id}>
+            {category.name}
+          </option>
+        ))}
+      </select>
+      <div>
+        {foods.map((food) => (
+          <div key={food.id}>
+            <h2>{food.name}</h2>
+            <p>{food.description}</p>
+            <p>${food.price}</p>
+          </div>
+        ))}
       </div>
-    </LayoutPages>
+    </div>
   );
-}
+};
 
 export default OrderFood;

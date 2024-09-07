@@ -26,10 +26,10 @@ const routes = {
     order:"/order",
 
     // Reservation
-    bookTable: "/book_table",
-    // orderFood: "order_food",
+    // orderFood: "/order_food",
 
     // Authentication routes
+    bookTable: "/book_table",
     profile: "/profile",
     login: "/login",
     forgot_password: "/forgot-password",

@@ -9,6 +9,8 @@
 .reservation-page-container h2{
     color:rgba(30, 29, 29, 0.88);
     font-size: 30px;
+    text-align: center;
+    margin-bottom: 30px;
 }
 .reservation-page-form-group {
     margin-bottom: 15px;

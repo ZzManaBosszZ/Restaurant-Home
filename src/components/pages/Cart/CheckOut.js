@@ -172,17 +172,7 @@ function CheckOut() {
               {renderPaymentDetails()}
             </div>
 
-            <div className="order-summary-section">
-              <h4>Order Summary</h4>
-              <ul>
-                {cartItems.map(item => (
-                  <li key={item.id}>
-                    {item.name} - ${item.price} x {item.quantity}
-                  </li>
-                ))}
-              </ul>
-              <h3>Total: ${totalPrice}</h3>
-            </div>
+            
             <div className="submit-check-button-container">
             <button type="submit" className="submit-button">Place Order</button>
             </div>

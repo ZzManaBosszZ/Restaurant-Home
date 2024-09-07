@@ -149,7 +149,7 @@ function HeaderPages() {
                     </ul>
                   </li>
                   <li>
-                    <a href="/book_table">Reservation</a>
+                    <a href="">Reservation</a>
                   </li>
                   <li>
                     <a href="contact.html">Contact Us</a>
@@ -183,7 +183,7 @@ function HeaderPages() {
                         </ul>
                       </li>
                       <li>
-                        <a href="/book_table">Reservation</a>
+                        <a href="">Reservation</a>
                       </li>
                       <li>
                         <a href="contact-dark.html">Contact Us</a>
