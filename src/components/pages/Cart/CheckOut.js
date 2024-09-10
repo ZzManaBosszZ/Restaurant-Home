@@ -1,185 +1,109 @@
-import { useState, useEffect } from "react";
-import LayoutPages from "../../layouts/LayoutPage";
-import '../../../public/css/checkout.css';
+import { useState } from "react";
+import api from "../../../services/api";
+import url from "../../../services/url";
+import { getAccessToken } from "../../../utils/auth";
 
 function CheckOut() {
   const [customerInfo, setCustomerInfo] = useState({
-    name: '',
-    phoneNumber: '',
-    address: '',
-    paymentMethod: '',
+    name: "",
+    phoneNumber: "",
+    address: "",
+    paymentMethod: ""
   });
-
-  const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [paymentDetails, setPaymentDetails] = useState({});
-
-  useEffect(() => {
-    const loadCartItems = () => {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      setCartItems(cart);
-      calculateTotal(cart);
-    };
-    loadCartItems();
-  }, []);
-
+  const [cartItems, setCartItems] = useState(JSON.parse(localStorage.getItem('cart')) || []);
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setCustomerInfo(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
+    setCustomerInfo({ ...customerInfo, [name]: value });
   };
 
-  const handlePaymentMethodChange = (e) => {
-    const paymentMethod = e.target.value;
-    setCustomerInfo(prevState => ({
-      ...prevState,
-      paymentMethod
-    }));
-    setPaymentDetails({});
-  };
-
-  const handlePaymentDetailsChange = (e) => {
-    const { name, value } = e.target;
-    setPaymentDetails(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
-
-  const calculateTotal = (cart) => {
-    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2);
-    setTotalPrice(total);
-  };
-
-  const renderPaymentDetails = () => {
-    switch (customerInfo.paymentMethod) {
-      case 'card':
-        return (
-          <div className="payment-details-section">
-            <h4>Card Details</h4>
-            <input
-              type="text"
-              name="cardNumber"
-              placeholder="Card Number"
-              onChange={handlePaymentDetailsChange}
-            />
-            <input
-              type="text"
-              name="cardHolder"
-              placeholder="Card Holder Name"
-              onChange={handlePaymentDetailsChange}
-            />
-            <input
-              type="text"
-              name="expiryDate"
-              placeholder="Expiry Date"
-              onChange={handlePaymentDetailsChange}
-            />
-            <input
-              type="text"
-              name="cvv"
-              placeholder="CVV"
-              onChange={handlePaymentDetailsChange}
-            />
-          </div>
-        );
-      case 'bankTransfer':
-        return (
-          <div className="payment-details-section">
-            <h4>Bank Transfer Details</h4>
-            <p>Please transfer to the following account:</p>
-            <p>Bank: ABC Bank</p>
-            <p>Account Name: FoodRes</p>
-            <p>Account Number: 123456789</p>
-            <input
-              type="text"
-              name="transferReference"
-              placeholder="Transfer Reference"
-              onChange={handlePaymentDetailsChange}
-            />
-          </div>
-        );
-      default:
-        return null;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      const orderResponse = await api.post(url.ORDER.CREATE, {
+        name: customerInfo.name,
+        phoneNumber: customerInfo.phoneNumber,
+        address: customerInfo.address,
+        paymentMethod: customerInfo.paymentMethod,
+        totalPrice: totalPrice
+      }, {
+        headers: {
+          'Authorization': `Bearer ${getAccessToken()}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (orderResponse.status === 200) {
+        console.log('Order created successfully.');
+        localStorage.removeItem('cart'); // Xóa giỏ hàng sau khi đặt hàng
+        window.location.href = '/order'; // Điều hướng đến trang đơn hàng nếu cần
+      } else {
+        const errorText = await orderResponse.text();
+        console.error('Error creating order:', errorText);
+        alert('Error creating order. Please try again.');
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+      alert('Network error. Please try again.');
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    const orderDetails = {
-      customerInfo,
-      paymentDetails,
-      cartItems,
-      totalPrice,
-    };
-
-    // Lưu thông tin vào localStorage
-    localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
-
-    // Chuyển hướng đến trang Order
-    window.location.href = '/order';
-  };
-
   return (
-    <LayoutPages showBreadCrumb={false}>
-      <div className="checkout-container">
-        <div className="checkout-content">
-          <h2 className="checkout-title">Check Out</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="customer-info-section">
-              <h4>Customer Information</h4>
-              <input
-                type="text"
-                name="name"
-                placeholder="Full Name"
-                value={customerInfo.name}
-                onChange={handleInputChange}
-                required
-              />
-              <input
-                type="text"
-                name="phoneNumber"
-                placeholder="Phone Number"
-                value={customerInfo.phoneNumber}
-                onChange={handleInputChange}
-                required
-              />
-              <input
-                type="text"
-                name="address"
-                placeholder="Address"
-                value={customerInfo.address}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-
-            <div className="payment-method-section">
-              <h4>Payment Method</h4>
-              <select
-                name="paymentMethod"
-                value={customerInfo.paymentMethod}
-                onChange={handlePaymentMethodChange}
-                required
-              >
-                <option value="">Select Payment Method</option>
-                <option value="card">Card</option>
-                <option value="bankTransfer">Bank Transfer</option>
-              </select>
-              {renderPaymentDetails()}
-            </div>
-
-            
-            <div className="submit-check-button-container">
-            <button type="submit" className="submit-button">Place Order</button>
-            </div>
-          </form>
-        </div>
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value={customerInfo.name}
+          onChange={handleInputChange}
+          required
+        />
       </div>
-    </LayoutPages>
+      <div>
+        <label htmlFor="phoneNumber">Phone Number:</label>
+        <input
+          type="text"
+          id="phoneNumber"
+          name="phoneNumber"
+          value={customerInfo.phoneNumber}
+          onChange={handleInputChange}
+          required
+        />
+      </div>
+      <div>
+        <label htmlFor="address">Address:</label>
+        <input
+          type="text"
+          id="address"
+          name="address"
+          value={customerInfo.address}
+          onChange={handleInputChange}
+          required
+        />
+      </div>
+      <div>
+        <label htmlFor="paymentMethod">Payment Method:</label>
+        <select
+          id="paymentMethod"
+          name="paymentMethod"
+          value={customerInfo.paymentMethod}
+          onChange={handleInputChange}
+          required
+        >
+          <option value="">Select Payment Method</option>
+          <option value="card">Card</option>
+          <option value="bank_transfer">Bank Transfer</option>
+        </select>
+      </div>
+      <div>
+        <h3>Total Price: ${totalPrice.toFixed(2)}</h3>
+      </div>
+      <button type="submit">Place Order</button>
+    </form>
   );
 }
 

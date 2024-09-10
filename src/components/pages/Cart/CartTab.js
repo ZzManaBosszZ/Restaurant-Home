@@ -1,12 +1,13 @@
 import LayoutPages from "../../layouts/LayoutPage";
 import { useState, useEffect } from "react";
-import axios from 'axios';  // Import Axios for API calls
+import { useNavigate } from "react-router-dom";
 import '../../../public/css/cart.css';
 
 function CartTab() {
   const [cartItems, setCartItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState(new Set());
   const [selectAll, setSelectAll] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadCartItems = () => {
@@ -25,14 +26,18 @@ function CartTab() {
   }, [selectAll, cartItems]);
 
   const handleQuantityChange = (id, newQuantity) => {
-    let cart = cartItems.map(item =>
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart = cart.map(item =>
       item.id === id ? { ...item, quantity: newQuantity } : item
     );
+    localStorage.setItem('cart', JSON.stringify(cart));
     setCartItems(cart);
   };
 
   const handleRemoveItem = (id) => {
-    let cart = cartItems.filter(item => item.id !== id);
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart = cart.filter(item => item.id !== id);
+    localStorage.setItem('cart', JSON.stringify(cart));
     setCartItems(cart);
   };
 
@@ -61,30 +66,10 @@ function CartTab() {
     return total.toFixed(2);
   };
 
-  const handleCheckout = async () => {
+  const handleCheckout = () => {
     const selectedCartItems = cartItems.filter(item => selectedItems.has(item.id));
-    const orderDetails = selectedCartItems.map(item => ({
-      foodId: item.id,
-      quantity: item.quantity,
-      unitPrice: item.price,
-      discount: item.discount || 0,
-    }));
-
-    try {
-      // Replace 'http://localhost:8080/api/order-details' with your API endpoint
-      const response = await axios.post('http://localhost:8080/api/order-details', {
-        orderDetails,
-      });
-
-      if (response.status === 200) {
-        console.log('Order details saved successfully!');
-        window.location.href = '/check_out';  // Redirect to the checkout page
-      } else {
-        console.error('Failed to save order details');
-      }
-    } catch (error) {
-      console.error('Error while saving order details:', error);
-    }
+    localStorage.setItem('selectedCartItems', JSON.stringify(selectedCartItems));
+    navigate('/check_out');
   };
 
   return (
@@ -103,6 +88,8 @@ function CartTab() {
                   />
                   Select All Items
                 </label>
+                <button onClick={handleSelectAll}>Select All</button>
+                <button onClick={handleDeselectAll}>Deselect All</button>
               </div>
               <table className="cart-tab-table">
                 <thead>
@@ -147,9 +134,7 @@ function CartTab() {
               </table>
               <div className="cart-tab-total">
                 <h3>Total Price: ${getTotalPrice()}</h3>
-                {/* <button onClick={handleCheckout} href="/check_out">Check out</button> */}
-                <button onClick={() => window.location.href='/check_out'}>Check out</button>
-
+                <button onClick={handleCheckout}>Check out</button>
               </div>
             </div>
           ) : (
