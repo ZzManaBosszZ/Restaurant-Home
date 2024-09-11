@@ -8,8 +8,8 @@ import ChefDetail from "../components/pages/Chefs/ChefDetail";
 import Chefs from "../components/pages/Chefs";
 import Blogs from "../components/pages/Blog";
 import BlogDetail from "../components/pages/Blog/BlogDetail";
-import FoodShop from "../components/pages/FoodShop";
-import FoodShopDetail from "../components/pages/FoodShop/FoodShopDetail/FoodShopDetail";
+import FoodShop from "../components/pages/FoodShop/Shop";
+import FoodShopDetail from "../components/pages/FoodShop/FoodShopDetail";
 import Login from "../components/pages/Auth/Login";
 import ForgotPassWord from "../components/pages/Auth/ForgotPassWord";
 import ResetPassword from "../components/pages/Auth/ResetPassword";
@@ -39,7 +39,8 @@ const publicRoutes = [
     { path: config.routes.blogDetail, component: BlogDetail },
     //Shop
     { path: config.routes.shop, component: FoodShop },
-    { path: config.routes.shopDetail, component: FoodShopDetail },
+    { path: config.routes.foodShopDetail, component: FoodShopDetail },
+    
 
 
 

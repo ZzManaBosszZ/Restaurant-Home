@@ -2,7 +2,7 @@ import LayoutPages from "../../layouts/LayoutPage";
 import { useState, useEffect } from "react";
 import api from "../../../services/api";
 import url from "../../../services/url";
-import { getAccessToken } from "../../../utils/auth";
+import { Link } from 'react-router-dom';
 import BreadCrumb from "../../layouts/BreadCrumb";
 
 function FoodShop() {
@@ -22,8 +22,8 @@ function FoodShop() {
   useEffect(() => {
     const loadFoodsAndCategories = async () => {
       try {
-        const foodResponse = await api.get(url.FOOD.LIST, { headers: { Authorization: `Bearer ${getAccessToken()}` } });
-        const categoryResponse = await api.get(url.CATEGORY.LIST, { headers: { Authorization: `Bearer ${getAccessToken()}` } });
+        const foodResponse = await api.get(url.FOOD.LIST);
+        const categoryResponse = await api.get(url.CATEGORY.LIST);
         setFoods(foodResponse.data.data);
         setCategories(categoryResponse.data.data);
       } catch (error) {
@@ -168,13 +168,13 @@ function FoodShop() {
                       <li className="product" key={food.id}>
                         <div className="product-contents">
                           <div className="product-image">
-                            <a href="shop-single.html">
+                            <Link to={`/shop-detail/${food.id}`}>
                               <img src={food.image} alt={food.name} />
-                            </a>
+                            </Link>
                             <div className="shop-action">
                               <ul>
                                 <li className="wishlist">
-                                  <a href="">
+                                  <a href="#">
                                     <span>Add to wishlist</span>
                                   </a>
                                 </li>
@@ -191,7 +191,7 @@ function FoodShop() {
                               <a href="#">{food.category}</a>
                             </div>
                             <h4 className="product-title">
-                              <a href="shop-single.html">{food.name}</a>
+                              <Link to={`/shop-detail/${food.id}`}>{food.name}</Link>
                             </h4>
                             <div className="price">
                               <span>${food.price}</span>
@@ -211,7 +211,6 @@ function FoodShop() {
                   role="tabpanel"
                   aria-labelledby="list-tab-control"
                 >
-                  {/* Add list view content here */}
                 </div>
               </div>
               <nav className="woocommerce-pagination">

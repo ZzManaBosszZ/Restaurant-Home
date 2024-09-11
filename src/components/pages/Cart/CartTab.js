@@ -88,8 +88,7 @@ function CartTab() {
                   />
                   Select All Items
                 </label>
-                <button onClick={handleSelectAll}>Select All</button>
-                <button onClick={handleDeselectAll}>Deselect All</button>
+                
               </div>
               <table className="cart-tab-table">
                 <thead>

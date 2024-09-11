@@ -8,193 +8,253 @@ import LayoutPages from "../../layouts/LayoutPage";
 import BreadCrumb from "../../layouts/BreadCrumb";
 import config from "../../../config";
 
-function CheckOut() {
-  const [customerInfo, setCustomerInfo] = useState({});
-  const [paymentDetails, setPaymentDetails] = useState('');
-  const [cartItems, setCartItems] = useState(JSON.parse(localStorage.getItem('cart')) || []);
-  const [totalPrice, setTotalPrice] = useState(cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0));
-  
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    const loadProfile = async () => {
-      try {
-        const response = await api.get(url.AUTH.PROFILE, { headers: { Authorization: `Bearer ${getAccessToken()}` } });
-        setCustomerInfo(response.data.data);
-        console.log(response.data.data);
-      } catch (error) {
-        console.error("Error loading profile:", error);
-      }
-    };
-    loadProfile();
-  }, []);
-
+function FoodShop() {
   const breadcrumbPath = [
     { href: "/", label: "Home" },
-    { href: "/checkout", label: "Checkout" }
+    { href: "/shop", label: "Shop" }
   ];
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCustomerInfo(prevInfo => ({ ...prevInfo, [name]: value }));
-  };
+  const [foods, setFoods] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(8);
+  const [sortOption, setSortOption] = useState("default");
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
-  const handlePaymentMethodChange = (e) => {
-    setCustomerInfo(prevInfo => ({ ...prevInfo, paymentMethod: e.target.value }));
-  };
-
-  const handlePaymentDetailsChange = (e) => {
-    setPaymentDetails(e.target.value);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const createOrderPayload = {
-      discount: customerInfo.discount || 0, // Discount nếu có
-      foodQuantities: cartItems.map(item => ({
-        foodId: item.id,
-        quantity: item.quantity
-      }))
-    };
-
-    try {
-      const orderResponse = await api.post(url.ORDER.CREATE, createOrderPayload, {
-        headers: {
-          Authorization: `Bearer ${getAccessToken()}`,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (orderResponse.status === 201) {
-        Swal.fire({
-          title: 'Order Created',
-          text: 'Your order has been created successfully!',
-          icon: 'success',
-          confirmButtonText: 'OK'
-        })
-        setTimeout(() => {
-          navigate(config.routes.order); //chuyển đến trang order-history
-      }, 3000);
-
-      } else {
-        const errorText = await orderResponse.text();
-        console.error('Error creating order:', errorText);
-
-        Swal.fire({
-          title: 'Error',
-          text: 'There was an error creating your order. Please try again.',
-          icon: 'error',
-          confirmButtonText: 'Retry'
-        });
+  // Load foods and categories
+  useEffect(() => {
+    const loadFoodsAndCategories = async () => {
+      try {
+        // Update API calls to not include Authorization header
+        const foodResponse = await api.get(url.FOOD.LIST);
+        const categoryResponse = await api.get(url.CATEGORY.LIST);
+        setFoods(foodResponse.data.data);
+        setCategories(categoryResponse.data.data);
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error('Network error:', error);
+    };
+    loadFoodsAndCategories();
+  }, []);
 
-      Swal.fire({
-        title: 'Network Error',
-        text: 'There was a problem connecting to the server. Please try again.',
-        icon: 'error',
-        confirmButtonText: 'Retry'
-      });
+  // Handle add to cart
+  const handleAddToCart = (food) => {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const existingItem = cart.find(item => item.id === food.id);
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cart.push({ ...food, quantity: 1 });
     }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert("Item added to cart!");
   };
+
+  // Handle sorting
+  const handleSortChange = (e) => {
+    setSortOption(e.target.value);
+  };
+
+  // Handle category change
+  const handleCategoryChange = (e) => {
+    setSelectedCategory(e.target.value);
+  };
+
+  // Calculate paginated and sorted foods
+  const getSortedAndFilteredFoods = () => {
+    let filteredFoods = foods;
+
+    // Filter by category
+    if (selectedCategory !== "all") {
+      filteredFoods = filteredFoods.filter(food => food.category === selectedCategory);
+    }
+
+    // Sort by option
+    switch (sortOption) {
+      case "priceAsc":
+        filteredFoods.sort((a, b) => a.price - b.price);
+        break;
+      case "priceDesc":
+        filteredFoods.sort((a, b) => b.price - a.price);
+        break;
+      default:
+        break;
+    }
+
+    return filteredFoods;
+  };
+
+  const sortedAndFilteredFoods = getSortedAndFilteredFoods();
+  const indexOfLastFood = currentPage * itemsPerPage;
+  const indexOfFirstFood = indexOfLastFood - itemsPerPage;
+  const currentFoods = sortedAndFilteredFoods.slice(indexOfFirstFood, indexOfLastFood);
+
+  // Change page
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  // Pagination numbers
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(sortedAndFilteredFoods.length / itemsPerPage); i++) {
+    pageNumbers.push(i);
+  }
 
   return (
-    <LayoutPages showBreadCrumb={true}>
-      <BreadCrumb title="Checkout" path={breadcrumbPath} />
-      <div className="checkout-area default-padding">
+    <LayoutPages showBreadCrumb={false}>
+      <BreadCrumb title="Shop" path={breadcrumbPath} />
+
+      <div className="validtheme-shop-area default-padding">
         <div className="container">
-          <div className="checkout-content">
-            <h2>Checkout</h2>
-            <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="name">Name</label>
-                <input
-                  type="text"
-                  id="fullName"
-                  name="fullName"
-                  value={customerInfo.fullName || ''}
-                  onChange={handleChange}
-                  required
-                />
+          <div className="shop-listing-contentes">
+            <div className="row item-flex center">
+              <div className="col-lg-7">
+                <div className="content">
+                  <nav>
+                    <div className="nav nav-tabs" id="nav-tab" role="tablist">
+                      <button
+                        className="nav-link active"
+                        id="grid-tab-control"
+                        data-bs-toggle="tab"
+                        data-bs-target="#grid-tab"
+                        type="button"
+                        role="tab"
+                        aria-controls="grid-tab"
+                        aria-selected="true"
+                      >
+                        <i className="fas fa-th-large"></i>
+                      </button>
+
+                      <button
+                        className="nav-link"
+                        id="list-tab-control"
+                        data-bs-toggle="tab"
+                        data-bs-target="#list-tab"
+                        type="button"
+                        role="tab"
+                        aria-controls="list-tab"
+                        aria-selected="false"
+                      >
+                        <i className="fas fa-th-list"></i>
+                      </button>
+                    </div>
+                  </nav>
+                </div>
               </div>
 
-              <div className="form-group">
-                <label htmlFor="phone">Phone Number</label>
-                <input
-                  type="text"
-                  id="phone"
-                  name="phone"
-                  value={customerInfo.phone || ''}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+              <div className="col-lg-5 text-right">
+                <select name="sort" id="sort" value={sortOption} onChange={handleSortChange}>
+                  <option value="default">Sort by Price</option>
+                  <option value="priceAsc">Low to High</option>
+                  <option value="priceDesc">High to Low</option>
+                </select>
 
-              <div className="form-group">
-                <label htmlFor="address">Address</label>
-                <input
-                  type="text"
-                  id="address"
-                  name="address"
-                  value={customerInfo.address || ''}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Payment Method</label>
-                <select
-                  name="paymentMethod"
-                  value={customerInfo.paymentMethod || ''}
-                  onChange={handlePaymentMethodChange}
-                >
-                  <option value="card">Credit/Debit Card</option>
-                  <option value="bank">Bank Transfer</option>
+                <select name="category" id="category" value={selectedCategory} onChange={handleCategoryChange}>
+                  <option value="all">All Categories</option>
+                  {categories.map(category => (
+                    <option key={category.id} value={category.name}>{category.name}</option>
+                  ))}
                 </select>
               </div>
-
-              {customerInfo.paymentMethod === 'card' && (
-                <div className="form-group">
-                  <label htmlFor="paymentDetails">Card Details</label>
-                  <input
-                    type="text"
-                    id="paymentDetails"
-                    value={paymentDetails}
-                    onChange={handlePaymentDetailsChange}
-                    required
-                  />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="tab-content tab-content-info text-center" id="shop-tabContent">
+                <div
+                  className="tab-pane fade show active"
+                  id="grid-tab"
+                  role="tabpanel"
+                  aria-labelledby="grid-tab-control"
+                >
+                  <ul className="vt-products columns-4">
+                    {currentFoods.map((food) => (
+                      <li className="product" key={food.id}>
+                        <div className="product-contents">
+                          <div className="product-image">
+                            <a href="shop-single.html">
+                              <img src={food.image} alt={food.name} />
+                            </a>
+                            <div className="shop-action">
+                              <ul>
+                                <li className="wishlist">
+                                  <a href="">
+                                    <span>Add to wishlist</span>
+                                  </a>
+                                </li>
+                                <li className="quick-view">
+                                  <a href="#">
+                                    <span>Quick view</span>
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                          <div className="product-caption">
+                            <div className="product-tags">
+                              <a href="#">{food.category}</a>
+                            </div>
+                            <h4 className="product-title">
+                              <a href="shop-single.html">{food.name}</a>
+                            </h4>
+                            <div className="price">
+                              <span>${food.price}</span>
+                            </div>
+                            <a href="#" className="cart-btn" onClick={() => handleAddToCart(food)}>
+                              <i className="fas fa-shopping-bag"></i> Add to cart
+                            </a>
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              )}
-
-              {customerInfo.paymentMethod === 'bank' && (
-                <div className="form-group">
-                  <label htmlFor="paymentDetails">Bank Transfer Instructions</label>
-                  <textarea
-                    id="paymentDetails"
-                    value={paymentDetails}
-                    onChange={handlePaymentDetailsChange}
-                    required
-                  ></textarea>
+                <div
+                  className="tab-pane fade"
+                  id="list-tab"
+                  role="tabpanel"
+                  aria-labelledby="list-tab-control"
+                >
+                  {/* Add list view content here */}
                 </div>
-              )}
-
-              <div className="order-summary">
-                <h3>Order Summary</h3>
-                <ul>
-                  {cartItems.map(item => (
-                    <li key={item.id}>
-                      {item.name} x {item.quantity} - ${item.price * item.quantity}
+              </div>
+              <nav className="woocommerce-pagination">
+                <ul className="page-numbers">
+                  <li>
+                    <a
+                      className="previous page-numbers"
+                      href="#"
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={currentPage === 1}
+                    >
+                      <i className="fas fa-angle-left"></i>
+                    </a>
+                  </li>
+                  {pageNumbers.map(number => (
+                    <li key={number}>
+                      <a
+                        className={`page-numbers ${currentPage === number ? 'current' : ''}`}
+                        href="#"
+                        onClick={() => handlePageChange(number)}
+                      >
+                        {number}
+                      </a>
                     </li>
                   ))}
+                  <li>
+                    <a
+                      className="next page-numbers"
+                      href="#"
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={currentPage === pageNumbers.length}
+                    >
+                      <i className="fas fa-angle-right"></i>
+                    </a>
+                  </li>
                 </ul>
-                <p>Total: ${totalPrice}</p>
-              </div>
-
-              <button type="submit" className="btn btn-primary">Place Order</button>
-            </form>
+              </nav>
+            </div>
           </div>
         </div>
       </div>
@@ -202,4 +262,4 @@ function CheckOut() {
   );
 }
 
-export default CheckOut;
+export default FoodShop;
