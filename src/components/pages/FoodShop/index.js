@@ -22,8 +22,8 @@ function FoodShop() {
   useEffect(() => {
     const loadFoodsAndCategories = async () => {
       try {
-        const foodResponse = await api.get(url.FOOD.LIST, { headers: { Authorization: `Bearer ${getAccessToken()}` } });
-        const categoryResponse = await api.get(url.CATEGORY.LIST, { headers: { Authorization: `Bearer ${getAccessToken()}` } });
+        const foodResponse = await api.get(url.FOOD.LIST);
+        const categoryResponse = await api.get(url.CATEGORY.LIST);
         setFoods(foodResponse.data.data);
         setCategories(categoryResponse.data.data);
       } catch (error) {
@@ -178,11 +178,11 @@ function FoodShop() {
                                     <span>Add to wishlist</span>
                                   </a>
                                 </li>
-                                <li className="quick-view">
+                                {/* <li className="quick-view">
                                   <a href="#">
                                     <span>Quick view</span>
                                   </a>
-                                </li>
+                                </li> */}
                               </ul>
                             </div>
                           </div>
