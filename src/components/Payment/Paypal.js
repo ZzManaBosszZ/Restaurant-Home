@@ -3,7 +3,7 @@ import config from "../../config";
 
 export default function PayPalComponent({ amount, onSuccess, onCancel, onError }) {
     const paypalClientId = config.key.PAYPAL_CLIENT_ID;
-    console.log(paypalClientId);
+    // console.log(paypalClientId);
 
     const initialOptions = {
         clientId: paypalClientId,

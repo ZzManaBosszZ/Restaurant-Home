@@ -48,21 +48,11 @@ function CheckOut() {
     setCustomerInfo(prevInfo => ({ ...prevInfo, paymentMethod: method }));
     setSelectedPaymentMethod(method); // Giả sử bạn có state selectedPaymentMethod
   };
-  
-
-  // const breadcrumbPath = [
-  //   { href: "/", label: "Home" },
-  //   { href: "/checkout", label: "Checkout" }
-  // ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCustomerInfo(prevInfo => ({ ...prevInfo, [name]: value }));
   };
-
-  // const handlePaymentMethodChange = (e) => {
-  //   setCustomerInfo(prevInfo => ({ ...prevInfo, paymentMethod: e.target.value }));
-  // };
 
   const handlePaymentDetailsChange = (e) => {
     setPaymentDetails(e.target.value);
@@ -115,11 +105,11 @@ function CheckOut() {
     }
   };
 
-  // // PayPal configuration
-  // const paypalOptions = {
-  //   clientId: config.key.PAYPAL_CLIENT_ID, // Replace with your PayPal client ID
-  //   currency: "USD"
-  // };
+  const handlePaymentCancel = (data) => {
+    console.log("Payment canceled:", data);
+
+    navigate(`/check_out`);
+};
 
   const handlePayPalSuccess = async (details) => {
     await handleSubmit();
@@ -172,7 +162,7 @@ function CheckOut() {
                 <label>Payment Method</label>
                 <select
                   name="paymentMethod"
-                  value={customerInfo.paymentMethod || ''}
+                  value={selectedPaymentMethod || ''}
                   onChange={handlePaymentMethodChange}
                 >
                   <option value="card">Credit/Debit Card</option>
@@ -181,7 +171,7 @@ function CheckOut() {
                 </select>
               </div>
 
-              {customerInfo.paymentMethod === 'card' && (
+              {selectedPaymentMethod === 'card' && (
                 <div className="form-group">
                   <label htmlFor="paymentDetails">Card Details</label>
                   <input
@@ -194,7 +184,7 @@ function CheckOut() {
                 </div>
               )}
 
-              {customerInfo.paymentMethod === 'bank' && (
+              {selectedPaymentMethod === 'bank' && (
                 <div className="form-group">
                   <label htmlFor="paymentDetails">Bank Transfer Instructions</label>
                   <textarea
@@ -217,35 +207,17 @@ function CheckOut() {
                 </ul>
                 <p>Total: ${totalPrice}</p>
               </div>
+              <br/>
 
               <Payment
-                selectedPaymentMethod={customerInfo.paymentMethod}
+                selectedPaymentMethod={selectedPaymentMethod}
+                handleEventPayPal={handlePayPalSuccess}
+                handlePaymentCancel={handlePaymentCancel}
                 onPaymentMethodChange={handlePaymentMethodChange}
                 price={totalPrice}
               />
-              {/* {customerInfo.paymentMethod === 'paypal' && (
-                <div className="paypal-button-container">
-                  <PayPalScriptProvider options={paypalOptions}>
-                    <PayPalButtons
-                      createOrder={(data, actions) => {
-                        return actions.order.create({
-                          purchase_units: [{
-                            amount: {
-                              value: totalPrice.toFixed(2),
-                            },
-                          }],
-                        });
-                      }}
-                      onApprove={async (data, actions) => {
-                        await actions.order.capture();
-                        handlePayPalSuccess(data);
-                      }}
-                    />
-                  </PayPalScriptProvider>
-                </div>
-              )} */}
 
-              {customerInfo.paymentMethod !== 'paypal' && <button type="submit" className="btn btn-primary">Place Order</button>}
+              {selectedPaymentMethod !== 'paypal' && <button type="submit" className="btn btn-primary">Place Order</button>}
             </form>
           </div>
         </div>

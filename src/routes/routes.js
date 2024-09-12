@@ -18,6 +18,7 @@ import CheckOut from "../components/pages/Cart/CheckOut";
 import Order from "../components/pages/Cart/Order";
 import BookTable from "../components/pages/Reservation/BookTable";
 import OrderFood from "../components/pages/Reservation/OrderFood";
+import PaymentCancel from "../components/pages/Cart/CheckOutCancel";
 
 
 const publicRoutes = [
@@ -41,11 +42,9 @@ const publicRoutes = [
     { path: config.routes.shop, component: FoodShop },
     { path: config.routes.foodShopDetail, component: FoodShopDetail },
     
-
-
-
     //404
     { path: config.routes.error, component: NotFound },
+    { path: config.routes.error_payment, component: PaymentCancel },
     
 ];
 
@@ -57,6 +56,7 @@ const privateRoutes = [
     // 
     { path: config.routes.bookTable, component: BookTable},
     { path: config.routes.orderFood, component: OrderFood},
+
 
 
 ];

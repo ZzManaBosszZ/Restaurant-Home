@@ -6,6 +6,7 @@ const routes = {
     contactus: "/contact",
     //404
     error: "/error",
+    error_payment: "/error-payment",
     //Menu
     menu: "/menu",
     //Chef
