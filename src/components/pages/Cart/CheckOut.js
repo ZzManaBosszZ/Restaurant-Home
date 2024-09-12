@@ -111,6 +111,79 @@ function CheckOut() {
           <div className="checkout-content">
             <h2>Checkout</h2>
             <form onSubmit={handleSubmit}>
+            <div className="form-group">
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  id="fullName"
+                  name="fullName"
+                  value={customerInfo.fullName || ''}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="phone">Phone Number</label>
+                <input
+                  type="text"
+                  id="phone"
+                  name="phone"
+                  value={customerInfo.phone || ''}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="address">Address</label>
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  value={customerInfo.address || ''}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Payment Method</label>
+                <select
+                  name="paymentMethod"
+                  value={customerInfo.paymentMethod || ''}
+                  onChange={handlePaymentMethodChange}
+                >
+                  <option value="card">Credit/Debit Card</option>
+                  <option value="bank">Bank Transfer</option>
+                </select>
+              </div>
+
+              {customerInfo.paymentMethod === 'card' && (
+                <div className="form-group">
+                  <label htmlFor="paymentDetails">Card Details</label>
+                  <input
+                    type="text"
+                    id="paymentDetails"
+                    value={paymentDetails}
+                    onChange={handlePaymentDetailsChange}
+                    required
+                  />
+                </div>
+              )}
+
+              {customerInfo.paymentMethod === 'bank' && (
+                <div className="form-group">
+                  <label htmlFor="paymentDetails">Bank Transfer Instructions</label>
+                  <textarea
+                    id="paymentDetails"
+                    value={paymentDetails}
+                    onChange={handlePaymentDetailsChange}
+                    required
+                  ></textarea>
+                </div>
+              )}
+
               {/* Form fields here */}
               <div className="order-summary">
                 <h3>Order Summary</h3>
