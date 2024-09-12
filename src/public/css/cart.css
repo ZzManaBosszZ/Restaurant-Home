@@ -90,7 +90,7 @@
 }
 
 .cart-tab-total button {
-  background-color: #4caf50;
+  background-color: #826a45;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -98,7 +98,7 @@
 }
 
 .cart-tab-total button:hover {
-  background-color: #45a049;
+  background-color: #333;
 }
 
 /* Empty cart message */

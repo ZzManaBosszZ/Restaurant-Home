@@ -8,6 +8,7 @@ import { getAccessToken } from "../../../utils/auth";
 import LayoutPages from "../../layouts/LayoutPage";
 import BreadCrumb from "../../layouts/BreadCrumb";
 import config from "../../../config";
+import '../../../public/css/checkout.css';
 
 function CheckOut() {
   const [customerInfo, setCustomerInfo] = useState({});
@@ -104,8 +105,7 @@ function CheckOut() {
   };
 
   return (
-    <LayoutPages showBreadCrumb={true}>
-      <BreadCrumb title="Checkout" path={breadcrumbPath} />
+    <LayoutPages showBreadCrumb={false}>     
       <div className="checkout-area default-padding">
         <div className="container">
           <div className="checkout-content">
@@ -123,7 +123,9 @@ function CheckOut() {
                 </ul>
                 <p>Total: ${totalPrice}</p>
               </div>
-              <button type="submit" className="btn btn-primary">Place Order</button>
+              <div className="checkout-button">
+  <button type="submit" className="btn btn-primary">Place Order</button>
+</div>
             </form>
           </div>
         </div>

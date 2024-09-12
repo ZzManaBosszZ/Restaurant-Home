@@ -1,0 +1,263 @@
+
+.foodshop-detail-container {
+    padding: 60px 60px;
+}
+
+.foodshop-detail-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 150px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(15, 15, 15, 0.1);
+    padding-block-end: 60px;
+    padding-left: 130px;
+}
+.foodshop-detail-image{
+    width: 300px;
+}
+
+.foodshop-detail-image .carousel-inner .carousel-item img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.foodshop-detail-info {
+    flex: 2;
+    padding-top: 20px;
+}
+.tag-review{
+    background-color: #1b1b1b;
+    color: #fff;
+}
+.tag-review :hover{
+    background-color: #202020;
+
+}
+.submit-review {
+    display: block;
+    margin: 0 auto; 
+    margin-top: 20px; 
+}
+
+.foodshop-detail-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.foodshop-detail-price {
+    font-size: 24px;
+    color: #ac8b5b;
+    margin: 30px 0px 10px ;
+}
+
+.foodshop-detail-stock {
+    font-size: 16px;
+    color: #27ae60;
+    margin-bottom: 20px;
+}
+
+.foodshop-detail-description {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.foodshop-detail-actions {
+    margin-bottom: 20px;
+}
+
+.foodshop-detail-actions input[type="number"] {
+    width: 100px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 30px;
+}
+
+.foodshop-detail-add-to-cart {
+    background-color: #826a45;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.foodshop-detail-add-to-cart:hover {
+    color: #ffff;
+}
+
+.foodshop-detail-delivery {
+    padding: 10px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.foodshop-detail-meta {
+    margin-top: 20px;
+}
+
+.foodshop-detail-meta .foodshop-detail-category {
+    font-size: 16px;
+    margin-block-start: 60px;
+}
+.nav-tabs {
+    display: flex;
+    justify-content: space-between; 
+    border-bottom: 1px solid #ddd; 
+    padding: 0 0 10px;
+    margin: 0;
+    list-style: none;
+}
+
+.foodshop-detail-tabs {
+    margin-top: 50px;
+}
+
+.foodshop-detail-tabs .nav-link {
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    margin: 0;
+    color: #fff;
+}
+
+.foodshop-detail-tabs .tab-content {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#review-tab{
+    background-color: #1b1b1b;
+    color: #fff;
+}
+.foodshop-detail-tabs .tab-content h4 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.review-items {
+    margin-top: 20px;
+}
+
+.review-items .item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #282829; 
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.review-items .item .thumb img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin: 0px 15px;
+}
+
+.review-items .item .info {
+    flex: 1;
+}
+
+.review-items .item .info .rating {
+    color: #f1c40f;
+    margin-bottom: 5px;
+}
+
+.review-items .item .info .rating i {
+    margin-right: 2px;
+}
+
+.review-items .item .info .review-date {
+    font-size: 14px;
+    color: #7f8c8d;
+    margin-bottom: 5px;
+}
+
+.review-items .item .info .review-author h5 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.review-items .item .info p {
+    font-size: 14px;
+    color: #e0e2e5;
+    margin-top: 10px;
+}
+
+.review-form {
+    margin-top: 30px;
+    background-color: #282829;     padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.review-form h4 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.review-form .rating-select {
+    margin-bottom: 20px;
+}
+
+.review-form .rating-select .stars span a {
+    color: #f1c40f;
+    font-size: 24px;
+    margin-right: 5px;
+}
+
+.review-form .contact-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.review-form .contact-form .form-group {
+    margin-bottom: 20px;
+
+}
+
+.review-form .contact-form textarea {
+    width: 100%;
+    height: 60px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.review-form .contact-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.review-form .contact-form button {
+    background-color: #826a45;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: right;
+}
+
+.review-form .contact-form button:hover {
+    background-color: #2980b9;
+}
+
+.alert-notification {
+    margin-top: 20px;
+}
+.foodshop-detail-related-products{
+    margin-top: 50px;
+}
