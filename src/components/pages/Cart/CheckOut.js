@@ -219,6 +219,7 @@ function CheckOut() {
                 </ul>
                 <p>Total: ${totalPrice}</p>
               </div>
+              
               {customerInfo.paymentMethod === 'paypal' && (
                 <div className="form-group">
                   <PayPalScriptProvider options={paypalOptions}>
