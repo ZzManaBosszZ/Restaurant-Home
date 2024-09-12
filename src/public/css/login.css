@@ -29,11 +29,12 @@
 .login-title {
     font-size: 24px;
     color: #007bff;
+    margin: 0;
 }
 
 .login-subtitle {
-    margin: 0;
     color: #6c757d;
+    margin: 0;
 }
 
 .login-form .form-group {
@@ -43,15 +44,21 @@
 .input-group {
     display: flex;
     align-items: center;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
 }
 
 .input-group .input-group-text {
-    background: transparent;
+    background: #f8f9fa;
+    border: none;
+    padding: 10px;
+    border-radius: 4px 0 0 4px;
 }
 
 .form-control {
-    border-radius: 0;
-    border: 1px solid #ced4da;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    flex: 1;
 }
 
 .form-control.is-invalid {
@@ -123,6 +130,8 @@
     align-items: center;
     justify-content: center;
     color: white;
+    text-align: center;
+    line-height: 40px; /* Center icons vertically */
 }
 
 .btn-facebook {
@@ -136,12 +145,13 @@
 .btn-instagram {
     background-color: #e1306c;
 }
-/* Căn giữa nút button */
+
+/* Center align button */
 .checkout-button {
     text-align: center;
-  }
-  
-  .login-home {
+}
+
+.login-home {
     display: inline-block;
     padding: 10px 20px;
     font-size: 16px;
@@ -151,9 +161,9 @@
     border-radius: 4px;
     cursor: pointer;
     text-align: center;
-  }
-  
-  .login-home:hover {
-    background-color: #0056b3;
-  }
-  
+    margin-top: 20px;
+}
+
+.login-home:hover {
+    background-color: #6d4f28;
+}

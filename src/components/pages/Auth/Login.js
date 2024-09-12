@@ -107,7 +107,7 @@ function Login() {
                             <div className="form-group">
                                 <div className="input-group">
                                     <div className="input-group-prepend">
-                                        <span className="input-group-text"><i className="ti-user"></i></span>
+                                        <span className="input-group-text"><i class="fa-solid fa-envelope"></i></span>
                                     </div>
                                     <input
                                         type="email"
@@ -125,7 +125,7 @@ function Login() {
                                 <div className="input-group">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text">
-                                            <i className="ti-lock"></i>
+                                        <i class="fa-solid fa-lock"></i>
                                         </span>
                                     </div>
                                     <input
@@ -138,7 +138,7 @@ function Login() {
                                     />
                                     <div className="input-group-append">
                                         <span className="input-group-text view-password" onClick={handleTogglePassword}>
-                                            {!showPassword ? <i className="fa fa-eye-slash"></i> : <i className="fa fa-eye"></i>}
+                                            {!showPassword ? <i class="fa-solid fa-eye-slash"></i> : <i class="fa-solid fa-eye"></i>}
                                         </span>
                                     </div>
                                     {formErrors.password && <div className="invalid-feedback">{formErrors.password}</div>}
@@ -168,9 +168,9 @@ function Login() {
                     <div className="social-login text-center">
                         <p>- Sign With -</p>
                         <div className="social-buttons">
-                            <a className="btn btn-social btn-facebook"><i className="fa fa-facebook"></i></a>
-                            <a className="btn btn-social btn-twitter"><i className="fa fa-twitter"></i></a>
-                            <a className="btn btn-social btn-instagram"><i className="fa fa-instagram"></i></a>
+                            <a className="btn btn-social btn-facebook"><i class="fa-brands fa-facebook"></i></a>
+                            <a className="btn btn-social btn-twitter"><i class="fa-brands fa-twitter"></i></a>
+                            <a className="btn btn-social btn-instagram"><i class="fa-brands fa-instagram"></i></a>
                         </div>
                     </div>
                 </div>
