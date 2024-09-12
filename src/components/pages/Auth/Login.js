@@ -156,7 +156,9 @@ function Login() {
                                         <Link to={config.routes.forgot_password} className="forgot-password">Forgot password?</Link>
                                     </div>
                                 </div>
-                                <button type="submit" className="btn btn-primary">SIGN IN</button>
+                                <div className="checkout-button">
+  <button type="submit" className="login-home">SIGN IN</button>
+</div>
                             </div>
                         </form>
                     </div>
