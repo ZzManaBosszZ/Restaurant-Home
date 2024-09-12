@@ -9,7 +9,6 @@ import LayoutPages from "../../layouts/LayoutPage";
 import BreadCrumb from "../../layouts/BreadCrumb";
 import config from "../../../config";
 import Payment from "../../Payment/index";
-import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js"; // Import PayPal SDK
 import '../../../public/css/checkout.css';
 
 function CheckOut() {
@@ -58,8 +57,8 @@ function CheckOut() {
     setPaymentDetails(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    // e.preventDefault();
 
     const selectedCartItems = JSON.parse(localStorage.getItem('selectedCartItems')) || [];
 
