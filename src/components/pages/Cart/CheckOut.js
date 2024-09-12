@@ -109,7 +109,7 @@ function CheckOut() {
     console.log("Payment canceled:", data);
 
     navigate(`/check_out`);
-};
+  };
 
   const handlePayPalSuccess = async (details) => {
     await handleSubmit();
@@ -207,7 +207,7 @@ function CheckOut() {
                 </ul>
                 <p>Total: ${totalPrice}</p>
               </div>
-              <br/>
+              <br />
 
               <Payment
                 selectedPaymentMethod={selectedPaymentMethod}
