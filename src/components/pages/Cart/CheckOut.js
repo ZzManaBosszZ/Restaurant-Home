@@ -115,11 +115,11 @@ function CheckOut() {
     }
   };
 
-  // PayPal configuration
-  const paypalOptions = {
-    clientId: config.key.PAYPAL_CLIENT_ID, // Replace with your PayPal client ID
-    currency: "USD"
-  };
+  // // PayPal configuration
+  // const paypalOptions = {
+  //   clientId: config.key.PAYPAL_CLIENT_ID, // Replace with your PayPal client ID
+  //   currency: "USD"
+  // };
 
   const handlePayPalSuccess = async (details) => {
     await handleSubmit();
