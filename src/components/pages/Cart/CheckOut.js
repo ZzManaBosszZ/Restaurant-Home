@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css'; // Import CSS của React-Toastify
 import api from "../../../services/api";
 import url from "../../../services/url";
 import { getAccessToken } from "../../../utils/auth";
@@ -10,12 +10,13 @@ import BreadCrumb from "../../layouts/BreadCrumb";
 import config from "../../../config";
 import '../../../public/css/checkout.css';
 
+
 function CheckOut() {
   const [customerInfo, setCustomerInfo] = useState({});
   const [paymentDetails, setPaymentDetails] = useState('');
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,7 +24,6 @@ function CheckOut() {
       try {
         const response = await api.get(url.AUTH.PROFILE, { headers: { Authorization: `Bearer ${getAccessToken()}` } });
         setCustomerInfo(response.data.data);
-        console.log(response.data.data); // Thêm kiểm tra dữ liệu nếu cần
       } catch (error) {
         console.error("Error loading profile:", error);
       }
@@ -86,7 +86,7 @@ function CheckOut() {
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
         cart = cart.filter(item => !selectedCartItems.some(selectedItem => selectedItem.id === item.id));
         localStorage.setItem('cart', JSON.stringify(cart));
-        
+
         // Clear selected items from local storage
         localStorage.removeItem('selectedCartItems');
 
@@ -105,13 +105,85 @@ function CheckOut() {
   };
 
   return (
-    <LayoutPages showBreadCrumb={false}>     
+    <LayoutPages showBreadCrumb={false}>
       <div className="checkout-area default-padding">
         <div className="container">
           <div className="checkout-content">
             <h2>Checkout</h2>
             <form onSubmit={handleSubmit}>
-              
+              <div className="form-group">
+                <label htmlFor="fullName">Name</label>
+                <input
+                  type="text"
+                  id="fullName"
+                  name="fullName"
+                  value={customerInfo.fullName || ''}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="phone">Phone Number</label>
+                <input
+                  type="text"
+                  id="phone"
+                  name="phone"
+                  value={customerInfo.phone || ''}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="address">Address</label>
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  value={customerInfo.address || ''}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Payment Method</label>
+                <select
+                  name="paymentMethod"
+                  value={customerInfo.paymentMethod || ''}
+                  onChange={handlePaymentMethodChange}
+                >
+                  <option value="card">Credit/Debit Card</option>
+                  <option value="bank">Bank Transfer</option>
+                </select>
+              </div>
+
+              {customerInfo.paymentMethod === 'card' && (
+                <div className="form-group">
+                  <label htmlFor="paymentDetails">Card Details</label>
+                  <input
+                    type="text"
+                    id="paymentDetails"
+                    value={paymentDetails}
+                    onChange={handlePaymentDetailsChange}
+                    required
+                  />
+                </div>
+              )}
+
+              {customerInfo.paymentMethod === 'bank' && (
+                <div className="form-group">
+                  <label htmlFor="paymentDetails">Bank Transfer Instructions</label>
+                  <textarea
+                    id="paymentDetails"
+                    value={paymentDetails}
+                    onChange={handlePaymentDetailsChange}
+                    required
+                  ></textarea>
+                </div>
+              )}
+
               <div className="order-summary">
                 <h3>Order Summary</h3>
                 <ul>
@@ -123,8 +195,8 @@ function CheckOut() {
                 </ul>
                 <p>Total: ${totalPrice}</p>
               </div>
-              <div className="checkout-button">
-                <button type="submit" className="btn btn-primary">Place Order</button>
+              <div className="checkout-button_submit">
+              <button type="submit" className="order-button">Place Order</button>
               </div>
             </form>
           </div>

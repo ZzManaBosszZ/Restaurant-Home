@@ -10,7 +10,10 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
+.checkout-button_submit{
+  text-align: center;
+  margin-top: 30px;
+}
 .checkout-content h2 {
   margin-bottom: 20px;
   font-size: 24px;
@@ -46,12 +49,14 @@
 
 .order-summary {
   border-top: 1px solid #ddd;
+  align-items: center;
 }
 
 .order-summary h3 {
   margin-bottom: 15px;
   font-size: 18px;
   color: #333;
+  text-align: center;
 }
 
 .order-summary ul {
