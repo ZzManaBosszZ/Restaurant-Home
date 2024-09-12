@@ -42,7 +42,7 @@ function CheckOut() {
   }, []);
 
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("credit");
-  
+
   const handlePaymentMethodChange = (e) => {
     const method = e.target.value;
     setCustomerInfo(prevInfo => ({ ...prevInfo, paymentMethod: method }));
@@ -79,7 +79,7 @@ function CheckOut() {
         foodId: item.id,
         quantity: item.quantity
       })),
-      // paymentMethod: selectedPaymentMethod
+      paymentMethod: selectedPaymentMethod,
     };
 
     try {
