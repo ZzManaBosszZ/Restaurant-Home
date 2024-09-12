@@ -35,6 +35,7 @@ function FoodShop() {
 
   // Handle add to cart
   const handleAddToCart = (food) => {
+    console.log('Adding to cart:', food); // Kiểm tra xem có gọi hàm không
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     const existingItem = cart.find(item => item.id === food.id);
     if (existingItem) {
@@ -45,6 +46,7 @@ function FoodShop() {
     localStorage.setItem('cart', JSON.stringify(cart));
     alert("Item added to cart!");
   };
+  
 
   // Handle sorting
   const handleSortChange = (e) => {

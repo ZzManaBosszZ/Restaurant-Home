@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css'; // Import CSS của React-Toastify
+import 'react-toastify/dist/ReactToastify.css';
 import api from "../../../services/api";
 import url from "../../../services/url";
 import { getAccessToken } from "../../../utils/auth";
@@ -23,7 +23,7 @@ function CheckOut() {
       try {
         const response = await api.get(url.AUTH.PROFILE, { headers: { Authorization: `Bearer ${getAccessToken()}` } });
         setCustomerInfo(response.data.data);
-        console.log(response.data.data);
+        console.log(response.data.data); // Thêm kiểm tra dữ liệu nếu cần
       } catch (error) {
         console.error("Error loading profile:", error);
       }
@@ -111,7 +111,78 @@ function CheckOut() {
           <div className="checkout-content">
             <h2>Checkout</h2>
             <form onSubmit={handleSubmit}>
-              {/* Form fields here */}
+              <div className="form-group">
+                <label htmlFor="name">Name:</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={customerInfo.name || ''}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="phoneNumber">Phone Number:</label>
+                <input
+                  type="tel"
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  value={customerInfo.phoneNumber || ''}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="address">Address:</label>
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  value={customerInfo.address || ''}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Payment Method:</label>
+                <select
+                  name="paymentMethod"
+                  value={customerInfo.paymentMethod || ''}
+                  onChange={handlePaymentMethodChange}
+                  required
+                >
+                  <option value="">Select Payment Method</option>
+                  <option value="card">Card</option>
+                  <option value="bankTransfer">Bank Transfer</option>
+                </select>
+              </div>
+              {customerInfo.paymentMethod === 'card' && (
+                <div className="form-group">
+                  <label htmlFor="cardDetails">Card Details:</label>
+                  <input
+                    type="text"
+                    id="cardDetails"
+                    name="cardDetails"
+                    value={paymentDetails}
+                    onChange={handlePaymentDetailsChange}
+                    required
+                  />
+                </div>
+              )}
+              {customerInfo.paymentMethod === 'bankTransfer' && (
+                <div className="form-group">
+                  <label htmlFor="transferInstructions">Transfer Instructions:</label>
+                  <input
+                    type="text"
+                    id="transferInstructions"
+                    name="transferInstructions"
+                    value={paymentDetails}
+                    onChange={handlePaymentDetailsChange}
+                    required
+                  />
+                </div>
+              )}
               <div className="order-summary">
                 <h3>Order Summary</h3>
                 <ul>
@@ -124,8 +195,8 @@ function CheckOut() {
                 <p>Total: ${totalPrice}</p>
               </div>
               <div className="checkout-button">
-  <button type="submit" className="btn btn-primary">Place Order</button>
-</div>
+                <button type="submit" className="btn btn-primary">Place Order</button>
+              </div>
             </form>
           </div>
         </div>
