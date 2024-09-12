@@ -47,30 +47,32 @@
   outline: none;
 }
 
-.order-summary {
-  border-top: 1px solid #ddd;
-  align-items: center;
+.order-summary_checkout {
+  padding: 20px;
+    background-color: #ebebeb;
+    color: #141414;
+    margin-bottom: 20px;
 }
 
-.order-summary h3 {
+.order-summary_checkout h3 {
   margin-bottom: 15px;
   font-size: 18px;
   color: #333;
   text-align: center;
 }
 
-.order-summary ul {
+.order-summary_checkout ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.order-summary ul li {
+.order-summary_checkout ul li {
   padding: 8px 0;
   border-bottom: 1px solid #eee;
 }
 
-.order-summary p {
+.order-summary_checkout p {
   font-size: 16px;
   font-weight: bold;
   color: #333;
@@ -104,4 +106,12 @@
 
 .toast-container {
   margin-top: 60px;
+}
+.button-container {
+  text-align: center;
+  margin-top: 20px; /* Khoảng cách trên nút nếu cần */
+}
+
+.button-container .btn {
+  display: inline-block; /* Đảm bảo nút là inline-block để có thể căn giữa */
 }
