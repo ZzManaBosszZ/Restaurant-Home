@@ -67,7 +67,8 @@ function CheckOut() {
       foodQuantities: selectedCartItems.map(item => ({
         foodId: item.id,
         quantity: item.quantity
-      }))
+      })),
+      // paymentMethod: selectedPaymentMethod
     };
 
     try {
