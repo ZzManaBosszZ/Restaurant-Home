@@ -105,3 +105,10 @@
 .toast-container {
   margin-top: 60px;
 }
+
+.paypal-button-container {
+  /* display: flex; */
+  justify-content: center;
+  margin-top: 20px;
+}
+

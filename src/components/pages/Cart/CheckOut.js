@@ -8,6 +8,7 @@ import { getAccessToken } from "../../../utils/auth";
 import LayoutPages from "../../layouts/LayoutPage";
 import BreadCrumb from "../../layouts/BreadCrumb";
 import config from "../../../config";
+import Payment from "../../Payment/index";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js"; // Import PayPal SDK
 import '../../../public/css/checkout.css';
 
@@ -40,19 +41,28 @@ function CheckOut() {
     loadCartItems();
   }, []);
 
-  const breadcrumbPath = [
-    { href: "/", label: "Home" },
-    { href: "/checkout", label: "Checkout" }
-  ];
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("credit");
+  
+  const handlePaymentMethodChange = (e) => {
+    const method = e.target.value;
+    setCustomerInfo(prevInfo => ({ ...prevInfo, paymentMethod: method }));
+    setSelectedPaymentMethod(method); // Giả sử bạn có state selectedPaymentMethod
+  };
+  
+
+  // const breadcrumbPath = [
+  //   { href: "/", label: "Home" },
+  //   { href: "/checkout", label: "Checkout" }
+  // ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCustomerInfo(prevInfo => ({ ...prevInfo, [name]: value }));
   };
 
-  const handlePaymentMethodChange = (e) => {
-    setCustomerInfo(prevInfo => ({ ...prevInfo, paymentMethod: e.target.value }));
-  };
+  // const handlePaymentMethodChange = (e) => {
+  //   setCustomerInfo(prevInfo => ({ ...prevInfo, paymentMethod: e.target.value }));
+  // };
 
   const handlePaymentDetailsChange = (e) => {
     setPaymentDetails(e.target.value);
@@ -112,19 +122,7 @@ function CheckOut() {
   };
 
   const handlePayPalSuccess = async (details) => {
-    try {
-      // Call your backend to finalize the order after payment
-      await api.post(url.ORDER.CREATE, { orderId: details.orderID }, {
-        headers: {
-          Authorization: `Bearer ${getAccessToken()}`,
-          'Content-Type': 'application/json'
-        }
-      });
-      toast.success('Payment successful!');
-      navigate(config.routes.order); // Navigate to order history page
-    } catch (error) {
-      toast.error('There was an error finalizing your order.');
-    }
+    await handleSubmit();
   };
 
   return (
@@ -179,7 +177,7 @@ function CheckOut() {
                 >
                   <option value="card">Credit/Debit Card</option>
                   <option value="bank">Bank Transfer</option>
-                  <option value="paypal">PayPal</option> {/* Added PayPal option */}
+                  <option value="paypal">PayPal</option>
                 </select>
               </div>
 
@@ -219,9 +217,14 @@ function CheckOut() {
                 </ul>
                 <p>Total: ${totalPrice}</p>
               </div>
-              
-              {customerInfo.paymentMethod === 'paypal' && (
-                <div className="form-group">
+
+              <Payment
+                selectedPaymentMethod={customerInfo.paymentMethod}
+                onPaymentMethodChange={handlePaymentMethodChange}
+                price={totalPrice}
+              />
+              {/* {customerInfo.paymentMethod === 'paypal' && (
+                <div className="paypal-button-container">
                   <PayPalScriptProvider options={paypalOptions}>
                     <PayPalButtons
                       createOrder={(data, actions) => {
@@ -240,7 +243,8 @@ function CheckOut() {
                     />
                   </PayPalScriptProvider>
                 </div>
-              )}
+              )} */}
+
               {customerInfo.paymentMethod !== 'paypal' && <button type="submit" className="btn btn-primary">Place Order</button>}
             </form>
           </div>
