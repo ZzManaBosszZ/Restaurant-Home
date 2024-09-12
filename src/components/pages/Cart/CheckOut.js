@@ -9,6 +9,7 @@ import LayoutPages from "../../layouts/LayoutPage";
 import BreadCrumb from "../../layouts/BreadCrumb";
 import config from "../../../config";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js"; // Import PayPal SDK
+import '../../../public/css/checkout.css';
 
 function CheckOut() {
   const [customerInfo, setCustomerInfo] = useState({});
@@ -127,15 +128,14 @@ function CheckOut() {
   };
 
   return (
-    <LayoutPages showBreadCrumb={true}>
-      <BreadCrumb title="Checkout" path={breadcrumbPath} />
+    <LayoutPages showBreadCrumb={false}>
       <div className="checkout-area default-padding">
         <div className="container">
           <div className="checkout-content">
             <h2>Checkout</h2>
             <form onSubmit={handleSubmit}>
               <div className="form-group">
-                <label htmlFor="name">Name</label>
+                <label htmlFor="fullName">Name</label>
                 <input
                   type="text"
                   id="fullName"

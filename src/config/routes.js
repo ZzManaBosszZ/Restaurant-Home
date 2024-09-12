@@ -18,7 +18,7 @@ const routes = {
 
     //Shop Food
     shop: "/shop",
-    shopDetail: "/shop-detail",
+    foodShopDetail: "/shop-detail/:id",
 
     // Cart
     cartTab: "/cart",
@@ -26,10 +26,11 @@ const routes = {
     order:"/order",
 
     // Reservation
+    bookTable: "/book_table",
+
     // orderFood: "/order_food",
 
     // Authentication routes
-    bookTable: "/book_table",
     profile: "/profile",
     login: "/login",
     forgot_password: "/forgot-password",

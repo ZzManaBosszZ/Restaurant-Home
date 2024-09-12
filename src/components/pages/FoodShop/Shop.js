@@ -2,7 +2,7 @@ import LayoutPages from "../../layouts/LayoutPage";
 import { useState, useEffect } from "react";
 import api from "../../../services/api";
 import url from "../../../services/url";
-import { getAccessToken } from "../../../utils/auth";
+import { Link } from 'react-router-dom';
 import BreadCrumb from "../../layouts/BreadCrumb";
 
 function FoodShop() {
@@ -35,6 +35,7 @@ function FoodShop() {
 
   // Handle add to cart
   const handleAddToCart = (food) => {
+    console.log('Adding to cart:', food); // Kiểm tra xem có gọi hàm không
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     const existingItem = cart.find(item => item.id === food.id);
     if (existingItem) {
@@ -45,6 +46,7 @@ function FoodShop() {
     localStorage.setItem('cart', JSON.stringify(cart));
     alert("Item added to cart!");
   };
+  
 
   // Handle sorting
   const handleSortChange = (e) => {
@@ -168,21 +170,21 @@ function FoodShop() {
                       <li className="product" key={food.id}>
                         <div className="product-contents">
                           <div className="product-image">
-                            <a href="shop-single.html">
+                            <Link to={`/shop-detail/${food.id}`}>
                               <img src={food.image} alt={food.name} />
-                            </a>
+                            </Link>
                             <div className="shop-action">
                               <ul>
                                 <li className="wishlist">
-                                  <a href="">
+                                  <a href="#">
                                     <span>Add to wishlist</span>
                                   </a>
                                 </li>
-                                {/* <li className="quick-view">
+                                <li className="quick-view">
                                   <a href="#">
                                     <span>Quick view</span>
                                   </a>
-                                </li> */}
+                                </li>
                               </ul>
                             </div>
                           </div>
@@ -191,7 +193,7 @@ function FoodShop() {
                               <a href="#">{food.category}</a>
                             </div>
                             <h4 className="product-title">
-                              <a href="shop-single.html">{food.name}</a>
+                              <Link to={`/shop-detail/${food.id}`}>{food.name}</Link>
                             </h4>
                             <div className="price">
                               <span>${food.price}</span>
@@ -211,7 +213,6 @@ function FoodShop() {
                   role="tabpanel"
                   aria-labelledby="list-tab-control"
                 >
-                  {/* Add list view content here */}
                 </div>
               </div>
               <nav className="woocommerce-pagination">

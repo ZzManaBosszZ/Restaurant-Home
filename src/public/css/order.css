@@ -2,10 +2,13 @@
 
 .order-summary {
     padding: 20px;
-    background-color: #f4f4f9;
+    background-color: #ebebeb;
     margin-top: 110px;
+    color: #141414;
   }
-  
+  .order-summary h3, .order-summary p{
+    color:#141414;
+  }
   .order-summary-content {
     max-width: 900px;
     margin: 0 auto;
@@ -13,6 +16,11 @@
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .checkout-button {
+    display: flex;
+    justify-content: center; /* Căn giữa nút theo chiều ngang */
+    margin-top: 20px; /* Khoảng cách trên cho nút */
   }
   
   .order-summary-title {
@@ -83,8 +91,5 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
-  .submit-order-button:hover {
-    background-color: #218838;
-    transform: translateY(-2px);
-  }
+  
   
