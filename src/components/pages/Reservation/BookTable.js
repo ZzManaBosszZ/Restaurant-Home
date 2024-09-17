@@ -82,7 +82,7 @@ function BookTable() {
       <div className="booking-page-content">
         <BreadCrumb path={breadcrumbPath} />
         <div className="booking-page-form-container">
-          <h2 className="booking-page-title">Book a Table</h2>
+          <h2 className="booking-page-title" id="booking-page-title">Book a Table</h2>
           <form className="booking-page-form" onSubmit={handleSubmit}>
             <div className="booking-page-form-group">
               <label className="booking-page-form-label" htmlFor="name">Name</label>
