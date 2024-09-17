@@ -1,265 +1,297 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import CSS của React-Toastify
 import api from "../../../services/api";
 import url from "../../../services/url";
 import { getAccessToken } from "../../../utils/auth";
 import LayoutPages from "../../layouts/LayoutPage";
 import BreadCrumb from "../../layouts/BreadCrumb";
 import config from "../../../config";
+import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js"; // Import PayPal SDK
+import "../../../public/css/checkout.css";
 
+function CheckOut() {
+  const [customerInfo, setCustomerInfo] = useState({});
+  const [paymentDetails, setPaymentDetails] = useState("");
+  const [cartItems, setCartItems] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
-function FoodShop() {
-  const breadcrumbPath = [
-    { href: "/", label: "Home" },
-    { href: "/shop", label: "Shop" }
-  ];
+  const navigate = useNavigate();
 
-  const [foods, setFoods] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(8);
-  const [sortOption, setSortOption] = useState("default");
-  const [selectedCategory, setSelectedCategory] = useState("all");
-
-  // Load foods and categories
   useEffect(() => {
-    const loadFoodsAndCategories = async () => {
+    const loadProfile = async () => {
       try {
-        // Update API calls to not include Authorization header
-        const foodResponse = await api.get(url.FOOD.LIST);
-        const categoryResponse = await api.get(url.CATEGORY.LIST);
-        setFoods(foodResponse.data.data);
-        setCategories(categoryResponse.data.data);
+        const response = await api.get(url.AUTH.PROFILE, {
+          headers: { Authorization: `Bearer ${getAccessToken()}` }
+        });
+        setCustomerInfo(response.data.data);
       } catch (error) {
-        console.error(error);
+        console.error("Error loading profile:", error);
       }
     };
-    loadFoodsAndCategories();
+
+    const loadCartItems = () => {
+      const cart = JSON.parse(localStorage.getItem("selectedCartItems")) || [];
+      setCartItems(cart);
+      const total = cart.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+      );
+      setTotalPrice(total);
+    };
+
+    loadProfile();
+    loadCartItems();
   }, []);
 
-  // Handle add to cart
-  const handleAddToCart = (food) => {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const existingItem = cart.find(item => item.id === food.id);
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      cart.push({ ...food, quantity: 1 });
+  const breadcrumbPath = [
+    { href: "/", label: "Home" },
+    { href: "/checkout", label: "Checkout" }
+  ];
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCustomerInfo((prevInfo) => ({ ...prevInfo, [name]: value }));
+  };
+
+  const handlePaymentMethodChange = (e) => {
+    setCustomerInfo((prevInfo) => ({
+      ...prevInfo,
+      paymentMethod: e.target.value
+    }));
+  };
+
+  const handlePaymentDetailsChange = (e) => {
+    setPaymentDetails(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const selectedCartItems =
+      JSON.parse(localStorage.getItem("selectedCartItems")) || [];
+
+    const createOrderPayload = {
+      discount: customerInfo.discount || 0,
+      foodQuantities: selectedCartItems.map((item) => ({
+        foodId: item.id,
+        quantity: item.quantity
+      }))
+      // paymentMethod: selectedPaymentMethod
+    };
+
+    try {
+      const orderResponse = await api.post(
+        url.ORDER.CREATE,
+        createOrderPayload,
+        {
+          headers: {
+            Authorization: `Bearer ${getAccessToken()}`,
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+      if (orderResponse.status === 201) {
+        toast.success("Your order has been created successfully!");
+
+        // Remove selected items from local storage cart
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cart = cart.filter(
+          (item) =>
+            !selectedCartItems.some(
+              (selectedItem) => selectedItem.id === item.id
+            )
+        );
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        // Clear selected items from local storage
+        localStorage.removeItem("selectedCartItems");
+
+        setTimeout(() => {
+          navigate(config.routes.order); // Navigate to order history page
+        }, 3000);
+      } else {
+        const errorText = await orderResponse.text();
+        console.error("Error creating order:", errorText);
+        toast.error(
+          "There was an error creating your order. Please try again."
+        );
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+      toast.error(
+        "There was a problem connecting to the server. Please try again."
+      );
     }
-    localStorage.setItem('cart', JSON.stringify(cart));
-    alert("Item added to cart!");
   };
 
-  // Handle sorting
-  const handleSortChange = (e) => {
-    setSortOption(e.target.value);
+  // PayPal configuration
+  const paypalOptions = {
+    clientId: config.key.PAYPAL_CLIENT_ID, // Replace with your PayPal client ID
+    currency: "USD"
   };
 
-  // Handle category change
-  const handleCategoryChange = (e) => {
-    setSelectedCategory(e.target.value);
-  };
-
-  // Calculate paginated and sorted foods
-  const getSortedAndFilteredFoods = () => {
-    let filteredFoods = foods;
-
-    // Filter by category
-    if (selectedCategory !== "all") {
-      filteredFoods = filteredFoods.filter(food => food.category === selectedCategory);
+  const handlePayPalSuccess = async (details) => {
+    try {
+      // Call your backend to finalize the order after payment
+      await api.post(
+        url.ORDER.CREATE,
+        { orderId: details.orderID },
+        {
+          headers: {
+            Authorization: `Bearer ${getAccessToken()}`,
+            "Content-Type": "application/json"
+          }
+        }
+      );
+      toast.success("Payment successful!");
+      navigate(config.routes.order); // Navigate to order history page
+    } catch (error) {
+      toast.error("There was an error finalizing your order.");
     }
-
-    // Sort by option
-    switch (sortOption) {
-      case "priceAsc":
-        filteredFoods.sort((a, b) => a.price - b.price);
-        break;
-      case "priceDesc":
-        filteredFoods.sort((a, b) => b.price - a.price);
-        break;
-      default:
-        break;
-    }
-
-    return filteredFoods;
   };
-
-  const sortedAndFilteredFoods = getSortedAndFilteredFoods();
-  const indexOfLastFood = currentPage * itemsPerPage;
-  const indexOfFirstFood = indexOfLastFood - itemsPerPage;
-  const currentFoods = sortedAndFilteredFoods.slice(indexOfFirstFood, indexOfLastFood);
-
-  // Change page
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
-  // Pagination numbers
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(sortedAndFilteredFoods.length / itemsPerPage); i++) {
-    pageNumbers.push(i);
-  }
 
   return (
     <LayoutPages showBreadCrumb={false}>
-      <BreadCrumb title="Shop" path={breadcrumbPath} />
-
-      <div className="validtheme-shop-area default-padding">
+      <div className="checkout-area default-padding">
         <div className="container">
-          <div className="shop-listing-contentes">
-            <div className="row item-flex center">
-              <div className="col-lg-7">
-                <div className="content">
-                  <nav>
-                    <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                      <button
-                        className="nav-link active"
-                        id="grid-tab-control"
-                        data-bs-toggle="tab"
-                        data-bs-target="#grid-tab"
-                        type="button"
-                        role="tab"
-                        aria-controls="grid-tab"
-                        aria-selected="true"
-                      >
-                        <i className="fas fa-th-large"></i>
-                      </button>
-
-                      <button
-                        className="nav-link"
-                        id="list-tab-control"
-                        data-bs-toggle="tab"
-                        data-bs-target="#list-tab"
-                        type="button"
-                        role="tab"
-                        aria-controls="list-tab"
-                        aria-selected="false"
-                      >
-                        <i className="fas fa-th-list"></i>
-                      </button>
-                    </div>
-                  </nav>
-                </div>
+          <div className="checkout-content">
+            <h2>Checkout</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="fullName">Name</label>
+                <input
+                  type="text"
+                  id="fullName"
+                  name="fullName"
+                  value={customerInfo.fullName || ""}
+                  onChange={handleChange}
+                  required
+                />
               </div>
-
-              <div className="col-lg-5 text-right">
-                <select name="sort" id="sort" value={sortOption} onChange={handleSortChange}>
-                  <option value="default">Sort by Price</option>
-                  <option value="priceAsc">Low to High</option>
-                  <option value="priceDesc">High to Low</option>
-                </select>
-
-                <select name="category" id="category" value={selectedCategory} onChange={handleCategoryChange}>
-                  <option value="all">All Categories</option>
-                  {categories.map(category => (
-                    <option key={category.id} value={category.name}>{category.name}</option>
-                  ))}
-                </select>
+              <div className="form-group">
+                <label htmlFor="phone">Phone Number</label>
+                <input
+                  type="text"
+                  id="phone"
+                  name="phone"
+                  value={customerInfo.phone || ""}
+                  onChange={handleChange}
+                  required
+                />
               </div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="tab-content tab-content-info text-center" id="shop-tabContent">
-                <div
-                  className="tab-pane fade show active"
-                  id="grid-tab"
-                  role="tabpanel"
-                  aria-labelledby="grid-tab-control"
+              <div className="form-group">
+                <label htmlFor="address">Address</label>
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  value={customerInfo.address || ""}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Payment Method</label>
+                <select
+                  name="paymentMethod"
+                  value={customerInfo.paymentMethod || ""}
+                  onChange={handlePaymentMethodChange}
                 >
-                  <ul className="vt-products columns-4">
-                    {currentFoods.map((food) => (
-                      <li className="product" key={food.id}>
-                        <div className="product-contents">
-                          <div className="product-image">
-                            <a href="shop-single.html">
-                              <img src={food.image} alt={food.name} />
-                            </a>
-                            <div className="shop-action">
-                              <ul>
-                                <li className="wishlist">
-                                  <a href="">
-                                    <span>Add to wishlist</span>
-                                  </a>
-                                </li>
-                                <li className="quick-view">
-                                  <a href="#">
-                                    <span>Quick view</span>
-                                  </a>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                          <div className="product-caption">
-                            <div className="product-tags">
-                              <a href="#">{food.category}</a>
-                            </div>
-                            <h4 className="product-title">
-                              <a href="shop-single.html">{food.name}</a>
-                            </h4>
-                            <div className="price">
-                              <span>${food.price}</span>
-                            </div>
-                            <a href="#" className="cart-btn" onClick={() => handleAddToCart(food)}>
-                              <i className="fas fa-shopping-bag"></i> Add to cart
-                            </a>
-                          </div>
-                        </div>
+                  <option value="card">Credit/Debit Card</option>
+                  <option value="bank">Bank Transfer</option>
+                  <option value="paypal">PayPal</option>{" "}
+                  {/* Added PayPal option */}
+                </select>
+              </div>
+              {customerInfo.paymentMethod === "card" ||
+              customerInfo.paymentMethod === "bank" ? (
+                <div className="payment-details-container">
+                  {customerInfo.paymentMethod === "card" && (
+                    <div className="form-group">
+                      <label htmlFor="paymentDetails">Card Details</label>
+                      <input
+                        type="text"
+                        id="paymentDetails"
+                        value={paymentDetails}
+                        onChange={handlePaymentDetailsChange}
+                        required
+                      />
+                    </div>
+                  )}
+
+                  {customerInfo.paymentMethod === "bank" && (
+                    <div className="form-group">
+                      <label htmlFor="paymentDetails">
+                        Bank Transfer Instructions
+                      </label>
+                      <textarea
+                        id="paymentDetails"
+                        value={paymentDetails}
+                        onChange={handlePaymentDetailsChange}
+                        required
+                      ></textarea>
+                    </div>
+                  )}
+                </div>
+              ) : null}
+              <div className="order-summary_checkout">
+                <h3>Order Summary</h3>
+                <ul>
+                  {cartItems
+                    .filter((item) =>
+                      JSON.parse(
+                        localStorage.getItem("selectedCartItems") || []
+                      ).some((selectedItem) => selectedItem.id === item.id)
+                    )
+                    .map((item) => (
+                      <li key={item.id}>
+                        {item.name} x {item.quantity} - $
+                        {item.price * item.quantity}
                       </li>
                     ))}
-                  </ul>
-                </div>
-                <div
-                  className="tab-pane fade"
-                  id="list-tab"
-                  role="tabpanel"
-                  aria-labelledby="list-tab-control"
-                >
-                  {/* Add list view content here */}
-                </div>
-              </div>
-              <nav className="woocommerce-pagination">
-                <ul className="page-numbers">
-                  <li>
-                    <a
-                      className="previous page-numbers"
-                      href="#"
-                      onClick={() => handlePageChange(currentPage - 1)}
-                      disabled={currentPage === 1}
-                    >
-                      <i className="fas fa-angle-left"></i>
-                    </a>
-                  </li>
-                  {pageNumbers.map(number => (
-                    <li key={number}>
-                      <a
-                        className={`page-numbers ${currentPage === number ? 'current' : ''}`}
-                        href="#"
-                        onClick={() => handlePageChange(number)}
-                      >
-                        {number}
-                      </a>
-                    </li>
-                  ))}
-                  <li>
-                    <a
-                      className="next page-numbers"
-                      href="#"
-                      onClick={() => handlePageChange(currentPage + 1)}
-                      disabled={currentPage === pageNumbers.length}
-                    >
-                      <i className="fas fa-angle-right"></i>
-                    </a>
-                  </li>
                 </ul>
-              </nav>
-            </div>
+                <p>Total: ${totalPrice}</p>
+              </div>
+              {customerInfo.paymentMethod === "paypal" && (
+                <div className="form-group">
+                  <PayPalScriptProvider options={paypalOptions}>
+                    <PayPalButtons
+                      createOrder={(data, actions) => {
+                        return actions.order.create({
+                          purchase_units: [
+                            {
+                              amount: {
+                                value: totalPrice.toFixed(2)
+                              }
+                            }
+                          ]
+                        });
+                      }}
+                      onApprove={async (data, actions) => {
+                        await actions.order.capture();
+                        handlePayPalSuccess(data);
+                      }}
+                    />
+                  </PayPalScriptProvider>
+                </div>
+              )}
+              {customerInfo.paymentMethod !== "paypal" && (
+                <div className="button-container">
+                  <button type="submit" className="btn btn-primary">
+                    Place Order
+                  </button>
+                </div>
+              )}{" "}
+            </form>
           </div>
         </div>
       </div>
+      <ToastContainer />
     </LayoutPages>
   );
 }
 
-export default FoodShop;
+export default CheckOut;

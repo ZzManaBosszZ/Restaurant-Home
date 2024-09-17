@@ -17,7 +17,6 @@ import CartTab from "../components/pages/Cart/CartTab";
 import CheckOut from "../components/pages/Cart/CheckOut";
 import Order from "../components/pages/Cart/Order";
 import BookTable from "../components/pages/Reservation/BookTable";
-import OrderFood from "../components/pages/Reservation/OrderFood";
 
 
 const publicRoutes = [
@@ -56,7 +55,6 @@ const privateRoutes = [
     { path: config.routes.order, component: Order },
     // 
     { path: config.routes.bookTable, component: BookTable},
-    { path: config.routes.orderFood, component: OrderFood},
 
 
 ];
