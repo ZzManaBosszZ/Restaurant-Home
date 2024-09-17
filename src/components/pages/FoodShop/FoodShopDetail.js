@@ -8,7 +8,9 @@ import BreadCrumb from "../../layouts/BreadCrumb";
 import '../../../public/css/foodDetail.css';
 
 function FoodShopDetail() {
-    const { id } = useParams(); // Lấy ID từ URL
+
+    const { id } = useParams(); 
+
     const [foodDetail, setFoodDetail] = useState(null);
     const [relatedFoods, setRelatedFoods] = useState([]);
 
@@ -75,7 +77,6 @@ function FoodShopDetail() {
                                 <span>${foodDetail.price}</span>
                             </div>
                             
-                            {/* <p className="foodshop-detail-description">{foodDetail.description}</p> */}
                             <div className="foodshop-detail-actions">
                                 <input type="number" id="quantity" step="1" name="quantity" min="0" placeholder="0" />
                                 <button className="foodshop-detail-add-to-cart" onClick={handleAddToCart}>
@@ -89,7 +90,7 @@ function FoodShopDetail() {
                             </div>
                             <div className="foodshop-detail-meta">
                                 <span className="foodshop-detail-category">
-                                    <strong>Category:</strong> {foodDetail.category}
+                                <strong>Category:</strong> {foodDetail.category?.name || 'N/A'}
                                 </span>
                             </div>
                         </div>
@@ -112,7 +113,6 @@ function FoodShopDetail() {
                         <div className="tab-pane fade" id="review-content" role="tabpanel" aria-labelledby="review-tab">
                             <h4>1 review for “{foodDetail.name}”</h4>
                             <div className="review-items">
-                                {/* Sample review item */}
                                 <div className="item">
                                     <div className="thumb">
                                         <img src="assets/img/team/1.jpg" alt="Reviewer" />
@@ -188,7 +188,8 @@ function FoodShopDetail() {
                     <h3>Related Products</h3>
                     <div className="related-products-carousel">
                         <ul className="vt-products columns-4">
-                            {relatedFoods.map((food) => (
+                        {relatedFoods.length > 0 ? (
+                                relatedFoods.slice(0, 4).map((food) => (
                                 <li className="product" key={food.id}>
                                     <div className="product-contents">
                                         <div className="product-image">
@@ -225,8 +226,10 @@ function FoodShopDetail() {
                                             </a>
                                         </div>
                                     </div>
-                                </li>
-                            ))}
+                                </li> ))
+                            ) : (
+                                <p>No related products available.</p>
+                            )}
                         </ul>
                     </div>
                 </div>

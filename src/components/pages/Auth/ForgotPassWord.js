@@ -1,7 +1,7 @@
 import { useState } from "react";
 import api from "../../../services/api";
 import url from "../../../services/url";
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 
 function ForgotPassword() {
 

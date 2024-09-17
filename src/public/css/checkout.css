@@ -1,91 +1,117 @@
 /* checkout.css */
 
-.checkout-container {
-    padding: 20px;
-    background-color: #f9f9f9;
-    margin-top: 110px;
-  }
-  
-  .checkout-content {
-    max-width: 800px;
-    margin: 30px auto ;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .checkout-title {
-    text-align: center;
+.checkout-area {
+  padding: 200px 250px;
+}
+
+.checkout-content {
+  background-color: #fff;
+  padding: 30px 60px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.checkout-button_submit{
+  text-align: center;
+  margin-top: 30px;
+}
+.checkout-content h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #666;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.order-summary_checkout {
+  padding: 20px;
+    background-color: #ebebeb;
+    color: #141414;
     margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .customer-info-section,
-  .payment-method-section,
-  .order-summary-section {
-    margin-bottom: 20px;
-  }
-  
-  .customer-info-section h4,
-  .payment-method-section h4,
-  .order-summary-section h4 {
-    margin-bottom: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .customer-info-section input,
-  .payment-method-section select,
-  .payment-details-section input {
-    display: block;
-    width: 100%;
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    
-  }
-  
-  .payment-details-section {
-    margin-top: 20px;
-  }
-  
-  .order-summary-section ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .order-summary-section li {
-    margin-bottom: 5px;
-    font-size: 16px;
-  }
-  
-  .order-summary-section h3 {
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .submit-button {
-    
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .submit-button:hover {
-    background-color: #0056b3;
-  }
-  .submit-check-button-container{
-    text-align: center;
-  }
-  
+}
+
+.order-summary_checkout h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #333;
+  text-align: center;
+}
+
+.order-summary_checkout ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.order-summary_checkout ul li {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.order-summary_checkout p {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-top: 10px;
+}
+
+
+.checkout-button {
+  margin-top: 15px; 
+  text-align: center; 
+}
+.btn-primary {
+  width:40%;
+  background-color: #826a45;
+  border: none;
+  color: #fff;
+  padding: 8px 16px; 
+  font-size: 14px; 
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: black;
+}
+
+.btn-primary:focus {
+  outline: none;
+}
+
+.toast-container {
+  margin-top: 60px;
+}
+.button-container {
+  text-align: center;
+  margin-top: 20px; /* Khoảng cách trên nút nếu cần */
+}
+
+.button-container .btn {
+  display: inline-block; /* Đảm bảo nút là inline-block để có thể căn giữa */
+}
