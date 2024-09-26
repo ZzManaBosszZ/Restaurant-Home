@@ -1,31 +1,32 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Import CSS của React-Toastify
+import "react-toastify/dist/ReactToastify.css";
+import moment from "moment"; // Import moment.js
 import api from "../../../services/api";
-import url from "../../../services/url";
 import { getAccessToken } from "../../../utils/auth";
 import LayoutPages from "../../layouts/LayoutPage";
 import BreadCrumb from "../../layouts/BreadCrumb";
-import config from "../../../config";
-import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import "../../../public/css/bookTable.css";
 
-
 function BookTable() {
+  const token = getAccessToken();
+console.log("Access Token:", token);
   const [bookingInfo, setBookingInfo] = useState({
     name: "",
     phone: "",
+    email: "",
     date: "",
     time: "",
-    numberOfPeople: "",
+    numberOfPerson: "",
+    menuId: 1,
   });
 
   const navigate = useNavigate();
 
   const breadcrumbPath = [
     { href: "/", label: "Home" },
-    { href: "/book-table", label: "Book a Table" }
+    { href: "/book-table", label: "Book a Table" },
   ];
 
   const handleChange = (e) => {
@@ -36,34 +37,42 @@ function BookTable() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    
+    // Convert time to HH:mm:ss format
+    const formattedTime = moment(bookingInfo.time, "HH:mm").format("HH:mm:ss");
+
+   
+
+    // Create order data to send to API
+    const orderData = {
+      name: bookingInfo.name,
+      numberOfPerson: bookingInfo.numberOfPerson , // Ensure it's an integer
+      phone: bookingInfo.phone,
+      email: bookingInfo.email,
+      time: formattedTime, // Use formatted time
+      date: bookingInfo.date,
+      menuId: bookingInfo.menuId,
+    };
 
     try {
-      const response = await api.post(
-        "/any/ordertables",
-        bookingInfo,
-        {
-          headers: {
-            Authorization: `Bearer ${getAccessToken()}`,
-            "Content-Type": "application/json",
-          }
-        }
-      );
+      const response = await api.post("http://localhost:8083/api/v1/any/ordertables", orderData, {
+        headers: { Authorization: `Bearer ${getAccessToken()}` },
+    });
+    
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         toast.success("Your table has been booked successfully!");
-        
-        // Clear form data or redirect
+        // Reset the booking information
         setBookingInfo({
           name: "",
           phone: "",
+          email: "",
           date: "",
           time: "",
-          numberOfPeople: "",
+          numberOfPerson: "",
+          menuId: 1,
         });
-
         setTimeout(() => {
-          navigate("/booking-confirmation"); // Navigate to booking confirmation page
+          navigate("/booking-confirmation");
         }, 3000);
       } else {
         const errorText = await response.text();
@@ -71,90 +80,61 @@ function BookTable() {
         toast.error("There was an error booking your table. Please try again.");
       }
     } catch (error) {
-      console.error("Network error:", error);
-      toast.error("There was a problem connecting to the server. Please try again.");
+      if (error.response) {
+        // Xử lý lỗi từ server
+        console.log("Error from server:", error.response.data);
+        if (error.response.status === 404) {
+          toast.error(`Error 404: ${error.response.data.message || 'Not Found'}`);
+        } else if (error.response.status === 401) {
+          toast.error(`Error 401: ${error.response.data.message || 'Unauthorized'}`);
+        } else {
+          toast.error(`Error: ${error.response.data.message || 'Something went wrong'}`);
+        }
+      } else if (error.request) {
+        // Yêu cầu đã được gửi nhưng không nhận được phản hồi
+        console.log("Request made but no response received:", error.request);
+        toast.error("No response from server. Please try again.");
+      }  else {
+        console.log("Request setup error:", error.message);
+      }
     }
   };
 
   return (
     <LayoutPages showBreadCrumb={false}>
-    <div className="booking-page-container">
-      <div className="booking-page-content">
-        <BreadCrumb path={breadcrumbPath} />
-        <div className="booking-page-form-container">
-          <h2 className="booking-page-title" id="booking-page-title">Book a Table</h2>
-          <form className="booking-page-form" onSubmit={handleSubmit}>
-            <div className="booking-page-form-group">
-              <label className="booking-page-form-label" htmlFor="name">Name</label>
-              <input
-                className="booking-page-form-input"
-                type="text"
-                id="name"
-                name="name"
-                value={bookingInfo.name}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="booking-page-form-group">
-              <label className="booking-page-form-label" htmlFor="phone">Phone Number</label>
-              <input
-                className="booking-page-form-input"
-                type="text"
-                id="phone"
-                name="phone"
-                value={bookingInfo.phone}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="booking-page-form-group">
-              <label className="booking-page-form-label" htmlFor="date">Date</label>
-              <input
-                className="booking-page-form-input"
-                type="date"
-                id="date"
-                name="date"
-                value={bookingInfo.date}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="booking-page-form-group">
-              <label className="booking-page-form-label" htmlFor="time">Time</label>
-              <input
-                className="booking-page-form-input"
-                type="time"
-                id="time"
-                name="time"
-                value={bookingInfo.time}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="booking-page-form-group">
-              <label className="booking-page-form-label" htmlFor="numberOfPeople">Number of People</label>
-              <input
-                className="booking-page-form-input"
-                type="number"
-                id="numberOfPeople"
-                name="numberOfPeople"
-                value={bookingInfo.numberOfPeople}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="booking-page-button-container">
-              <button type="submit" className="booking-page-submit-button">
-                Book Table
-              </button>
-            </div>
-          </form>
+      <div className="booking-page-container">
+        <div className="booking-page-content">
+          <BreadCrumb path={breadcrumbPath} />
+          <div className="booking-page-form-container">
+            <h2 className="booking-page-title" id="booking-page-title">Book a Table</h2>
+            <form className="booking-page-form" onSubmit={handleSubmit}>
+              {["name", "phone", "email", "date", "time", "numberOfPerson"].map((field, index) => (
+                <div key={index} className="booking-page-form-group">
+                  <label className="booking-page-form-label" htmlFor={field}>
+                    {field.charAt(0).toUpperCase() + field.slice(1).replace(/([A-Z])/g, ' $1')}
+                  </label>
+                  <input
+                    className="booking-page-form-input"
+                    type={field === "email" ? "email" : field === "date" ? "date" : field === "time" ? "time" : "text"}
+                    id={field}
+                    name={field}
+                    value={bookingInfo[field]}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+              ))}
+              <div className="booking-page-button-container">
+                <button type="submit" className="booking-page-submit-button">
+                  Book Table
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-    <ToastContainer />
-  </LayoutPages>
+      <ToastContainer />
+    </LayoutPages>
   );
 }
 

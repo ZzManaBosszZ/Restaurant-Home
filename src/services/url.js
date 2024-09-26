@@ -48,6 +48,7 @@ const url = {
     },
 
     ORDER_TABLE: {
+        CREATE: "any/ordertables",
         LIST: "any/ordertables",
         DETAIL: "any/ordertables/{}",
         EDIT: "any/ordertables/{}",
