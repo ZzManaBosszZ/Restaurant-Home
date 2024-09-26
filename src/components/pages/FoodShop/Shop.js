@@ -33,9 +33,8 @@ function FoodShop() {
     loadFoodsAndCategories();
   }, []);
 
-  // Handle add to cart
   const handleAddToCart = (food) => {
-    console.log('Adding to cart:', food); // Kiểm tra xem có gọi hàm không
+    console.log('Adding to cart:', food); 
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     const existingItem = cart.find(item => item.id === food.id);
     if (existingItem) {
@@ -48,26 +47,21 @@ function FoodShop() {
   };
   
 
-  // Handle sorting
   const handleSortChange = (e) => {
     setSortOption(e.target.value);
   };
 
-  // Handle category change
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
   };
 
-  // Calculate paginated and sorted foods
   const getSortedAndFilteredFoods = () => {
     let filteredFoods = foods;
 
-    // Filter by category
     if (selectedCategory !== "all") {
       filteredFoods = filteredFoods.filter(food => food.category === selectedCategory);
     }
 
-    // Sort by option
     switch (sortOption) {
       case "priceAsc":
         filteredFoods.sort((a, b) => a.price - b.price);
@@ -87,12 +81,10 @@ function FoodShop() {
   const indexOfFirstFood = indexOfLastFood - itemsPerPage;
   const currentFoods = sortedAndFilteredFoods.slice(indexOfFirstFood, indexOfLastFood);
 
-  // Change page
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  // Pagination numbers
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(sortedAndFilteredFoods.length / itemsPerPage); i++) {
     pageNumbers.push(i);

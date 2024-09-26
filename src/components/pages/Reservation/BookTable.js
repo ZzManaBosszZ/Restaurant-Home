@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import moment from "moment"; // Import moment.js
+import moment from "moment"; 
 import api from "../../../services/api";
 import { getAccessToken } from "../../../utils/auth";
 import LayoutPages from "../../layouts/LayoutPage";
@@ -11,7 +11,6 @@ import "../../../public/css/bookTable.css";
 
 function BookTable() {
   const token = getAccessToken();
-console.log("Access Token:", token);
   const [bookingInfo, setBookingInfo] = useState({
     name: "",
     phone: "",
@@ -19,8 +18,10 @@ console.log("Access Token:", token);
     date: "",
     time: "",
     numberOfPerson: "",
-    menuId: 1,
+    menuId: [],
   });
+
+  const [menus, setMenus] = useState([]);
 
   const navigate = useNavigate();
 
@@ -28,6 +29,23 @@ console.log("Access Token:", token);
     { href: "/", label: "Home" },
     { href: "/book-table", label: "Book a Table" },
   ];
+
+  useEffect(() => {
+    const fetchMenus = async () => {
+      try {
+        const response = await api.get("http://localhost:8083/api/v1/menus", {
+        headers: { Authorization: `Bearer ${getAccessToken()}` },
+      });
+        if (response.status === 200) {
+          setMenus(response.data.data); 
+        }
+      } catch (error) {
+        console.error("Error fetching menus:", error);
+      }
+    };
+
+    fetchMenus();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,31 +55,25 @@ console.log("Access Token:", token);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Convert time to HH:mm:ss format
     const formattedTime = moment(bookingInfo.time, "HH:mm").format("HH:mm:ss");
 
-   
-
-    // Create order data to send to API
     const orderData = {
       name: bookingInfo.name,
-      numberOfPerson: bookingInfo.numberOfPerson , // Ensure it's an integer
+      numberOfPerson: bookingInfo.numberOfPerson,
       phone: bookingInfo.phone,
       email: bookingInfo.email,
-      time: formattedTime, // Use formatted time
+      time: formattedTime,
       date: bookingInfo.date,
-      menuId: bookingInfo.menuId,
+      menuId: bookingInfo.menuId, 
     };
 
     try {
       const response = await api.post("http://localhost:8083/api/v1/any/ordertables", orderData, {
         headers: { Authorization: `Bearer ${getAccessToken()}` },
-    });
-    
+      });
 
       if (response.status === 200) {
         toast.success("Your table has been booked successfully!");
-        // Reset the booking information
         setBookingInfo({
           name: "",
           phone: "",
@@ -69,7 +81,7 @@ console.log("Access Token:", token);
           date: "",
           time: "",
           numberOfPerson: "",
-          menuId: 1,
+          menuId: [],
         });
         setTimeout(() => {
           navigate("/booking-confirmation");
@@ -81,20 +93,12 @@ console.log("Access Token:", token);
       }
     } catch (error) {
       if (error.response) {
-        // Xử lý lỗi từ server
         console.log("Error from server:", error.response.data);
-        if (error.response.status === 404) {
-          toast.error(`Error 404: ${error.response.data.message || 'Not Found'}`);
-        } else if (error.response.status === 401) {
-          toast.error(`Error 401: ${error.response.data.message || 'Unauthorized'}`);
-        } else {
-          toast.error(`Error: ${error.response.data.message || 'Something went wrong'}`);
-        }
+        toast.error(`Error: ${error.response.data.message || 'Something went wrong'}`);
       } else if (error.request) {
-        // Yêu cầu đã được gửi nhưng không nhận được phản hồi
         console.log("Request made but no response received:", error.request);
         toast.error("No response from server. Please try again.");
-      }  else {
+      } else {
         console.log("Request setup error:", error.message);
       }
     }
@@ -124,6 +128,25 @@ console.log("Access Token:", token);
                   />
                 </div>
               ))}
+
+             
+              <div className="booking-page-form-group">
+                <label className="booking-page-form-label" htmlFor="menuId">Select Menu</label>
+                <select
+                  className="booking-page-form-input"
+                  id="menuId"
+                  name="menuId"
+                  value={bookingInfo.menuId}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Select a menu</option>
+                  {menus.map(menu => (
+                    <option key={menu.id} value={menu.id}>{menu.name}</option>
+                  ))}
+                </select>
+              </div>
+
               <div className="booking-page-button-container">
                 <button type="submit" className="booking-page-submit-button">
                   Book Table
