@@ -1,0 +1,96 @@
+
+  .booking-confirm-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .booking-confirm-container {
+    background-color: #ffffff; /* White background */
+    border-radius: 8px; /* Rounded corners */
+    padding: 40px; /* Inner spacing */
+    margin: 60px auto; /* Centering */
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    max-width: 800px; /* Limit width */
+  }
+  
+  .booking-confirm-title {
+    text-align: center; /* Center the title */
+    margin-bottom: 20px; /* Spacing below the title */
+    color: #333; /* Dark text color */
+  }
+  
+  .booking-confirm-details table {
+    width: 100%; /* Full width */
+    border-collapse: collapse; /* Collapse borders */
+  }
+  
+  .booking-confirm-details td {
+    padding: 10px; /* Inner spacing for cells */
+    border: 1px solid #ddd; /* Light gray border for cells */
+    font-size: 16px; /* Font size */
+    color: rgb(31, 31, 31);
+  }
+  .booking-confirm-details td strong{
+    color: #826a45;
+  }
+  
+  .booking-confirm-details td:first-child {
+    background-color: #f8f9fa; /* Light gray for label cells */
+    font-weight: bold; /* Bold for labels */
+  }
+  
+  .booking-confirm-details td:last-child {
+    background-color: #fff; /* White for value cells */
+  }
+  
+  
+  .booking-confirm-note {
+    background-color: #e8f5e9;
+    border-left: 6px solid #4caf50;
+    border-radius: 4px;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  .booking-confirm-note h3 {
+    color: #4caf50;
+    margin-top: 0;
+  }
+  
+  .booking-confirm-note p {
+    margin: 0 0 10px;
+    color: #333;
+    line-height: 1.5;
+  }
+  
+  .note-highlight {
+    background-color: #fce4ec;
+    border: 1px dashed #f50057;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 20px 0;
+    color: #d81b60;
+    font-weight: bold;
+    text-align: center;
+  }
+ 
+  .button-confirm-page {
+    margin-top: 40px;
+    padding: 10px 20px; /* Inner spacing */
+    font-size: 16px; /* Font size */
+    color: #ffffff; /* White text color */
+    border: none; /* No border */
+    border-radius: 7px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+  }
+  .button_confirm-container {
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+  }
+  .button-confirm-page i {
+    size: 30px;
+  }
+  
+ 
+  

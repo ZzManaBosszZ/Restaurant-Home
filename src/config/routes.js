@@ -27,6 +27,7 @@ const routes = {
 
     // Reservation
     bookTable: "/book_table",
+    bookingConfirm: "/book_table/:id",
 
     // orderFood: "/order_food",
 

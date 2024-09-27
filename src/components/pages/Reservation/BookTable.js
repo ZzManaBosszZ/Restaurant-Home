@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import config from "../../../config";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import moment from "moment"; 
@@ -22,7 +23,7 @@ function BookTable() {
   });
 
   const [menus, setMenus] = useState([]);
-
+  const [existingBooking, setExistingBooking] = useState(null);
   const navigate = useNavigate();
 
   const breadcrumbPath = [
@@ -34,8 +35,8 @@ function BookTable() {
     const fetchMenus = async () => {
       try {
         const response = await api.get("http://localhost:8083/api/v1/menus", {
-        headers: { Authorization: `Bearer ${getAccessToken()}` },
-      });
+          headers: { Authorization: `Bearer ${getAccessToken()}` },
+        });
         if (response.status === 200) {
           setMenus(response.data.data); 
         }
@@ -44,8 +45,11 @@ function BookTable() {
       }
     };
 
+   
+
     fetchMenus();
-  }, []);
+ 
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -64,7 +68,7 @@ function BookTable() {
       email: bookingInfo.email,
       time: formattedTime,
       date: bookingInfo.date,
-      menuId: bookingInfo.menuId, 
+      menuId: bookingInfo.menuId,
     };
 
     try {
@@ -73,33 +77,18 @@ function BookTable() {
       });
 
       if (response.status === 200) {
+         
         toast.success("Your table has been booked successfully!");
-        setBookingInfo({
-          name: "",
-          phone: "",
-          email: "",
-          date: "",
-          time: "",
-          numberOfPerson: "",
-          menuId: [],
-        });
-        setTimeout(() => {
-          navigate("/booking-confirmation");
-        }, 3000);
+        navigate(config.routes.bookingConfirm); 
+   
       } else {
-        const errorText = await response.text();
-        console.error("Error booking table:", errorText);
         toast.error("There was an error booking your table. Please try again.");
       }
     } catch (error) {
       if (error.response) {
-        console.log("Error from server:", error.response.data);
         toast.error(`Error: ${error.response.data.message || 'Something went wrong'}`);
-      } else if (error.request) {
-        console.log("Request made but no response received:", error.request);
-        toast.error("No response from server. Please try again.");
       } else {
-        console.log("Request setup error:", error.message);
+        toast.error("No response from server. Please try again.");
       }
     }
   };
@@ -128,8 +117,6 @@ function BookTable() {
                   />
                 </div>
               ))}
-
-             
               <div className="booking-page-form-group">
                 <label className="booking-page-form-label" htmlFor="menuId">Select Menu</label>
                 <select

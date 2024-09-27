@@ -13,6 +13,14 @@ const url = {
         UPDATE_PROFILE: "user/update-profile",
     },
 
+    DASHBOARD: {
+        TOTAL_ORDER: "total-orders",
+        TOTAL_ORDER_DELIVERED: "delivered-orders",
+        TOTAL_ORDER_CANCEL: "cancelled-orders",
+        TOTAL_ORDER_REVENUE: "total-revenue",
+        DAILY_REVENUE: "daily-revenue",
+    },
+
     FOOD: {
         LIST: "any/food",
         DETAIL: "food/{}",
@@ -39,8 +47,9 @@ const url = {
 
     MENU_FOOD: {
         CREATE: "menu-food",
+        DETAIL: "menu-food/{}",
     },
-    
+
     ORDER: {
         LIST: "orders",
         DETAIL: "order-details/{}",
@@ -48,11 +57,11 @@ const url = {
     },
 
     ORDER_TABLE: {
-        CREATE: "any/ordertables",
         LIST: "any/ordertables",
         DETAIL: "any/ordertables/{}",
         EDIT: "any/ordertables/{}",
     },
+
 
 };
 export default url;
