@@ -14,11 +14,10 @@ function BookingConfirm() {
 
   const [bookingDetail, setBookingDetail] = useState(null);
 
+  // Hàm tải chi tiết đặt bàn
   const loadBookingDetail = async () => {
     try {
-      const response = await api.get(
-        `http://localhost:8083/api/v1/any/ordertables/${id}`
-      );
+      const response = await api.get(`http://localhost:8083/api/v1/any/ordertables/${id}`);
       if (response.status === 200 && response.data.status) {
         setBookingDetail(response.data.data);
       }
@@ -44,59 +43,39 @@ function BookingConfirm() {
           <table>
             <tbody>
               <tr>
-                <td>
-                  <strong>Table Number:</strong>
-                </td>
+                <td><strong>Table Number:</strong></td>
                 <td>{bookingDetail.id}</td>
               </tr>
               <tr>
-                <td>
-                  <strong>Name:</strong>
-                </td>
+                <td><strong>Name:</strong></td>
                 <td>{bookingDetail.name}</td>
               </tr>
               <tr>
-                <td>
-                  <strong>Email:</strong>
-                </td>
+                <td><strong>Email:</strong></td>
                 <td>{bookingDetail.email}</td>
               </tr>
               <tr>
-                <td>
-                  <strong>Phone:</strong>
-                </td>
+                <td><strong>Phone:</strong></td>
                 <td>{bookingDetail.phone}</td>
               </tr>
               <tr>
-                <td>
-                  <strong>Date:</strong>
-                </td>
-                <td>
-                  {new Date(bookingDetail.date).toLocaleDateString("vi-VN")}
-                </td>
+                <td><strong>Date:</strong></td>
+                <td>{new Date(bookingDetail.date).toLocaleDateString("vi-VN")}</td>
               </tr>
               <tr>
-                <td>
-                  <strong>Time:</strong>
-                </td>
+                <td><strong>Time:</strong></td>
                 <td>{bookingDetail.time}</td>
               </tr>
               <tr>
-                <td>
-                  <strong>Number of People:</strong>
-                </td>
+                <td><strong>Number of People:</strong></td>
                 <td>{bookingDetail.numberOfPerson}</td>
               </tr>
               <tr>
-                <td>
-                  <strong>Menu:</strong>
-                </td>
+                <td><strong>Menu:</strong></td>
                 <td>{bookingDetail.menuName}</td>
               </tr>
               <tr>
-                <td>
-                  <strong>Booking Status:</strong>
-                </td>
+                <td><strong>Booking Status:</strong></td>
                 <td>{bookingDetail.status}</td>
               </tr>
             </tbody>
@@ -106,23 +85,21 @@ function BookingConfirm() {
         <div className="booking-confirm-note">
           <h3>Note information</h3>
           <p>
-            We would like to confirm that your table reservation has been
-            successfully received. Please review the information below
-            carefully. If you notice any discrepancies, do not hesitate to
-            contact us immediately at our hotline <strong>12345678</strong> for
-            prompt assistance.
+            We would like to confirm that your table reservation has been successfully received. 
+            Please review the information below carefully. If you notice any discrepancies, 
+            do not hesitate to contact us immediately at our hotline <strong>12345678</strong> 
+            for prompt assistance.
           </p>
           <p>
-            Kindly remember to arrive on time for your check-in. We will hold
-            your table for a maximum of <strong>20 minutes</strong>. If you
-            exceed this timeframe, we regretfully may need to release your table
-            for other guests.
+            Kindly remember to arrive on time for your check-in. We will hold your table for 
+            a maximum of <strong>20 minutes</strong>. If you exceed this timeframe, we regretfully 
+            may need to release your table for other guests.
           </p>
           <p>
-            We hope you have a wonderful experience at our restaurant. Wishing
-            you a fantastic day!
+            We hope you have a wonderful experience at our restaurant. Wishing you a fantastic day!
           </p>
         </div>
+
         <div className="button_confirm-container">
           <button
             className="button-confirm-page"
