@@ -12,7 +12,7 @@ function HeaderPages() {
             >
               <i className="fa fa-bars"></i>
             </button>
-            <a className="navbar-brand" href="index.html">
+            <a className="navbar-brand" href="/">
               <img
                 src="/assets/img/logo-light.png"
                 className="logo logo-display"
