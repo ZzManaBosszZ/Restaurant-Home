@@ -14,19 +14,19 @@ function HeaderPages() {
             </button>
             <a className="navbar-brand" href="index.html">
               <img
-                src="assets/img/logo-light.png"
+                src="/assets/img/logo-light.png"
                 className="logo logo-display"
                 alt="Logo"
               />
               <img
-                src="assets/img/logo-light.png"
+                src="/assets/img/logo-light.png"
                 className="logo logo-scrolled"
                 alt="Logo"
               />
             </a>
           </div>
           <div className="collapse navbar-collapse" id="navbar-menu">
-            <img src="assets/img/logo-light.png" alt="Logo" />
+            <img src="/assets/img/logo-light.png" alt="Logo" />
             <button
               type="button"
               className="navbar-toggle"
@@ -42,10 +42,9 @@ function HeaderPages() {
               data-out="fadeOutUp"
             >
               <li className="dropdown megamenu-fw">
-                <a href="/" className="" >
+                <a href="/" className="">
                   Home
                 </a>
-               
               </li>
               <li className="dropdown">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown">
@@ -56,45 +55,54 @@ function HeaderPages() {
                     <a href="/about">About Us</a>
                   </li>
                   <li className="dropdown">
-                    <a href="/chef" className="" data-toggle="dropdown">
+                    <a href="/chef" className="">
                       Our Chef
                     </a>
-                    
                   </li>
-                  <li>
-                    <a href="/book_table">Reservation</a>
+                  <li className="dropdown">
+                    <a
+                      href="#"
+                      className="dropdown-toggle"
+                      data-toggle="dropdown"
+                    >
+                      Reservation
+                    </a>
+                    <ul className="dropdown-menu submenu">
+                      <li>
+                        <a href="/book_table">New</a>
+                      </li>
+                      <li>
+                        <a href="/booking_list">View</a>
+                      </li>
+                    </ul>
                   </li>
                   <li>
                     <a href="/contact">Contact Us</a>
                   </li>
-                 
                 </ul>
               </li>
+
               <li className="dropdown">
                 <a href="/menu" className="" data-toggle="dropdown">
                   Menu
                 </a>
-                
               </li>
               <li className="dropdown">
                 <a href="/blog" className="" data-toggle="dropdown">
                   Blog
                 </a>
-                
               </li>
               <li className="dropdown">
                 <a href="/shop" className="" data-toggle="dropdown">
                   Shop
                 </a>
-                
               </li>
 
               <li>
-                
                 <a href="/cart">
                   <i
                     className="fas fa-shopping-bag"
-                    style={{ color: "white", fontSize:"20px" }}
+                    style={{ color: "white", fontSize: "20px" }}
                   ></i>
                 </a>
               </li>
