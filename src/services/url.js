@@ -38,6 +38,8 @@ const url = {
     },
 
     MENU_FOOD: {
+        LIST: "any/menu-food",
+        DETAIL: "menu-food/{}",
         CREATE: "menu-food",
     },
     
