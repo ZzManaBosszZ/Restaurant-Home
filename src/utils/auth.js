@@ -1,5 +1,6 @@
 import Cookies from "js-cookie";
 import { decodeToken } from "react-jwt";
+import { jwtDecode } from 'jwt-decode';
 
 // Store tokens in cookie after logging in
 export const setAccessToken = (token, expiresIn) => {
@@ -51,4 +52,18 @@ export const isLoggedIn = () => {
         return true;
     }
     return false;
+};
+
+export const getUser = () => {
+    const token = getAccessToken();
+    if (token) {
+        const isValid = isTokenValid(); // Kiểm tra xem token có hợp lệ không
+        if (isValid) {
+            const decodedToken = jwtDecode(token); // Giải mã token
+            return decodedToken?.id || null; // Lấy id từ token (id có thể là `sub` hoặc `userId` tùy cấu trúc token)
+        } else {
+            removeAccessToken(); // Xóa token nếu không hợp lệ
+        }
+    }
+    return null; // Trả về null nếu không có token hoặc token không hợp lệ
 };

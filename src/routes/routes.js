@@ -40,6 +40,7 @@ const publicRoutes = [
     //Shop
     { path: config.routes.shop, component: FoodShop },
     { path: config.routes.foodShopDetail, component: FoodShopDetail },
+    { path: config.routes.review, component: FoodShopDetail},
     
 
 
