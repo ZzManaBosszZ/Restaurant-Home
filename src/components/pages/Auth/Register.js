@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from 'axios'; // Thêm axios để gọi API
-import { setAccessToken } from "../../../utils/auth"; // Để lưu token nếu cần
+import axios from 'axios';
+import { setAccessToken } from "../../../utils/auth";
 import config from "../../../config/index";
 import '../../../public/css/register.css';
 import api from "../../../services/api";
@@ -17,8 +17,9 @@ function Register() {
 
     const [formErrors, setFormErrors] = useState({});
     const [showPassword, setShowPassword] = useState(false);
-    const [isSubmitting, setIsSubmitting] = useState(false); // Trạng thái đăng ký
-    const [apiError, setApiError] = useState(null); // Lỗi từ API
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
+    const [isSubmitting, setIsSubmitting] = useState(false); 
+    const [apiError, setApiError] = useState(null); 
 
     const navigate = useNavigate();
 
@@ -45,26 +46,23 @@ function Register() {
 
     const handleRegister = async (e) => {
         e.preventDefault();
-        setApiError(null); // Xóa lỗi API trước khi đăng ký
+        setApiError(null); 
         const errors = validateForm();
         setFormErrors(errors);
 
         if (Object.keys(errors).length === 0) {
             setIsSubmitting(true);
             try {
-                // Gọi API tới endpoint đăng ký người dùng
                 const response = await api.post(url.AUTH.SIGNUP, {
                     fullname: formData.fullname,
                     email: formData.email,
                     password: formData.password
                 });
                 
-                // Nếu đăng ký thành công, lưu token (nếu có) và điều hướng
-                setAccessToken(response.data.token); // Nếu backend trả về token
-                navigate('/login'); // Điều hướng đến trang dashboard hoặc trang mong muốn
+                setAccessToken(response.data.token); 
+                navigate('/login');
                 
             } catch (error) {
-                // Xử lý lỗi trả về từ API
                 setApiError(error.response?.data?.message || 'An error occurred during registration');
             } finally {
                 setIsSubmitting(false);
@@ -79,8 +77,14 @@ function Register() {
         });
     };
 
+    // Hàm toggle hiển thị mật khẩu cho password
     const handleTogglePassword = () => {
         setShowPassword(!showPassword);
+    };
+
+    // Hàm toggle hiển thị mật khẩu cho confirmPassword
+    const handleToggleConfirmPassword = () => {
+        setShowConfirmPassword(!showConfirmPassword);
     };
 
     return (
@@ -157,7 +161,7 @@ function Register() {
                                         </span>
                                     </div>
                                     <input
-                                        type={showPassword ? "text" : "password"}
+                                        type={showConfirmPassword ? "text" : "password"}
                                         name="confirmPassword"
                                         className={`form-control ${formErrors.confirmPassword ? "is-invalid" : ""}`}
                                         placeholder="Confirm Password"
@@ -165,8 +169,8 @@ function Register() {
                                         onChange={handleChange}
                                     />
                                     <div className="input-group-append">
-                                        <span className="input-group-text view-password" onClick={handleTogglePassword}>
-                                            {!showPassword ? <i className="fa-solid fa-eye-slash"></i> : <i className="fa-solid fa-eye"></i>}
+                                        <span className="input-group-text view-password" onClick={handleToggleConfirmPassword}>
+                                            {!showConfirmPassword ? <i className="fa-solid fa-eye-slash"></i> : <i className="fa-solid fa-eye"></i>}
                                         </span>
                                     </div>
                                     {formErrors.confirmPassword && <div className="invalid-feedback">{formErrors.confirmPassword}</div>}

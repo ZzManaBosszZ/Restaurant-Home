@@ -8,7 +8,7 @@ function Header() {
 
     const handleLogout = () => {
         removeAccessToken();
-        window.location.reload(); // Tải lại trang để cập nhật giao diện
+        window.location.reload(); 
     };
     return (
         <header>
