@@ -1,13 +1,15 @@
-// import { Link, NavLink } from "react-router-dom";
-// import config from "../../config/index";
-// import { isLoggedIn, getDecodedToken, removeAccessToken } from "../../utils/auth";
+import { Link, NavLink } from "react-router-dom";
+import config from "../../config/index";
+import { isLoggedIn, getDecodedToken, removeAccessToken } from "../../utils/auth";
 
 function Header() {
-    // const decodedToken = getDecodedToken();
+    const loggedIn = isLoggedIn();
+    const decodedToken = getDecodedToken();
 
-    // const handleLogout = () => {
-    //     removeAccessToken();
-    // };
+    const handleLogout = () => {
+        removeAccessToken();
+        window.location.reload(); // Tải lại trang để cập nhật giao diện
+    };
     return (
         <header>
             <nav className="navbar mobile-sidenav brand-center-style-two dark-layout brand-center navbar-default validnavs">
@@ -218,6 +220,17 @@ function Header() {
                                 </ul>
                             </li>
                             <li><a href="contact.html">Contact Us</a></li>
+                            <ul className="nav navbar-nav navbar-center" data-in="fadeInDown" data-out="fadeOutUp">
+                                {loggedIn ? (
+                                  <li>
+                                    <a href="#" onClick={handleLogout}>Logout</a>
+                                            </li>
+                                              ) : (         
+                                             <li>
+                                           <NavLink to="/login">Login</NavLink>
+                                             </li>
+                                              )}
+                                        </ul>
                         </ul>
                     </div>
                     <div className="overlay-screen"></div>

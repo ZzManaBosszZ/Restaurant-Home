@@ -33,6 +33,7 @@ const routes = {
     // Authentication routes
     profile: "/profile",
     login: "/login",
+    register:"/register",
     forgot_password: "/forgot-password",
     reset_password: "/reset-password/:resetToken",
 
