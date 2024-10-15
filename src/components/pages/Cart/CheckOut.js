@@ -6,7 +6,6 @@ import api from "../../../services/api";
 import url from "../../../services/url";
 import { getAccessToken } from "../../../utils/auth";
 import LayoutPages from "../../layouts/LayoutPage";
-import BreadCrumb from "../../layouts/BreadCrumb";
 import config from "../../../config";
 import Payment from "../../Payment/index";
 import '../../../public/css/checkout.css';
