@@ -22,6 +22,7 @@ function FoodShopDetail() {
             const response = await api.get(url.FOOD.DETAIL.replace("{}", id), {
             });
             setFoodDetail(response.data.data);
+            console.log(setFoodDetail)
             
             // Fetch reviews
             const reviewResponse = await api.get(url.REVIEW.LIST.replace("{}", id), {
@@ -44,9 +45,9 @@ function FoodShopDetail() {
         loadData();
     }, [loadData]);
 
-    if (!foodDetail) {
-        return <div className="foodshop-detail-loading">Loading...</div>; 
-    }
+    // if (!foodDetail) {
+    //     return <div className="foodshop-detail-loading">Loading..???.</div>; 
+    // }
 
 
     // Handle add to cart
