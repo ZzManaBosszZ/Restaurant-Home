@@ -3,47 +3,51 @@ import { useParams } from 'react-router-dom';
 import LayoutPages from "../../layouts/LayoutPage";
 import api from '../../../services/api';
 import url from '../../../services/url';
-import { getAccessToken } from '../../../utils/auth';
+import {getUser, getAccessToken } from '../../../utils/auth';
 import BreadCrumb from "../../layouts/BreadCrumb";
 import '../../../public/css/foodDetail.css';
 
 function FoodShopDetail() {
-
     const { id } = useParams(); 
-
     const [foodDetail, setFoodDetail] = useState(null);
     const [relatedFoods, setRelatedFoods] = useState([]);
     const [reviews, setReviews] = useState([]);
     const [newReview, setNewReview] = useState({ rating: 0, message: '' });
     const [submitError, setSubmitError] = useState('');
-
+    
+    
+    
     const loadData = useCallback(async () => {
         try {
             const response = await api.get(url.FOOD.DETAIL.replace("{}", id), {
             });
             setFoodDetail(response.data.data);
-
+            
             // Fetch reviews
             const reviewResponse = await api.get(url.REVIEW.LIST.replace("{}", id), {
 
             });
             setReviews(reviewResponse.data.data);
-            
+
             // Load related foods
             const relatedResponse = await api.get(url.FOOD.LIST);
             setRelatedFoods(relatedResponse.data.data.filter(food => food.id !== id));
+              
+
         } catch (error) {
             console.error("Error fetching food detail:", error);
         }
     }, [id]);
+
 
     useEffect(() => {
         loadData();
     }, [loadData]);
 
     if (!foodDetail) {
-        return <div className="foodshop-detail-loading">Loading...</div>; // Có thể thay thế bằng một component loading đẹp hơn
+        return <div className="foodshop-detail-loading">Loading...</div>; 
     }
+
 
     // Handle add to cart
     const handleAddToCart = () => {
@@ -58,7 +62,6 @@ function FoodShopDetail() {
         alert("Item added to cart!");
     };
 
-    //handle add review
     const handleReviewSubmit = async (e) => {
         e.preventDefault();
         if (newReview.rating === 0) {
@@ -90,6 +93,7 @@ function FoodShopDetail() {
     };
 
     return (
+
         <LayoutPages showBreadCrumb={false}>
             <BreadCrumb title="Food Detail" path={[
                 { href: "/", label: "Home" },
@@ -137,15 +141,18 @@ function FoodShopDetail() {
                 </div>
 
                 <div className="foodshop-detail-tabs">
+              
                     <div className="nav nav-tabs" id="nav-tab" role="tablist">
                         <button className="tag-review" id="description-tab" data-bs-toggle="tab" data-bs-target="#description-content" type="button" role="tab" aria-controls="description-content" aria-selected="true">
                             Description
                         </button>
-                        <button className="Tag-review" id="review-tab" data-bs-toggle="tab" data-bs-target="#review-content" type="button" role="tab" aria-controls="review-content" aria-selected="false">
-                            Review
+
+
+                        <button className="Tag-review" id="review-tab" data-bs-toggle="tab" data-bs-target="#review-content" type="button" role="tab" aria-controls="review-content" aria-selected="false" >
+                         Review
                         </button>
                     </div>
-                    <div className="tab-pane fade" id="review-content" role="tabpanel" aria-labelledby="review-tab">
+                <div className="tab-pane fade" id="review-content" role="tabpanel" aria-labelledby="review-tab">
                 <h4>{reviews.length} review for {foodDetail.name}</h4>
                 <div className="review-items">
                     {reviews.map(review => (
@@ -196,6 +203,7 @@ function FoodShopDetail() {
                 </div>
             </div>
 
+                </div>
                  <div className="foodshop-detail-related-products">
                     <h3>Related Products</h3>
                     <div className="related-products-carousel">
@@ -233,7 +241,7 @@ function FoodShopDetail() {
                                             <div className="price">
                                                 <span>${food.price}</span>
                                             </div>
-                                            <a href="#" className="cart-btn" onClick={() => handleAddToCart(food)}>
+                                            <a href="#" className="cart-btn" onClick={handleAddToCart}>
                                                 <i className="fas fa-shopping-bag"></i> Add to cart
                                             </a>
                                         </div>
