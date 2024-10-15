@@ -98,6 +98,12 @@ function Login() {
         <div className="login-page">
             <div className="login-container">
                 <div className="login-card">
+                    <div className="back-to-home">
+                        <Link to="/" className="back-home-link">
+                            <i className="fa-solid fa-arrow-left"></i> 
+                        </Link>
+                    </div>
+
                     <div className="login-header">
                         <h2 className="login-title">Let's Get Started</h2>
                         <p className="login-subtitle">Sign in to continue to Restran.</p>
@@ -107,7 +113,7 @@ function Login() {
                             <div className="form-group">
                                 <div className="input-group">
                                     <div className="input-group-prepend">
-                                        <span className="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                                        <span className="input-group-text"><i className="fa-solid fa-envelope"></i></span>
                                     </div>
                                     <input
                                         type="email"
@@ -125,7 +131,7 @@ function Login() {
                                 <div className="input-group">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text">
-                                        <i class="fa-solid fa-lock"></i>
+                                        <i className="fa-solid fa-lock"></i>
                                         </span>
                                     </div>
                                     <input
@@ -138,7 +144,7 @@ function Login() {
                                     />
                                     <div className="input-group-append">
                                         <span className="input-group-text view-password" onClick={handleTogglePassword}>
-                                            {!showPassword ? <i class="fa-solid fa-eye-slash"></i> : <i class="fa-solid fa-eye"></i>}
+                                            {!showPassword ? <i className="fa-solid fa-eye-slash"></i> : <i className="fa-solid fa-eye"></i>}
                                         </span>
                                     </div>
                                     {formErrors.password && <div className="invalid-feedback">{formErrors.password}</div>}
@@ -157,8 +163,8 @@ function Login() {
                                     </div>
                                 </div>
                                 <div className="checkout-button">
-  <button type="submit" className="login-home">SIGN IN</button>
-</div>
+                                    <button type="submit" className="login-home">SIGN IN</button>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -168,9 +174,9 @@ function Login() {
                     <div className="social-login text-center">
                         <p>- Sign With -</p>
                         <div className="social-buttons">
-                            <a className="btn btn-social btn-facebook"><i class="fa-brands fa-facebook"></i></a>
-                            <a className="btn btn-social btn-twitter"><i class="fa-brands fa-twitter"></i></a>
-                            <a className="btn btn-social btn-instagram"><i class="fa-brands fa-instagram"></i></a>
+                            <a className="btn btn-social btn-facebook"><i className="fa-brands fa-facebook"></i></a>
+                            <a className="btn btn-social btn-twitter"><i className="fa-brands fa-twitter"></i></a>
+                            <a className="btn btn-social btn-instagram"><i className="fa-brands fa-instagram"></i></a>
                         </div>
                     </div>
                 </div>

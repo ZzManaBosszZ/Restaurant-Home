@@ -221,16 +221,20 @@ function Header() {
                             </li>
                             <li><a href="contact.html">Contact Us</a></li>
                             <ul className="nav navbar-nav navbar-center" data-in="fadeInDown" data-out="fadeOutUp">
-                                {loggedIn ? (
-                                  <li>
-                                    <a href="#" onClick={handleLogout}>Logout</a>
-                                            </li>
-                                              ) : (         
-                                             <li>
-                                           <NavLink to="/login">Login</NavLink>
-                                             </li>
-                                              )}
-                                        </ul>
+                            {loggedIn ? (
+                             <li>
+                                <a href="#" onClick={handleLogout}>
+                                  <i className="fa-solid fa-sign-out-alt"></i> 
+                                </a>
+                             </li>
+                             ) : (
+                              <li>
+                              <NavLink to="/login">
+                              <i class="fa-solid fa-hands"></i>
+                              </NavLink>
+                               </li>
+                                 )}
+                                </ul>
                         </ul>
                     </div>
                     <div className="overlay-screen"></div>

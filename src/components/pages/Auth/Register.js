@@ -186,7 +186,7 @@ function Register() {
                         </form>
                     </div>
                     <div className="register-footer text-center">
-                        <p>Already have an account? <Link to={config.routes.SIGNUP} className="sign-up-link">Sign In</Link></p>
+                        <p>Already have an account? <Link to={config.routes.login} className="sign-up-link">Sign In</Link></p>
                     </div>
                     <div className="social-register text-center">
                         <p>- Sign With -</p>
