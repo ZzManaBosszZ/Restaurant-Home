@@ -62,6 +62,11 @@ const url = {
         EDIT: "any/ordertables/{}",
     },
 
+    REVIEW: {
+        LIST: 'any/review/food/{}',
+        CREATE: "review",
+    },
+
 
 };
 export default url;
