@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import LayoutPages from "../../layouts/LayoutPage";
 import api from '../../../services/api';
 import url from '../../../services/url';
-import {getUser, getAccessToken } from '../../../utils/auth';
+import {getAccessToken } from '../../../utils/auth';
 import BreadCrumb from "../../layouts/BreadCrumb";
 import '../../../public/css/foodDetail.css';
 
@@ -19,25 +19,31 @@ function FoodShopDetail() {
     
     const loadData = useCallback(async () => {
         try {
-            const response = await api.get(url.FOOD.DETAIL.replace("{}", id), {
-            });
-            setFoodDetail(response.data.data);
-            
-            // Fetch reviews
-            const reviewResponse = await api.get(url.REVIEW.LIST.replace("{}", id), {
-
-            });
-            setReviews(reviewResponse.data.data);
-
-            // Load related foods
+            // Log ID hiện tại để debug
+            console.log("Current Food ID:", id);
+    
+            // Gọi API lấy chi tiết món ăn
+            const foodResponse = await api.get(url.FOOD.DETAIL.replace("{}", id));
+            const foodData = foodResponse.data.data;
+            setFoodDetail(foodData);
+    
+            // Sau khi lấy được chi tiết món ăn, gọi API để lấy review
+            if (foodData && foodData.id) {
+                const reviewResponse = await api.get(url.REVIEW.LIST.replace("{}", foodData.id));
+                setReviews(reviewResponse.data.data);
+            } else {
+                console.error("Food not found for ID:", id);
+            }
+    
+            // Lấy danh sách món ăn liên quan
             const relatedResponse = await api.get(url.FOOD.LIST);
-            setRelatedFoods(relatedResponse.data.data.filter(food => food.id !== id));
-              
-
+            setRelatedFoods(relatedResponse.data.data.filter(food => food.id !== parseInt(id)));
+    
         } catch (error) {
-            console.error("Error fetching food detail:", error);
+            console.error("Error fetching food detail or reviews:", error);
         }
     }, [id]);
+    
 
 
     useEffect(() => {
@@ -47,7 +53,7 @@ function FoodShopDetail() {
     if (!foodDetail) {
         return <div className="foodshop-detail-loading">Loading...</div>; 
     }
-
+    
 
     // Handle add to cart
     const handleAddToCart = () => {

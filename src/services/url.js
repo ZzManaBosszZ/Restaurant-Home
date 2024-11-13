@@ -6,6 +6,7 @@ const url = {
     // Authentication
     AUTH: {
         LOGIN: "auth/user/signin",
+        SIGNUP: "auth/user/signup",
         CHANGE_PASSWORD: "user/change-password",
         FORGOT_PASSWORD: "auth/user/forgot-password",
         RESET_PASSWORD: "auth/user/reset-password",
@@ -38,6 +39,8 @@ const url = {
     },
 
     MENU_FOOD: {
+        LIST: "any/menu-food",
+        DETAIL: "menu-food/{}",
         CREATE: "menu-food",
     },
     

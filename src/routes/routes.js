@@ -11,6 +11,7 @@ import BlogDetail from "../components/pages/Blog/BlogDetail";
 import FoodShop from "../components/pages/FoodShop/Shop";
 import FoodShopDetail from "../components/pages/FoodShop/FoodShopDetail";
 import Login from "../components/pages/Auth/Login";
+import Register from "../components/pages/Auth/Register";
 import ForgotPassWord from "../components/pages/Auth/ForgotPassWord";
 import ResetPassword from "../components/pages/Auth/ResetPassword";
 import CartTab from "../components/pages/Cart/CartTab";
@@ -64,7 +65,7 @@ const privateRoutes = [
 
 const authenticationRoutes = [
     { path: config.routes.login, component: Login },
-    // { path: config.routes.register, component: Register },
+    { path: config.routes.register, component: Register },
     { path: config.routes.forgot_password, component: ForgotPassWord },
     { path: config.routes.reset_password, component: ResetPassword },
 

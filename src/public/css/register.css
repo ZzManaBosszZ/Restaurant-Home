@@ -1,0 +1,169 @@
+/* General Styles */
+.register-page {
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.register-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 15px;
+}
+
+.register-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
+
+.register-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.register-title {
+    font-size: 24px;
+    color: #007bff;
+    margin: 0;
+}
+
+.register-subtitle {
+    color: #6c757d;
+    margin: 0;
+}
+
+.register-form .form-group {
+    margin-bottom: 15px;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+.input-group .input-group-text {
+    background: #f8f9fa;
+    border: none;
+    padding: 10px;
+    border-radius: 4px 0 0 4px;
+}
+
+.form-control {
+    border: none;
+    border-radius: 0 4px 4px 0;
+    flex: 1;
+}
+
+.form-control.is-invalid {
+    border-color: #dc3545;
+}
+
+.invalid-feedback {
+    display: block;
+    color: #dc3545;
+}
+
+.form-actions {
+    margin-top: 20px;
+}
+
+.checkbox label {
+    margin-left: 5px;
+}
+
+.forgot-password {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004a9d;
+}
+
+.register-footer {
+    margin-top: 20px;
+}
+
+.sign-up-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.sign-up-link:hover {
+    text-decoration: underline;
+}
+
+.social-register {
+    margin-top: 20px;
+}
+
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-social {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    line-height: 40px; /* Center icons vertically */
+}
+
+.btn-facebook {
+    background-color: #3b5998;
+}
+
+.btn-twitter {
+    background-color: #1da1f2;
+}
+
+.btn-instagram {
+    background-color: #e1306c;
+}
+
+/* Center align button */
+.checkout-button {
+    text-align: center;
+}
+
+.register-home {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #826a45;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.register-home:hover {
+    background-color: #6d4f28;
+}
