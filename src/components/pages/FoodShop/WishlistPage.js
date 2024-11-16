@@ -10,193 +10,65 @@ import { toast, ToastContainer } from "react-toastify";
 import { getAccessToken } from "../../../utils/auth";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-function FoodShop() {
+
+function Wishlist() {
   const breadcrumbPath = [
     { href: "/", label: "Home" },
-    { href: "/shop", label: "Shop" }
+    { href: "/wishlist", label: "Wishlist" }
   ];
 
   const [foods, setFoods] = useState([]);
-  const [foodId, setFoodId] = useState("");
-  const [wishlistItems, setWishlistItems] = useState([]);
   const [wishlist, setWishlist] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(8);
   const [sortOption, setSortOption] = useState("default");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const navigate = useNavigate();
 
-  // Load foods and categories
+  // Load wishlist and foods
   useEffect(() => {
-    const loadFoodsAndCategories = async () => {
-      try {
-        const foodResponse = await api.get(url.FOOD.LIST);
-        const categoryResponse = await api.get(url.CATEGORY.LIST);
-        setFoods(foodResponse.data.data);
-        setCategories(categoryResponse.data.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    loadFoodsAndCategories();
-  }, []);
-
-  // Handle add to cart action
-  const [cartQuantity, setCartQuantity] = useState(0);
-
-  const handleCartUpdate = (newCount) => {
-    setCartQuantity(newCount);
-  };
-
-  const handleAddToCart = (food) => {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const existingItem = cart.find((item) => item.id === food.id);
-
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      cart.push({ ...food, quantity: 1 });
-    }
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-
-    toast.success("Item added to cart!", {
-    autoClose: 700, // Thời gian thông báo tự động đóng (5 giây)
-    hideProgressBar: false, // Hiển thị thanh tiến trình
-    closeOnClick: false, // Không đóng thông báo khi click
-  });
-    setTimeout(() => {
-      window.location.reload();
-    }, 800);
-  };
-
-  // Reload wishlist
-  const fetchWishlist = async () => {
-    const token = Cookies.get("access_token");
-    if (token) {
-      try {
-        const response = await fetch("http://localhost:8083/api/v1/wishlist", {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-
-        if (!response.ok) {
-          const errorResponse = await response.json();
-          console.error("Error response:", errorResponse);
-        } else {
-          const data = await response.json();
-          setWishlist(data.map((item) => item.foodId));
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    } else {
-      // toast.error("Token không hợp lệ hoặc không tồn tại");
-    }
-  };
-
-  // useEffect để gọi fetchWishlist khi component mount
-  useEffect(() => {
-    fetchWishlist();
-  }, []);
-
-  // add or remove wishlist
-  const toggleWishlist = async (foodId) => {
-    const token = Cookies.get("access_token");
-
-    if (!token) {
-      toast.error("Please log in to use this feature!");
-      navigate("/login");
-      return;
-    }
-
-    try {
-      const isFoodInWishlist = wishlist.includes(foodId);
-
-      if (isFoodInWishlist) {
-        const wishlistItem = await fetch(
-          `http://localhost:8083/api/v1/wishlist/food/${foodId}`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          }
-        );
-
-        if (wishlistItem.ok) {
-          const item = await wishlistItem.json();
-          const wishlistId = item.data[0]?.id;
-
-          if (wishlistId) {
-            const deleteResponse = await fetch(
-              `http://localhost:8083/api/v1/wishlist/${wishlistId}`,
-              {
-                method: "DELETE",
-                headers: {
-                  Authorization: `Bearer ${token}`
-                }
+    const fetchWishlist = async () => {
+      const token = Cookies.get("access_token");
+      if (token) {
+        try {
+          const response = await fetch(
+            "http://localhost:8083/api/v1/wishlist",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`
               }
-            );
-
-            if (deleteResponse.ok) {
-              setWishlist(wishlist.filter((id) => id !== foodId));
-              toast.error("Removed from wishlist");
-            } else {
-              toast.error("Cannot removed from wislist");
             }
+          );
+
+          if (!response.ok) {
+            toast.error("Không thể tải wishlist");
+          } else {
+            const data = await response.json();
+            setWishlist(data.map((item) => item.foodId));
+            loadFoods(data.map((item) => item.foodId));
           }
+        } catch (error) {
+          toast.error("Lỗi khi tải wishlist");
         }
       } else {
-        // Nếu chưa có trong wishlist, thực hiện thêm vào wishlist
-        const addResponse = await fetch(
-          "http://localhost:8083/api/v1/wishlist",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`
-            },
-            body: JSON.stringify({ foodId })
-          }
-        );
-
-        const addResponseBody = await addResponse.json();
-        console.log("Add Response:", addResponseBody);
-
-        if (addResponse.ok) {
-          setWishlist((prevWishlist) => [...prevWishlist, foodId]);
-          toast.success("Added to wishlist!");
-        } else {
-          toast.error(
-            `Cannot added to wishlist: ${
-              addResponseBody.message || "Unknown error"
-            }`
-          );
-        }
+        toast.error("Token không hợp lệ hoặc không tồn tại");
       }
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+    };
 
-  useEffect(() => {
-    // Update cart quantity when the component mounts
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const totalQuantity = cart.reduce((acc, item) => acc + item.quantity, 0);
-    setCartQuantity(totalQuantity);
+    const loadFoods = async (wishlistFoodIds) => {
+      try {
+        const foodResponse = await api.get(url.FOOD.LIST);
+        const foodsInWishlist = foodResponse.data.data.filter((food) =>
+          wishlistFoodIds.includes(food.id)
+        );
+        setFoods(foodsInWishlist);
+      } catch (error) {
+        toast.error("Không thể tải danh sách món ăn");
+      }
+    };
+
+    fetchWishlist();
   }, []);
-
-  // Handle sort and category filtering
-  const handleSortChange = (e) => {
-    setSortOption(e.target.value);
-  };
-
-  const handleCategoryChange = (e) => {
-    setSelectedCategory(e.target.value);
-  };
 
   const getSortedAndFilteredFoods = () => {
     let filteredFoods = foods;
@@ -242,39 +114,128 @@ function FoodShop() {
     pageNumbers.push(i);
   }
 
+  // Hàm toggleWishlist
+  const toggleWishlist = async (foodId) => {
+    const token = Cookies.get("access_token");
+
+    if (!token) {
+      toast.error("Please log in to use this feature!");
+      navigate("/login");
+      return;
+    }
+
+    try {
+      const isFoodInWishlist = wishlist.includes(foodId);
+
+      if (isFoodInWishlist) {
+        const wishlistItem = await fetch(
+          `http://localhost:8083/api/v1/wishlist/food/${foodId}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        );
+
+        if (wishlistItem.ok) {
+          const item = await wishlistItem.json();
+          const wishlistId = item.data[0]?.id;
+
+          if (wishlistId) {
+            const deleteResponse = await fetch(
+              `http://localhost:8083/api/v1/wishlist/${wishlistId}`,
+              {
+                method: "DELETE",
+                headers: {
+                  Authorization: `Bearer ${token}`
+                }
+              }
+            );
+
+            if (deleteResponse.ok) {
+              setWishlist(wishlist.filter((id) => id !== foodId));
+              toast.error("Removed from wishlist");
+              window.location.reload();
+            } else {
+              toast.error("Cannot be removed from wishlist");
+            }
+          }
+        }
+      } else {
+        const addResponse = await fetch(
+          "http://localhost:8083/api/v1/wishlist",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({ foodId })
+          }
+        );
+
+        const addResponseBody = await addResponse.json();
+
+        if (addResponse.ok) {
+          setWishlist((prevWishlist) => [...prevWishlist, foodId]);
+          toast.success("Added to wishlist!");
+        } else {
+          toast.error(
+            `Cannot add to wishlist: ${
+              addResponseBody.message || "Unknown error"
+            }`
+          );
+        }
+      }
+    } catch (error) {
+      // toast.error("Có lỗi xảy ra khi cập nhật wishlist");
+    }
+  };
+
+  // Handle add to cart action
+  const [cartQuantity, setCartQuantity] = useState(0);
+
+  const handleCartUpdate = (newCount) => {
+    setCartQuantity(newCount);
+  };
+
+  const handleAddToCart = (food) => {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const existingItem = cart.find((item) => item.id === food.id);
+
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cart.push({ ...food, quantity: 1 });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    setTimeout(() => {
+      toast.success("Item added to cart!");
+    }, 2000);
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 2100);
+  };
+  useEffect(() => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const totalQuantity = cart.reduce((acc, item) => acc + item.quantity, 0);
+    setCartQuantity(totalQuantity);
+  }, []);
+
   return (
     <LayoutPages showBreadCrumb={false}>
-      <HeaderPages onCartUpdate={handleCartUpdate} />
-      <BreadCrumb title="Shop" path={breadcrumbPath} />
+      <HeaderPages />
+      <BreadCrumb title="Wishlist" path={breadcrumbPath} />
 
       <div className="validtheme-shop-area default-padding">
         <div className="container">
-          <div className="shop-listing-contentes">
-            <div className="row item-flex center">
-              <div className="col-lg-7">
-                <div className="content"></div>
-              </div>
-
-              <div className="col-lg-5 text-right">
-                <select
-                  name="sort"
-                  id="sort"
-                  value={sortOption}
-                  onChange={handleSortChange}
-                >
-                  <option value="default">Sort by Price</option>
-                  <option value="priceAsc">Low to High</option>
-                  <option value="priceDesc">High to Low</option>
-                </select>
-              </div>
-            </div>
-          </div>
           <div className="row">
             <div className="col-lg-12">
-              <div
-                className="tab-content tab-content-info text-center"
-                id="shop-tabContent"
-              >
+              <div className="tab-content tab-content-info text-center">
                 <div
                   className="tab-pane fade show active"
                   id="grid-tab"
@@ -300,11 +261,6 @@ function FoodShop() {
                                     }
                                   >
                                     <span>Add to wishlist</span>
-                                  </a>
-                                </li>
-                                <li className="quick-view">
-                                  <a href="/wishlist">
-                                    <span>View Wishlists</span>
                                   </a>
                                 </li>
                               </ul>
@@ -336,13 +292,8 @@ function FoodShop() {
                     ))}
                   </ul>
                 </div>
-                <div
-                  className="tab-pane fade"
-                  id="list-tab"
-                  role="tabpanel"
-                  aria-labelledby="list-tab-control"
-                ></div>
               </div>
+
               <nav className="woocommerce-pagination">
                 <ul className="page-numbers">
                   <li>
@@ -390,4 +341,4 @@ function FoodShop() {
   );
 }
 
-export default FoodShop;
+export default Wishlist;

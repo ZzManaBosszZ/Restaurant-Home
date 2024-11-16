@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-function HeaderPages({ onCartUpdate }) { // Thêm onCartUpdate vào tham số
+function HeaderPages({ onCartUpdate }) { 
   const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
@@ -19,12 +19,11 @@ function HeaderPages({ onCartUpdate }) { // Thêm onCartUpdate vào tham số
     };
   }, []);
 
-  // Gọi hàm này khi giỏ hàng được cập nhật
   useEffect(() => {
-    if (onCartUpdate) { // Kiểm tra xem onCartUpdate có được truyền vào không
+    if (onCartUpdate) { 
       onCartUpdate(cartCount);
     }
-  }, [cartCount, onCartUpdate]); // Thêm onCartUpdate vào dependencies
+  }, [cartCount, onCartUpdate]); 
 
   return (
     <header>

@@ -62,6 +62,11 @@ const url = {
         EDIT: "any/ordertables/{}",
     },
 
+    WISHLIST :{
+        LIST : "wishlist",
+    }
+
+    
 
 };
 export default url;

@@ -19,6 +19,7 @@ const routes = {
     //Shop Food
     shop: "/shop",
     foodShopDetail: "/shop-detail/:id",
+    wishlistPage: "/wishlist",
 
     // Cart
     cartTab: "/cart",
