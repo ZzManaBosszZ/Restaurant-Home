@@ -7,7 +7,6 @@ import url from "../../../services/url";
 import { getAccessToken } from "../../../utils/auth";
 import LayoutPages from "../../layouts/LayoutPage";
 import config from "../../../config";
-import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js"; // Import PayPal SDK
 import Payment from "../../Payment/index";
 import "../../../public/css/checkout.css";
 
@@ -44,11 +43,6 @@ function CheckOut() {
     loadProfile();
     loadCartItems();
   }, []);
-
-  const breadcrumbPath = [
-    { href: "/", label: "Home" },
-    { href: "/checkout", label: "Checkout" }
-  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
