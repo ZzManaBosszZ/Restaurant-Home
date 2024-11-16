@@ -62,10 +62,10 @@ function FoodShop() {
     localStorage.setItem("cart", JSON.stringify(cart));
 
     toast.success("Item added to cart!", {
-    autoClose: 700, // Thời gian thông báo tự động đóng (5 giây)
-    hideProgressBar: false, // Hiển thị thanh tiến trình
-    closeOnClick: false, // Không đóng thông báo khi click
-  });
+      autoClose: 700, 
+      hideProgressBar: false, 
+      closeOnClick: false, 
+    });
     setTimeout(() => {
       window.location.reload();
     }, 800);
