@@ -6,9 +6,9 @@ import api from "../../../services/api";
 import url from "../../../services/url";
 import { getAccessToken } from "../../../utils/auth";
 import LayoutPages from "../../layouts/LayoutPage";
-import BreadCrumb from "../../layouts/BreadCrumb";
 import config from "../../../config";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js"; // Import PayPal SDK
+import Payment from "../../Payment/index";
 import "../../../public/css/checkout.css";
 
 function CheckOut() {
@@ -67,7 +67,9 @@ function CheckOut() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (e?.preventDefault) {
+      e.preventDefault(); // Only call preventDefault if e exists
+  }
 
     const selectedCartItems =
       JSON.parse(localStorage.getItem("selectedCartItems")) || [];
@@ -77,8 +79,8 @@ function CheckOut() {
       foodQuantities: selectedCartItems.map((item) => ({
         foodId: item.id,
         quantity: item.quantity
-      }))
-      // paymentMethod: selectedPaymentMethod
+      })),
+      paymentMethod: customerInfo.paymentMethod,
     };
 
     try {
@@ -127,30 +129,8 @@ function CheckOut() {
     }
   };
 
-  // PayPal configuration
-  const paypalOptions = {
-    clientId: config.key.PAYPAL_CLIENT_ID, 
-    currency: "USD"
-  };
-
   const handlePayPalSuccess = async (details) => {
-    try {
-      
-      await api.post(
-        url.ORDER.CREATE,
-        { orderId: details.orderID },
-        {
-          headers: {
-            Authorization: `Bearer ${getAccessToken()}`,
-            "Content-Type": "application/json"
-          }
-        }
-      );
-      toast.success("Payment successful!");
-      navigate(config.routes.order); 
-    } catch (error) {
-      toast.error("There was an error finalizing your order.");
-    }
+    await handleSubmit();
   };
 
   return (
@@ -256,27 +236,13 @@ function CheckOut() {
                 <p>Total: ${totalPrice}</p>
               </div>
               {customerInfo.paymentMethod === "paypal" && (
-                <div className="form-group">
-                  <PayPalScriptProvider options={paypalOptions}>
-                    <PayPalButtons
-                      createOrder={(data, actions) => {
-                        return actions.order.create({
-                          purchase_units: [
-                            {
-                              amount: {
-                                value: totalPrice.toFixed(2)
-                              }
-                            }
-                          ]
-                        });
-                      }}
-                      onApprove={async (data, actions) => {
-                        await actions.order.capture();
-                        handlePayPalSuccess(data);
-                      }}
-                    />
-                  </PayPalScriptProvider>
-                </div>
+                <Payment
+                selectedPaymentMethod={"paypal"}
+                handleEventPayPal={handlePayPalSuccess}
+                // handlePaymentCancel={handlePaymentCancel}
+                onPaymentMethodChange={handlePaymentMethodChange}
+                price={totalPrice}
+              />
               )}
               {customerInfo.paymentMethod !== "paypal" && (
                 <div className="button-container">
