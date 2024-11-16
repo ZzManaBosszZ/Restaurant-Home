@@ -129,48 +129,6 @@ function CheckOut() {
     }
   };
 
-  // PayPal configuration
-  const paypalOptions = {
-    clientId: config.key.PAYPAL_CLIENT_ID, 
-    currency: "USD"
-  };
-
-  // const handlePayPalSuccess = async (details) => {
-  //   // try {
-
-  //   //   const selectedCartItems =
-  //   //   JSON.parse(localStorage.getItem("selectedCartItems")) || [];
-
-  //   // const createOrderPayload = {
-  //   //   discount: customerInfo.discount || 0,
-  //   //   foodQuantities: selectedCartItems.map((item) => ({
-  //   //     foodId: item.id,
-  //   //     quantity: item.quantity
-  //   //   }))
-  //   //   // paymentMethod: selectedPaymentMethod
-  //   // };
-      
-  //   //   await api.post(
-  //   //     url.ORDER.CREATE,
-  //   //     createOrderPayload,
-  //   //     { orderId: details.orderID },
-  //   //     {
-  //   //       headers: {
-  //   //         Authorization: `Bearer ${getAccessToken()}`,
-  //   //         "Content-Type": "application/json"
-  //   //       }
-  //   //     }
-  //   //   );
-
-  //   //   toast.success("Payment successful!");
-  //   //   navigate(config.routes.order); 
-  //   // } catch (error) {
-  //   //   toast.error("There was an error finalizing your order.");
-  //   // }
-
-  //   await handleSubmit();
-  // };
-
   const handlePayPalSuccess = async (details) => {
     await handleSubmit();
   };
