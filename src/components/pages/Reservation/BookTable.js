@@ -33,7 +33,7 @@ function BookTable() {
   useEffect(() => {
     const fetchMenus = async () => {
       try {
-        const response = await api.get("http://localhost:8083/api/v1/menus", {
+        const response = await api.get("http://localhost:8080/api/v1/menus", {
           headers: { Authorization: `Bearer ${getAccessToken()}` },
         });
         if (response.status === 200) {
@@ -88,7 +88,7 @@ function BookTable() {
     };
 
     try {
-      const response = await api.post("http://localhost:8083/api/v1/any/ordertables", orderData, {
+      const response = await api.post("http://localhost:8080/api/v1/any/ordertables", orderData, {
         headers: { Authorization: `Bearer ${getAccessToken()}` },
       });
 

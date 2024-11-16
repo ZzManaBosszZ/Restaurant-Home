@@ -32,7 +32,7 @@ function Wishlist() {
       if (token) {
         try {
           const response = await fetch(
-            "http://localhost:8083/api/v1/wishlist",
+            "http://localhost:8080/api/v1/wishlist",
             {
               headers: {
                 Authorization: `Bearer ${token}`
@@ -129,7 +129,7 @@ function Wishlist() {
 
       if (isFoodInWishlist) {
         const wishlistItem = await fetch(
-          `http://localhost:8083/api/v1/wishlist/food/${foodId}`,
+          `http://localhost:8080/api/v1/wishlist/food/${foodId}`,
           {
             method: "GET",
             headers: {
@@ -144,7 +144,7 @@ function Wishlist() {
 
           if (wishlistId) {
             const deleteResponse = await fetch(
-              `http://localhost:8083/api/v1/wishlist/${wishlistId}`,
+              `http://localhost:8080/api/v1/wishlist/${wishlistId}`,
               {
                 method: "DELETE",
                 headers: {
@@ -164,7 +164,7 @@ function Wishlist() {
         }
       } else {
         const addResponse = await fetch(
-          "http://localhost:8083/api/v1/wishlist",
+          "http://localhost:8080/api/v1/wishlist",
           {
             method: "POST",
             headers: {
