@@ -114,13 +114,13 @@ function Footer() {
             </div>
             <div className="footer-bottom text-light">
                 <div className="footer-bottom-shape">
-                    <img src="assets/img/shape/9.png" alt="Image Not Found" />
+                    <img src="/assets/img/shape/9.png" alt="Image Not Found" />
                 </div>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-6">
                             <div className="footer-logo">
-                                <img src="assets/img/logo-light.png" alt="Logo" />
+                                <img src="/assets/img/logo-light.png" alt="Logo" />
                             </div>
                         </div>
                         <div className="col-lg-6 text-end">
