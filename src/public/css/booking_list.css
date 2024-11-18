@@ -1,0 +1,65 @@
+/* Styles for the booking list container */
+#booking-list-container {
+    padding: 40px; /* Khoảng cách bên trong */
+    background-color: #f7f9fc; /* Màu nền nhẹ nhàng */
+    border-radius: 10px; /* Bo góc */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+    margin: 30px auto; /* Căn giữa */
+    max-width: 900px; /* Độ rộng tối đa */
+}
+
+/* Styles for the booking list title */
+#booking-list-title {
+    font-size: 30px; /* Kích thước chữ lớn */
+    font-weight: bold; /* Chữ đậm */
+    margin-bottom: 25px; /* Khoảng cách dưới tiêu đề */
+    color: #2c3e50; /* Màu chữ tối cho tiêu đề */
+    text-align: center; /* Căn giữa */
+}
+
+/* Styles for the list of bookings */
+#booking-list-items {
+    list-style-type: none; /* Bỏ dấu chấm */
+    padding: 0; /* Bỏ khoảng cách */
+}
+
+/* Styles for each booking item */
+#booking-list-item {
+    background-color: #ffffff; /* Màu nền trắng */
+    border: 1px solid #dcdcdc; /* Đường viền màu xám nhạt */
+    border-radius: 8px; /* Bo góc */
+    padding: 15px 25px; /* Khoảng cách bên trong */
+    margin-bottom: 20px; /* Khoảng cách giữa các mục */
+    transition: box-shadow 0.3s ease, transform 0.3s ease; /* Hiệu ứng khi hover */
+}
+
+/* Hover effect for booking items */
+#booking-list-item:hover {
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15); /* Đổ bóng khi hover */
+    transform: translateY(-2px); /* Hiệu ứng nhấc lên khi hover */
+}
+
+/* Styles for booking ID, date, and status */
+#booking-list-item-id,
+#booking-list-item-date,
+#booking-list-item-status {
+    margin: 10px 0; /* Khoảng cách trên/dưới */
+    font-size: 18px; /* Kích thước chữ */
+    color: #34495e; /* Màu chữ tối */
+}
+
+/* Highlighting span elements for better visibility */
+#booking-list-item-id span,
+#booking-list-item-date span,
+#booking-list-item-status span {
+    font-weight: bold; /* Chữ đậm cho ID và ngày */
+    color: #2980b9; /* Màu chữ xanh cho ID và ngày */
+}
+
+/* Styles for no bookings message */
+#no-bookings {
+    text-align: center; /* Căn giữa */
+    font-size: 20px; /* Kích thước chữ */
+    color: #7f8c8d; /* Màu chữ xám nhạt cho thông báo không có đặt bàn */
+    margin-top: 30px; /* Khoảng cách trên */
+}

@@ -110,7 +110,7 @@ function CheckOut() {
         localStorage.removeItem("selectedCartItems");
 
         setTimeout(() => {
-          navigate(config.routes.order); // Navigate to order history page
+          navigate(config.routes.order); 
         }, 3000);
       } else {
         const errorText = await orderResponse.text();
@@ -129,13 +129,13 @@ function CheckOut() {
 
   // PayPal configuration
   const paypalOptions = {
-    clientId: config.key.PAYPAL_CLIENT_ID, // Replace with your PayPal client ID
+    clientId: config.key.PAYPAL_CLIENT_ID, 
     currency: "USD"
   };
 
   const handlePayPalSuccess = async (details) => {
     try {
-      // Call your backend to finalize the order after payment
+      
       await api.post(
         url.ORDER.CREATE,
         { orderId: details.orderID },
@@ -147,7 +147,7 @@ function CheckOut() {
         }
       );
       toast.success("Payment successful!");
-      navigate(config.routes.order); // Navigate to order history page
+      navigate(config.routes.order); 
     } catch (error) {
       toast.error("There was an error finalizing your order.");
     }
@@ -203,7 +203,7 @@ function CheckOut() {
                   <option value="card">Credit/Debit Card</option>
                   <option value="bank">Bank Transfer</option>
                   <option value="paypal">PayPal</option>{" "}
-                  {/* Added PayPal option */}
+                 
                 </select>
               </div>
               {customerInfo.paymentMethod === "card" ||

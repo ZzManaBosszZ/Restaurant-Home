@@ -52,3 +52,11 @@ export const isLoggedIn = () => {
     }
     return false;
 };
+
+export const getUserId = () => {
+    const decodedToken = getDecodedToken();
+    if (decodedToken && decodedToken.id) { 
+        return decodedToken.id;
+    }
+    return null;
+};

@@ -1,9 +1,11 @@
 import LayoutPages from "../../layouts/LayoutPage";
+import HeaderPages from "../../layouts/HeaderPages";
 import { useState, useEffect } from "react";
 import api from "../../../services/api";
 import url from "../../../services/url";
 import { Link } from 'react-router-dom';
 import BreadCrumb from "../../layouts/BreadCrumb";
+import { toast, ToastContainer } from "react-toastify";
 
 function FoodShop() {
   const breadcrumbPath = [
@@ -33,41 +35,69 @@ function FoodShop() {
     loadFoodsAndCategories();
   }, []);
 
-  // Handle add to cart
+  // const handleAddToCart = (food) => {
+  //   console.log('Adding to cart:', food); 
+  //   let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  //   const existingItem = cart.find(item => item.id === food.id);
+  //   if (existingItem) {
+  //     existingItem.quantity += 1;
+  //   } else {
+  //     cart.push({ ...food, quantity: 1 });
+  //   }
+  //   localStorage.setItem('cart', JSON.stringify(cart));
+  //   alert("Item added to cart!");
+  // };
+
+  const [cartQuantity, setCartQuantity] = useState(0); // State for cart quantity
+
+  const handleCartUpdate = (newCount) => {
+    setCartQuantity(newCount);
+  };
+
   const handleAddToCart = (food) => {
-    console.log('Adding to cart:', food); // Kiểm tra xem có gọi hàm không
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     const existingItem = cart.find(item => item.id === food.id);
+
     if (existingItem) {
-      existingItem.quantity += 1;
+        existingItem.quantity += 1;
     } else {
-      cart.push({ ...food, quantity: 1 });
+        cart.push({ ...food, quantity: 1 });
     }
+
     localStorage.setItem('cart', JSON.stringify(cart));
-    alert("Item added to cart!");
-  };
+
+    // Show toast notification
+    toast.success("Item added to cart!");
+
+    window.location.reload();  // Gọi hàm để cập nhật số lượng giỏ hàng
+};
+
+
+
+  useEffect(() => {
+    // Update cart quantity when the component mounts
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const totalQuantity = cart.reduce((acc, item) => acc + item.quantity, 0);
+    setCartQuantity(totalQuantity);
+  }, []);
+
   
 
-  // Handle sorting
   const handleSortChange = (e) => {
     setSortOption(e.target.value);
   };
 
-  // Handle category change
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
   };
 
-  // Calculate paginated and sorted foods
   const getSortedAndFilteredFoods = () => {
     let filteredFoods = foods;
 
-    // Filter by category
     if (selectedCategory !== "all") {
       filteredFoods = filteredFoods.filter(food => food.category === selectedCategory);
     }
 
-    // Sort by option
     switch (sortOption) {
       case "priceAsc":
         filteredFoods.sort((a, b) => a.price - b.price);
@@ -87,12 +117,10 @@ function FoodShop() {
   const indexOfFirstFood = indexOfLastFood - itemsPerPage;
   const currentFoods = sortedAndFilteredFoods.slice(indexOfFirstFood, indexOfLastFood);
 
-  // Change page
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  // Pagination numbers
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(sortedAndFilteredFoods.length / itemsPerPage); i++) {
     pageNumbers.push(i);
@@ -100,6 +128,7 @@ function FoodShop() {
 
   return (
     <LayoutPages showBreadCrumb={false}>
+       <HeaderPages onCartUpdate={handleCartUpdate}/>
       <BreadCrumb title="Shop" path={breadcrumbPath} />
 
       <div className="validtheme-shop-area default-padding">
@@ -109,7 +138,7 @@ function FoodShop() {
               <div className="col-lg-7">
                 <div className="content">
                   <nav>
-                    <div className="nav nav-tabs" id="nav-tab" role="tablist">
+                    {/* <div className="nav nav-tabs" id="nav-tab" role="tablist">
                       <button
                         className="nav-link active"
                         id="grid-tab-control"
@@ -135,7 +164,7 @@ function FoodShop() {
                       >
                         <i className="fas fa-th-list"></i>
                       </button>
-                    </div>
+                    </div> */}
                   </nav>
                 </div>
               </div>
@@ -147,12 +176,12 @@ function FoodShop() {
                   <option value="priceDesc">High to Low</option>
                 </select>
 
-                <select name="category" id="category" value={selectedCategory} onChange={handleCategoryChange}>
+                {/* <select name="category" id="category" value={selectedCategory} onChange={handleCategoryChange}>
                   <option value="all">All Categories</option>
                   {categories.map(category => (
                     <option key={category.id} value={category.name}>{category.name}</option>
                   ))}
-                </select>
+                </select> */}
               </div>
             </div>
           </div>
