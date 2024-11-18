@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import moment from "moment"; 
+import moment from "moment";
 import url from "../../../services/url";
 import api from "../../../services/api";
 import { getAccessToken } from "../../../utils/auth";
@@ -11,7 +11,6 @@ import BreadCrumb from "../../layouts/BreadCrumb";
 import "../../../public/css/bookTable.css";
 
 function BookTable() {
-  const token = getAccessToken();
   const [bookingInfo, setBookingInfo] = useState({
     full_name: "", // Cập nhật tên thành fullName
     phone: "",
@@ -21,6 +20,7 @@ function BookTable() {
     numberOfPerson: "",
     menuId: [],
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [menus, setMenus] = useState([]);
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ function BookTable() {
           headers: { Authorization: `Bearer ${getAccessToken()}` },
         });
         if (response.status === 200) {
-          setMenus(response.data.data); 
+          setMenus(response.data.data);
         }
       } catch (error) {
         console.error("Error fetching menus:", error);
@@ -53,7 +53,7 @@ function BookTable() {
         // Cập nhật thông tin người dùng vào bookingInfo
         setBookingInfo((prevInfo) => ({
           ...prevInfo,
-          full_name: customerInfo.full_name || '', 
+          full_name: customerInfo.full_name || '',
           phone: customerInfo.phone || '',
           email: customerInfo.email || '',
         }));
@@ -63,7 +63,7 @@ function BookTable() {
     };
 
     fetchMenus();
-    loadProfile(); 
+    loadProfile();
 
   }, [navigate]);
 
@@ -75,10 +75,14 @@ function BookTable() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (isSubmitting) return; // Nếu đang submit, không làm gì cả
+
+    setIsSubmitting(true);
+
     const formattedTime = moment(bookingInfo.time, "HH:mm").format("HH:mm:ss");
 
     const orderData = {
-      name: bookingInfo.full_name, 
+      name: bookingInfo.full_name,
       numberOfPerson: bookingInfo.numberOfPerson,
       phone: bookingInfo.phone,
       email: bookingInfo.email,
@@ -104,16 +108,16 @@ function BookTable() {
           time: formattedTime,
           date: bookingInfo.date,
           menuId: bookingInfo.menuId,
-      };
+        };
 
-      // Lưu vào local storage
-      const existingBookings = JSON.parse(localStorage.getItem("bookings")) || [];
-      existingBookings.push(booking);
-      localStorage.setItem("bookings", JSON.stringify(existingBookings));
-      
+        // Lưu vào local storage
+        const existingBookings = JSON.parse(localStorage.getItem("bookings")) || [];
+        existingBookings.push(booking);
+        localStorage.setItem("bookings", JSON.stringify(existingBookings));
+
         setTimeout(() => {
-          navigate(`/booking_confirm/${response.data.data.id}`); 
-        }, 2000); 
+          navigate(`/booking_confirm/${response.data.data.id}`);
+        }, 2000);
       } else {
         toast.error("There was an error booking your table. Please try again.");
       }
@@ -168,8 +172,8 @@ function BookTable() {
               </div>
 
               <div className="booking-page-button-container">
-                <button type="submit" className="booking-page-submit-button">
-                  Book Table
+                <button type="submit" className="booking-page-submit-button" disabled={isSubmitting}>
+                  {isSubmitting ? "Booking..." : "Book Table"}
                 </button>
               </div>
             </form>

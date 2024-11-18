@@ -20,6 +20,7 @@ import BookTable from "../components/pages/Reservation/BookTable";
 import BookingConfirm from "../components/pages/Reservation/BookingConfirm ";
 import BookingList from "../components/pages/Reservation/BookingList";
 import WishlistPage from "../components/pages/FoodShop/WishlistPage";
+import Register from "../components/pages/Auth/Register";
 
 const publicRoutes = [
     { path: config.routes.login, component: Login },
@@ -66,7 +67,7 @@ const privateRoutes = [
 
 const authenticationRoutes = [
     { path: config.routes.login, component: Login },
-    // { path: config.routes.register, component: Register },
+    { path: config.routes.register, component: Register },
     { path: config.routes.forgot_password, component: ForgotPassWord },
     { path: config.routes.reset_password, component: ResetPassword },
 

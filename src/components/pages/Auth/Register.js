@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from 'axios';
 import { setAccessToken } from "../../../utils/auth";
 import config from "../../../config/index";
-import '../../../public/css/register.css';
+// import '../../../public/css/register.css';
 import api from "../../../services/api";
 import url from "../../../services/url";
+
 function Register() {
     const [formData, setFormData] = useState({
         fullname: '',
