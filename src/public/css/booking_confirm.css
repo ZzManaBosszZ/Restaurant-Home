@@ -1,96 +1,95 @@
+/* Toàn bộ trang */
+.order-confirm-container {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
 
-  .booking-confirm-container h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-  }
+/* Tiêu đề trang */
+.order-confirm-container h1 {
+  font-size: 2rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-  .booking-confirm-container {
-    background-color: #ffffff; /* White background */
-    border-radius: 8px; /* Rounded corners */
-    padding: 40px; /* Inner spacing */
-    margin: 60px auto; /* Centering */
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); /* Shadow for depth */
-    max-width: 800px; /* Limit width */
-  }
-  
-  .booking-confirm-title {
-    text-align: center; /* Center the title */
-    margin-bottom: 20px; /* Spacing below the title */
-    color: #333; /* Dark text color */
-  }
-  
-  .booking-confirm-details table {
-    width: 100%; /* Full width */
-    border-collapse: collapse; /* Collapse borders */
-  }
-  
-  .booking-confirm-details td {
-    padding: 10px; /* Inner spacing for cells */
-    border: 1px solid #ddd; /* Light gray border for cells */
-    font-size: 16px; /* Font size */
-    color: rgb(31, 31, 31);
-  }
-  .booking-confirm-details td strong{
-    color: #826a45;
-  }
-  
-  .booking-confirm-details td:first-child {
-    background-color: #f8f9fa; /* Light gray for label cells */
-    font-weight: bold; /* Bold for labels */
-  }
-  
-  .booking-confirm-details td:last-child {
-    background-color: #fff; /* White for value cells */
-  }
-  
-  
-  .booking-confirm-note {
-    background-color: #e8f5e9;
-    border-left: 6px solid #4caf50;
-    border-radius: 4px;
-    padding: 20px;
-    margin-top: 20px;
-  }
-  
-  .booking-confirm-note h3 {
-    color: #4caf50;
-    margin-top: 0;
-  }
-  
-  .booking-confirm-note p {
-    margin: 0 0 10px;
-    color: #333;
-    line-height: 1.5;
-  }
-  
-  .note-highlight {
-    background-color: #fce4ec;
-    border: 1px dashed #f50057;
-    padding: 10px;
-    border-radius: 4px;
-    margin: 20px 0;
-    color: #d81b60;
-    font-weight: bold;
-    text-align: center;
-  }
- 
-  .button-confirm-page {
-    margin-top: 40px;
-    padding: 10px 20px; /* Inner spacing */
-    font-size: 16px; /* Font size */
-    color: #ffffff; /* White text color */
-    border: none; /* No border */
-    border-radius: 7px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-  }
-  .button_confirm-container {
-    display: flex; /* Use flexbox for centering */
-    justify-content: center; /* Center horizontally */
-  }
-  .button-confirm-page i {
-    size: 30px;
-  }
-  
- 
-  
+/* Phần thông tin đơn hàng */
+.order-info,
+.order-status,
+.user-info,
+.food-info {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Tiêu đề phần */
+h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Nội dung thông tin đơn hàng */
+.order-info p,
+.order-status p,
+.user-info p,
+.food-info p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+/* Phần thông tin món ăn */
+.food-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.food-item img {
+  border-radius: 8px;
+  margin-right: 20px;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+.food-item-details {
+  flex: 1;
+}
+
+.food-item-details h5 {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.food-item-details p {
+  margin: 0;
+  color: #777;
+}
+
+/* Nút thanh toán */
+.pay-button {
+  background-color: #28a745;
+  color: #fff;
+  padding: 12px 20px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+  max-width: 200px;
+  margin: 20px auto;
+  display: block;
+}
+
+.pay-button:hover {
+  background-color: #218838;
+}

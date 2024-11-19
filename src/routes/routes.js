@@ -20,6 +20,8 @@ import BookTable from "../components/pages/Reservation/BookTable";
 import BookingConfirm from "../components/pages/Reservation/BookingConfirm ";
 import BookingList from "../components/pages/Reservation/BookingList";
 import WishlistPage from "../components/pages/FoodShop/WishlistPage";
+import OrderConfirm from "../components/pages/Cart/OrderConfirm";
+import OrderList from "../components/pages/Cart/OrderList";
 
 const publicRoutes = [
     { path: config.routes.login, component: Login },
@@ -56,6 +58,8 @@ const privateRoutes = [
     { path: config.routes.cartTab, component: CartTab },
     { path: config.routes.checkOut, component: CheckOut },
     { path: config.routes.order, component: Order },
+    { path: config.routes.orderConfirm, component: OrderConfirm},
+    { path: config.routes.orderList, component: OrderList},
     // 
     { path: config.routes.bookTable, component: BookTable},
     { path: config.routes.bookingConfirm, component: BookingConfirm},

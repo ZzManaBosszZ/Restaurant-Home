@@ -62,21 +62,34 @@ function CheckOut() {
 
   const handleSubmit = async (e) => {
     if (e?.preventDefault) {
-      e.preventDefault(); // Only call preventDefault if e exists
-  }
-
+      e.preventDefault(); // Chặn làm mới trang
+    }
+  
     const selectedCartItems =
       JSON.parse(localStorage.getItem("selectedCartItems")) || [];
-
-    const createOrderPayload = {
-      discount: customerInfo.discount || 0,
-      foodQuantities: selectedCartItems.map((item) => ({
-        foodId: item.id,
-        quantity: item.quantity
-      })),
-      paymentMethod: customerInfo.paymentMethod,
-    };
-
+  
+      const createOrderPayload = {
+        discount: customerInfo.discount || 0, // Giảm giá, nếu có
+        foodQuantities: selectedCartItems.map((item) => ({
+          foodId: item.id, // ID món ăn
+          quantity: item.quantity, // Số lượng món ăn
+        })),
+        paymentMethod: customerInfo.paymentMethod, // Phương thức thanh toán
+        phone: customerInfo.phone, // Số điện thoại từ form
+        address: customerInfo.address, // Địa chỉ từ form
+        orderDetails: selectedCartItems.map((item) => ({
+          foodId: item.id, // Liên kết món ăn
+          discount: customerInfo.discount || 0, // Giảm giá trên từng món (nếu cần)
+          foodOrderDetails: [
+            {
+              quantity: item.quantity, // Số lượng món ăn
+              unitPrice: item.unitPrice, // Giá từng món ăn
+            },
+          ],
+        })),
+      };
+      
+  
     try {
       const orderResponse = await api.post(
         url.ORDER.CREATE,
@@ -88,11 +101,12 @@ function CheckOut() {
           }
         }
       );
-
+  
       if (orderResponse.status === 201) {
+        const orderId = orderResponse.data.data.id;
+  
         toast.success("Your order has been created successfully!");
-
-        // Remove selected items from local storage cart
+  
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
         cart = cart.filter(
           (item) =>
@@ -101,13 +115,12 @@ function CheckOut() {
             )
         );
         localStorage.setItem("cart", JSON.stringify(cart));
-
-        // Clear selected items from local storage
+  
         localStorage.removeItem("selectedCartItems");
-
+  
         setTimeout(() => {
-          navigate(config.routes.order); 
-        }, 3000);
+          navigate(`/order_confirm/${orderId}`); 
+        }, 1000);
       } else {
         const errorText = await orderResponse.text();
         console.error("Error creating order:", errorText);
@@ -122,6 +135,7 @@ function CheckOut() {
       );
     }
   };
+  
 
   const handlePayPalSuccess = async (details) => {
     await handleSubmit();
@@ -233,7 +247,6 @@ function CheckOut() {
                 <Payment
                 selectedPaymentMethod={"paypal"}
                 handleEventPayPal={handlePayPalSuccess}
-                // handlePaymentCancel={handlePaymentCancel}
                 onPaymentMethodChange={handlePaymentMethodChange}
                 price={totalPrice}
               />

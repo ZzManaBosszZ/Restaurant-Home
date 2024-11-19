@@ -25,6 +25,9 @@ const routes = {
     cartTab: "/cart",
     checkOut:"/check_out",
     order:"/order",
+    orderConfirm: "/order_confirm/:id",
+    orderList: "/orderList",
+
 
     // Reservation
     bookTable: "/book_table",

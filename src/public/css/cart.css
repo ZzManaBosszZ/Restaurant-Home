@@ -90,6 +90,7 @@
 }
 
 .cart-tab-total button {
+  margin-right: 30px;
   background-color: #826a45;
   color: #fff;
   border: none;
