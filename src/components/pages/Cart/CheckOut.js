@@ -68,27 +68,16 @@ function CheckOut() {
     const selectedCartItems =
       JSON.parse(localStorage.getItem("selectedCartItems")) || [];
   
-      const createOrderPayload = {
-        discount: customerInfo.discount || 0, // Giảm giá, nếu có
-        foodQuantities: selectedCartItems.map((item) => ({
-          foodId: item.id, // ID món ăn
-          quantity: item.quantity, // Số lượng món ăn
-        })),
-        paymentMethod: customerInfo.paymentMethod, // Phương thức thanh toán
-        phone: customerInfo.phone, // Số điện thoại từ form
-        address: customerInfo.address, // Địa chỉ từ form
-        orderDetails: selectedCartItems.map((item) => ({
-          foodId: item.id, // Liên kết món ăn
-          discount: customerInfo.discount || 0, // Giảm giá trên từng món (nếu cần)
-          foodOrderDetails: [
-            {
-              quantity: item.quantity, // Số lượng món ăn
-              unitPrice: item.unitPrice, // Giá từng món ăn
-            },
-          ],
-        })),
-      };
-      
+    const createOrderPayload = {
+      discount: customerInfo.discount || 0,
+      foodQuantities: selectedCartItems.map((item) => ({
+        foodId: item.id,
+        quantity: item.quantity
+      })),
+      paymentMethod: customerInfo.paymentMethod,
+      phone: customerInfo.phone, 
+      address: customerInfo.address, 
+    };
   
     try {
       const orderResponse = await api.post(
