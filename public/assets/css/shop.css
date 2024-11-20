@@ -234,8 +234,15 @@ span.onsale.theme {
 }
 
 .shop-action li.wishlist a::after {
-    content: "\f004";
-}
+    content: "\f004";  
+    
+  }
+  
+  .shop-action li.wishlist a.active::after {
+    color: #FF5733;  
+    font-weight: 900;
+    
+  }
 
 .shop-action li.cart a::after {
     content: "\f07a";

@@ -19,11 +19,15 @@ const routes = {
     //Shop Food
     shop: "/shop",
     foodShopDetail: "/shop-detail/:id",
+    wishlistPage: "/wishlist",
 
     // Cart
     cartTab: "/cart",
     checkOut:"/check_out",
     order:"/order",
+    orderConfirm: "/order_confirm/:id",
+    orderList: "/orderList",
+
 
     // Reservation
     bookTable: "/book_table",

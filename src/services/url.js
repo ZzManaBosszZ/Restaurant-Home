@@ -48,9 +48,12 @@ const url = {
 
     MENU_FOOD: {
         LIST: "any/menu-food",
+<<<<<<< HEAD
         DETAIL: "menu-food/{}",
         CREATE: "menu-food",
         DETAIL: "menu-food/{}",
+=======
+>>>>>>> main
     },
 
     ORDER: {
@@ -65,6 +68,11 @@ const url = {
         EDIT: "any/ordertables/{}",
     },
 
+    WISHLIST :{
+        LIST : "wishlist",
+    }
+
+    
 
 };
 export default url;

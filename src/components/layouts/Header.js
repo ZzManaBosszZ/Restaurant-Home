@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import config from "../../config/index";
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
 import { isLoggedIn, getDecodedToken, removeAccessToken } from "../../utils/auth";
 
@@ -26,12 +27,61 @@ function Header() {
                         </a>
                     </div>
                     <div className="collapse navbar-collapse" id="navbar-menu">
+=======
+import { isLoggedIn, getDecodedToken, removeAccessToken } from "../../utils/auth";
+
+function Header() {
+  const loggedIn = isLoggedIn();
+  const decodedToken = getDecodedToken();
+
+  const handleLogout = () => {
+    removeAccessToken();
+    window.location.reload();
+  };
+  return (
+    <header>
+      <nav className="navbar mobile-sidenav brand-center-style-two dark-layout brand-center navbar-default validnavs">
+        <div className="container">
+          <div className="navbar-header">
+            <button
+              type="button"
+              className="navbar-toggle"
+              data-toggle="collapse"
+              data-target="#navbar-menu"
+            >
+              <i className="fa fa-bars"></i>
+            </button>
+            <a className="navbar-brand" href="index.html">
+              <img
+                src="assets/img/logo-light.png"
+                className="logo logo-display"
+                alt="Logo"
+              />
+              <img
+                src="assets/img/logo-light.png"
+                className="logo logo-scrolled"
+                alt="Logo"
+              />
+            </a>
+          </div>
+          <div className="collapse navbar-collapse" id="navbar-menu">
+            <img src="assets/img/logo-light.png" alt="Logo" />
+            <button
+              type="button"
+              className="navbar-toggle"
+              data-toggle="collapse"
+              data-target="#navbar-menu"
+            >
+              <i className="fa fa-times"></i>
+            </button>
+>>>>>>> main
 
                         <img src="assets/img/logo-light.png" alt="Logo" />
                         <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
                             <i className="fa fa-times"></i>
                         </button>
 
+<<<<<<< HEAD
                         <ul className="nav navbar-nav navbar-center" data-in="fadeInDown" data-out="fadeOutUp">
                             <li className="dropdown megamenu-fw">
                                 <a href="#" className="dropdown-toggle" data-toggle="dropdown">Home</a>
@@ -244,5 +294,47 @@ function Header() {
             </nav>
         </header>
     );
+=======
+              <li className="dropdown megamenu-fw">
+                <a href="/menu" className="dropdown-toggle" data-toggle="dropdown">
+                  Menu
+                </a>
+              </li>
+              <li className="dropdown">
+                <a href="/blog" className="dropdown-toggle" data-toggle="dropdown">
+                  Blog
+                </a>
+              </li>
+              <li className="dropdown">
+                <a href="/shop" className="dropdown-toggle" data-toggle="dropdown">
+                  Shop
+                </a>
+              </li>
+              <li>
+                <a href="/contact">Contact Us</a>
+              </li>
+              <ul className="nav navbar-nav navbar-center" data-in="fadeInDown" data-out="fadeOutUp">
+                {loggedIn ? (
+                  <li>
+                    <a href="#" onClick={handleLogout}>
+                      <i className="fa-solid fa-sign-out-alt"></i>
+                    </a>
+                  </li>
+                ) : (
+                  <li>
+                    <NavLink to="/login">
+                      <i class="fa-solid fa-hands"></i>
+                    </NavLink>
+                  </li>
+                )}
+              </ul>
+            </ul>
+          </div>
+          <div className="overlay-screen"></div>
+        </div>
+      </nav>
+    </header>
+  );
+>>>>>>> main
 }
 export default Header;
