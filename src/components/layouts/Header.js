@@ -1,14 +1,16 @@
 import { Link, NavLink } from "react-router-dom";
 import config from "../../config/index";
+import { useNavigate } from "react-router-dom";
 import { isLoggedIn, getDecodedToken, removeAccessToken } from "../../utils/auth";
 
 function Header() {
     const loggedIn = isLoggedIn();
     const decodedToken = getDecodedToken();
+    const navigate = useNavigate();
 
     const handleLogout = () => {
         removeAccessToken();
-        window.location.reload(); 
+        navigate("/login");
     };
     return (
         <header>
