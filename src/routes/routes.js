@@ -23,6 +23,9 @@ import BookingList from "../components/pages/Reservation/BookingList";
 import WishlistPage from "../components/pages/FoodShop/WishlistPage";
 import OrderConfirm from "../components/pages/Cart/OrderConfirm";
 import OrderList from "../components/pages/Cart/OrderList";
+import OrderHistory from "../components/pages/OrderHistory";
+import Profile from "../components/pages/Profile";
+
 
 const publicRoutes = [
     { path: config.routes.login, component: Login },
@@ -32,6 +35,7 @@ const publicRoutes = [
     //About Us and Contact Us
     { path: config.routes.aboutus, component: AboutUs },
     { path: config.routes.contactus, component: ContactUs },
+  
     
     //Menu
     { path: config.routes.menu, component: Menu },
@@ -46,8 +50,8 @@ const publicRoutes = [
     { path: config.routes.foodShopDetail, component: FoodShopDetail },
     { path: config.routes.wishlistPage, component: WishlistPage},
     
-
-
+    //Profile
+   
 
     //404
     { path: config.routes.error, component: NotFound },
@@ -61,7 +65,10 @@ const privateRoutes = [
     { path: config.routes.order, component: Order },
     { path: config.routes.orderConfirm, component: OrderConfirm},
     { path: config.routes.orderList, component: OrderList},
-    // 
+    { path: config.routes.orderHistory, component: OrderHistory }, 
+    { path: config.routes.profile, component: Profile },
+    // Wishlist
+    { path: config.routes.wishlistPage, component: WishlistPage },
     { path: config.routes.bookTable, component: BookTable},
     { path: config.routes.bookingConfirm, component: BookingConfirm},
     { path: config.routes.bookingList, component: BookingList},

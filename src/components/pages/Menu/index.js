@@ -1,27 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import LayoutPages from '../../layouts/LayoutPage';
 import api from '../../../services/api';
-<<<<<<< HEAD
-=======
 import { getAccessToken } from '../../../utils/auth';
->>>>>>> main
 import url from '../../../services/url';
 
 function Menu() {
     const [menuFoods, setMenuFoods] = useState([]);
     const [error, setError] = useState(null);
-    const [backgroundImage, setBackgroundImage] = useState('assets/img/banner/3.jpg'); // Ảnh nền mặc định
+    const [backgroundImage, setBackgroundImage] = useState('assets/img/banner/3.jpg'); 
 
     useEffect(() => {
         const loadMenuFoods = async () => {
             try {
-<<<<<<< HEAD
-                const response = await api.get(url.MENU_FOOD.LIST);
-=======
                 const response = await api.get(url.MENU_FOOD.LIST, 
                     // {headers: { Authorization: `Bearer ${getAccessToken()}` }}
                 );
->>>>>>> main
                 setMenuFoods(response.data.data); // Lưu dữ liệu vào state
             } catch (error) {
                 console.error("Error loading menu foods:", error);
@@ -74,11 +67,7 @@ function Menu() {
                     <div className="food-menu-items text-light">
                         <div className="row">
                             <div className="col-lg-12 text-center">
-<<<<<<< HEAD
-                                <div className="nav nav-tabs food-menu-nav" id="nav-tab" role="tablist">
-=======
                                 <div className="nav nav-tabs food-menu-nav style-three" id="nav-tab" role="tablist">
->>>>>>> main
                                     {menuIds.map((menuId, index) => (
                                         <button
                                             key={menuId}

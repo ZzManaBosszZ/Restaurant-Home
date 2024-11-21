@@ -48,12 +48,6 @@ const url = {
 
     MENU_FOOD: {
         LIST: "any/menu-food",
-<<<<<<< HEAD
-        DETAIL: "menu-food/{}",
-        CREATE: "menu-food",
-        DETAIL: "menu-food/{}",
-=======
->>>>>>> main
     },
 
     ORDER: {
@@ -70,8 +64,16 @@ const url = {
 
     WISHLIST :{
         LIST : "wishlist",
-    }
+    },
 
+
+    USER: {
+    PROFILE: "profile",
+    EDIT: "profile",
+},
+       
+     
+      
     
 
 };

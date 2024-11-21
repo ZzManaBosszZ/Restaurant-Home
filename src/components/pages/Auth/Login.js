@@ -99,149 +99,6 @@ function Login() {
     }
   };
 
-<<<<<<< HEAD
-        if (!formData.password) {
-            newErrors.password = "Please enter your password.";
-            valid = false;
-        } else if (formData.password.length < 6) {
-            newErrors.password = "Password must be at least 6 characters.";
-            valid = false;
-        } else if (formData.password.length > 50) {
-            newErrors.password = "Password must be less than 50 characters.";
-            valid = false;
-        }
-
-        setFormErrors(newErrors);
-        return valid;
-    };
-
-    const handleLogin = async (e) => {
-        e.preventDefault();
-
-        if (validateForm()) {
-            try {
-                const loginRequest = await api.post(url.AUTH.LOGIN, formData);
-
-                if (loginRequest.status === 200) {
-                    const token = loginRequest.data.token;
-                    setAccessToken(token);
-
-                    const decodeToken = getDecodedToken();
-                    let accountRole = decodeToken.Role[0].authority;
-
-                    let redirectUrl = "";
-                    if (accountRole === "ADMIN" || accountRole === "USER") {
-                        redirectUrl = "/";
-                    } else {
-                        removeAccessToken();
-                        setFormErrors({
-                            email: "Invalid email or password.",
-                            password: "Invalid email or password.",
-                        });
-                    }
-
-                    navigate(redirectUrl);
-                } else {
-                    setFormErrors({
-                        email: "Invalid email or password.",
-                        password: "Invalid email or password.",
-                    });
-                }
-            } catch (error) {
-                setFormErrors({
-                    email: "Invalid email or password.",
-                    password: "Invalid email or password.",
-                });
-            }
-        }
-    };
-
-    return (
-        <div className="login-page">
-            <div className="login-container">
-                <div className="login-card">
-                    <div className="back-to-home">
-                        <Link to="/" className="back-home-link">
-                            <i className="fa-solid fa-arrow-left"></i> 
-                        </Link>
-                    </div>
-
-                    <div className="login-header">
-                        <h2 className="login-title">Let's Get Started</h2>
-                        <p className="login-subtitle">Sign in to continue to Restran.</p>
-                    </div>
-                    <div className="login-form">
-                        <form onSubmit={handleLogin}>
-                            <div className="form-group">
-                                <div className="input-group">
-                                    <div className="input-group-prepend">
-                                        <span className="input-group-text"><i className="fa-solid fa-envelope"></i></span>
-                                    </div>
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        className={`form-control ${formErrors.email ? "is-invalid" : ""}`}
-                                        placeholder="Email"
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                        autoFocus
-                                    />
-                                    {formErrors.email && <div className="invalid-feedback">{formErrors.email}</div>}
-                                </div>
-                            </div>
-                            <div className="form-group">
-                                <div className="input-group">
-                                    <div className="input-group-prepend">
-                                        <span className="input-group-text">
-                                        <i className="fa-solid fa-lock"></i>
-                                        </span>
-                                    </div>
-                                    <input
-                                        type={showPassword ? "text" : "password"}
-                                        name="password"
-                                        className={`form-control ${formErrors.password ? "is-invalid" : ""}`}
-                                        placeholder="Password"
-                                        value={formData.password}
-                                        onChange={handleChange}
-                                    />
-                                    <div className="input-group-append">
-                                        <span className="input-group-text view-password" onClick={handleTogglePassword}>
-                                            {!showPassword ? <i className="fa-solid fa-eye-slash"></i> : <i className="fa-solid fa-eye"></i>}
-                                        </span>
-                                    </div>
-                                    {formErrors.password && <div className="invalid-feedback">{formErrors.password}</div>}
-                                </div>
-                            </div>
-                            <div className="form-actions">
-                                <div className="row">
-                                    <div className="col-6">
-                                        <div className="checkbox">
-                                            <input type="checkbox" id="rememberMe" />
-                                            <label htmlFor="rememberMe">Remember Me</label>
-                                        </div>
-                                    </div>
-                                    <div className="col-6 text-right">
-                                        <Link to={config.routes.forgot_password} className="forgot-password">Forgot password?</Link>
-                                    </div>
-                                </div>
-                                <div className="checkout-button">
-                                    <button type="submit" className="login-home">SIGN IN</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div className="login-footer text-center">
-                        <p>Don't have an account? <Link to={config.routes.register} className="sign-up-link">Sign Up</Link></p>
-                    </div>
-                    <div className="social-login text-center">
-                        <p>- Sign With -</p>
-                        <div className="social-buttons">
-                            <a className="btn btn-social btn-facebook"><i className="fa-brands fa-facebook"></i></a>
-                            <a className="btn btn-social btn-twitter"><i className="fa-brands fa-twitter"></i></a>
-                            <a className="btn btn-social btn-instagram"><i className="fa-brands fa-instagram"></i></a>
-                        </div>
-                    </div>
-=======
   return (
     <div className="login-page">
       <div className="login-container">
@@ -273,7 +130,6 @@ function Login() {
                   {formErrors.email && (
                     <div className="invalid-feedback">{formErrors.email}</div>
                   )}
->>>>>>> main
                 </div>
               </div>
               <div className="form-group">
@@ -360,16 +216,9 @@ function Login() {
             </div>
           </div>
         </div>
-<<<<<<< HEAD
-      
-      
-    );
-
-=======
       </div>
     </div>
   );
->>>>>>> main
 }
 
 export default Login;

@@ -16,6 +16,9 @@ const routes = {
     blog: "/blog",
     blogDetail: "/blog-detail",
 
+    // Order history
+    orderHistory: "/order-history", 
+
     //Shop Food
     shop: "/shop",
     foodShopDetail: "/shop-detail/:id",

@@ -1,0 +1,135 @@
+    /* CSS cho trang Profile với tone màu trầm tối */
+
+/* Tổng quan trang */
+.profile-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #2C2C2C; /* Màu nền tối */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Đổ bóng tối */
+    color: #E0E0E0; /* Màu chữ sáng để dễ đọc */
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-header h1 {
+    font-size: 2rem;
+    color: #E0E0E0; /* Chữ sáng */
+}
+
+.profile-header p {
+    font-size: 1rem;
+    color: #B0B0B0; /* Màu chữ nhạt cho phần mô tả */
+}
+
+/* Thông tin người dùng */
+.profile-info {
+    display: block; /* Hiển thị theo dạng cột */
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #444444; /* Đường viền tối */
+}
+
+.profile-info div {
+    width: 100%; /* Mỗi phần tử chiếm toàn bộ chiều rộng */
+    margin-bottom: 10px;
+}
+
+.profile-info h2 {
+    font-size: 1.5rem;
+    color: #E0E0E0; /* Chữ sáng */
+    margin-bottom: 10px;
+}
+
+.profile-info p {
+    font-size: 1rem;
+    color: #B0B0B0; /* Màu chữ sáng hơn */
+}
+
+.profile-info label {
+    font-weight: bold;
+    color: #E0E0E0; /* Màu chữ sáng cho label */
+}
+
+.profile-info input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #666666; /* Viền tối */
+    background-color: #333333; /* Màu nền input tối */
+    color: #E0E0E0; /* Màu chữ sáng trong input */
+    font-size: 1rem;
+}
+
+/* Spinner Loading Animation */
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* Các nút */
+.profile-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.profile-buttons button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: #E0E0E0; /* Màu chữ sáng */
+}
+
+.profile-buttons button.update {
+    background-color: #424242; /* Màu xám đậm */
+}
+
+.profile-buttons button.update:hover {
+    background-color: #616161; /* Màu xám sáng hơn khi hover */
+}
+
+.profile-buttons button.delete {
+    background-color: #3e2723; /* Màu nâu đậm */
+}
+
+.profile-buttons button.delete:hover {
+    background-color: #5d4037; /* Màu nâu sáng hơn khi hover */
+}
+
+/* Nút Order History */
+.order-history-btn {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+    padding: 10px 20px;
+    background-color: #37474f; /* Màu xanh than tối */
+    color: #fff;
+    font-size: 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.order-history-btn:hover {
+    background-color: #546e7a; /* Màu xanh than sáng hơn khi hover */
+}

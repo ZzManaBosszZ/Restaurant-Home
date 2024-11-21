@@ -6,10 +6,6 @@ import config from "../../../config/index";
 import '../../../public/css/register.css';
 import api from "../../../services/api";
 import url from "../../../services/url";
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 function Register() {
     const [formData, setFormData] = useState({
         fullname: '',
@@ -17,22 +13,12 @@ function Register() {
         password: '',
         confirmPassword: ''
     });
-<<<<<<< HEAD
-
-=======
->>>>>>> main
     const [formErrors, setFormErrors] = useState({});
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
     const [isSubmitting, setIsSubmitting] = useState(false); 
     const [apiError, setApiError] = useState(null); 
-<<<<<<< HEAD
-
     const navigate = useNavigate();
-
-=======
-    const navigate = useNavigate();
->>>>>>> main
     const validateForm = () => {
         let errors = {};
         if (formData.fullname === '') {
@@ -53,19 +39,11 @@ function Register() {
         }
         return errors;
     };
-<<<<<<< HEAD
-
-=======
->>>>>>> main
     const handleRegister = async (e) => {
         e.preventDefault();
         setApiError(null); 
         const errors = validateForm();
         setFormErrors(errors);
-<<<<<<< HEAD
-
-=======
->>>>>>> main
         if (Object.keys(errors).length === 0) {
             setIsSubmitting(true);
             try {
@@ -85,36 +63,20 @@ function Register() {
             }
         }
     };
-<<<<<<< HEAD
-
-=======
->>>>>>> main
     const handleChange = (e) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
         });
     };
-<<<<<<< HEAD
-
-=======
->>>>>>> main
     // Hàm toggle hiển thị mật khẩu cho password
     const handleTogglePassword = () => {
         setShowPassword(!showPassword);
     };
-<<<<<<< HEAD
-
-=======
->>>>>>> main
     // Hàm toggle hiển thị mật khẩu cho confirmPassword
     const handleToggleConfirmPassword = () => {
         setShowConfirmPassword(!showConfirmPassword);
     };
-<<<<<<< HEAD
-
-=======
->>>>>>> main
     return (
         <div className="register-page">
             <div className="register-container">
@@ -229,9 +191,4 @@ function Register() {
         </div>
     );
 }
-<<<<<<< HEAD
-
 export default Register;
-=======
-export default Register;
->>>>>>> main
