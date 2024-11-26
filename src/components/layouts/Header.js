@@ -1,15 +1,19 @@
-// import { Link, NavLink } from "react-router-dom";
-// import config from "../../config/index";
-// import { isLoggedIn, getDecodedToken, removeAccessToken } from "../../utils/auth";
+import { Link, NavLink } from "react-router-dom";
+import config from "../../config/index";
+import { useNavigate } from "react-router-dom";
+import { isLoggedIn, getDecodedToken, removeAccessToken } from "../../utils/auth";
 
 function Header() {
-    // const decodedToken = getDecodedToken();
-  
-    // const handleLogout = () => {
-    //     removeAccessToken();
-    // };
+    const loggedIn = isLoggedIn();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        removeAccessToken();
+        
+        window.location.reload();
+    };
     return (
-      <header>
+        <header>
         <nav className="navbar mobile-sidenav brand-center-style-two dark-layout brand-center navbar-default validnavs">
           <div className="container">
             <div className="navbar-header">
@@ -106,15 +110,40 @@ function Header() {
                     Shop
                   </a>
                 </li>
-                <li>
-                  <a href="/contact">Contact Us</a>
-                </li>
-              </ul>
-            </div>
-            <div className="overlay-screen"></div>
-          </div>
-        </nav>
-      </header>
+                            <ul className="nav navbar-nav navbar-center" data-in="fadeInDown" data-out="fadeOutUp">
+                           
+                            {loggedIn ? (
+                                <li className="dropdown">
+                                    <a href="#" className="dropdown-toggle" data-toggle="dropdown">
+                                        <i className="fa-solid fa-user"></i> Profile
+                                    </a>
+                                    <ul className="dropdown-menu">
+                                        <li>
+                                            <NavLink to="/profile">
+                                                <i className="fa-solid fa-user-circle"></i> Profile
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <a href="#" onClick={handleLogout}>
+                                                <i className="fa-solid fa-sign-out-alt"></i> Logout
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            ) : (
+                                <li>
+                                    <NavLink to="/login">
+                                        <i className="fa-solid fa-hands"></i> Login
+                                    </NavLink>
+                                </li>
+                            )}
+                                </ul>
+                        </ul>
+                    </div>
+                    <div className="overlay-screen"></div>
+                </div>
+            </nav>
+        </header>
     );
-  }
-  export default Header;
+}
+export default Header;
