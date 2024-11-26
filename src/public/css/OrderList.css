@@ -1,0 +1,123 @@
+
+
+/* Page Container */
+.order-list-container-page-main {
+    max-width: 1200px;
+    margin: 50px 80px;
+    padding: 20px;
+    background-color: #f9f7f7;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .page-title-main-section {
+    font-size: 28px;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+  
+  /* Order List Styles */
+  .order-list-content-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+  }
+  
+  .order-card-item-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .order-card-item-container:hover {
+    transform: translateY(-10px);
+  }
+  
+  .order-card-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #f2f2f2;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .order-card-item-header h4 {
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .order-status-tag-container {
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+  
+  .order-status-tag-pending {
+    background-color: #f9c74f;
+    color: #fff;
+  }
+  
+  .order-status-tag-completed {
+    background-color: #90be6d;
+    color: #fff;
+  }
+  
+  .order-info-details-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .order-info-details-container p {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .view-order-details-button {
+    display: block;
+    margin-top: auto;
+    padding: 10px 20px;
+    background-color: #826a45;
+    color: #fff;
+    text-align: center;
+    font-weight: 500;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+  
+  .view-order-details-button:hover {
+    background-color: #887355;
+  }
+  
+  /* Empty State */
+  .empty-order-list-container {
+    text-align: center;
+    padding: 40px;
+  }
+  
+  .empty-order-list-container p {
+    font-size: 18px;
+    color: #888;
+    margin-top: 20px;
+  }
+  
+  /* Notes Section */
+  .order-list-main-note-container {
+    margin-top: 30px;
+    font-size: 14px;
+    color: #888;
+    text-align: center;
+  }
+  
+  .order-list-main-note-container strong {
+    color: #ff7f50;
+  }

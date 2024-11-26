@@ -14,6 +14,14 @@ const url = {
         UPDATE_PROFILE: "user/update-profile",
     },
 
+    DASHBOARD: {
+        TOTAL_ORDER: "total-orders",
+        TOTAL_ORDER_DELIVERED: "delivered-orders",
+        TOTAL_ORDER_CANCEL: "cancelled-orders",
+        TOTAL_ORDER_REVENUE: "total-revenue",
+        DAILY_REVENUE: "daily-revenue",
+    },
+
     FOOD: {
         LIST: "any/food",
         DETAIL: "any/food/{}",
@@ -43,7 +51,7 @@ const url = {
         DETAIL: "menu-food/{}",
         CREATE: "menu-food",
     },
-    
+
     ORDER: {
         LIST: "orders",
         DETAIL: "order-details/{}",
@@ -59,6 +67,15 @@ const url = {
     REVIEW: {
         LIST: 'any/review/food/{}',
         CREATE: "review",
+    },
+
+    WISHLIST :{
+        LIST : "wishlist",
+    },
+
+    USER: {
+        PROFILE: "profile",
+        EDIT: "profile",
     },
 
 };

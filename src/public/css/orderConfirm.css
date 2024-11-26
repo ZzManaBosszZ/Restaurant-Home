@@ -1,0 +1,111 @@
+/* Tổng quan */
+.order-confirm-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px 30px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  .order-confirm-container h2 {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: #4caf50;
+    margin-bottom: 20px;
+  }
+  
+  /* Chi tiết đơn hàng */
+  .order-confirm-details {
+    margin-bottom: 30px;
+  }
+  
+  .order-confirm-details table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .order-confirm-details td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: top;
+  }
+  
+  .order-confirm-details td:first-child {
+    font-weight: bold;
+    color: #555;
+  }
+  
+  /* Danh sách món ăn */
+  .order-items h3 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .order-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .order-item img {
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  
+  .order-item div p {
+    margin: 4px 0;
+    font-size: 14px;
+  }
+  
+  /* Ghi chú */
+  .order-confirm-note h3 {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #555;
+  }
+  
+  .order-confirm-note p {
+    font-size: 14px;
+    color: #666;
+    margin: 10px 0;
+  }
+  
+  /* Nút xác nhận */
+  .button_confirm-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .button-confirm-page {
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: #4caf50;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .button-confirm-page:hover {
+    background: #43a047;
+  }
+  
+  .button-confirm-page i {
+    margin-left: 8px;
+    color: #fff;
+  }

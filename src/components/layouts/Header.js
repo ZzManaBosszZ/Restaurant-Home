@@ -1,14 +1,16 @@
 import { Link, NavLink } from "react-router-dom";
 import config from "../../config/index";
+import { useNavigate } from "react-router-dom";
 import { isLoggedIn, getDecodedToken, removeAccessToken } from "../../utils/auth";
 
 function Header() {
     const loggedIn = isLoggedIn();
-    const decodedToken = getDecodedToken();
+    const navigate = useNavigate();
 
     const handleLogout = () => {
         removeAccessToken();
-        window.location.reload(); 
+        
+        window.location.reload();
     };
     return (
         <header>
@@ -206,34 +208,47 @@ function Header() {
                             <li className="dropdown">
                                 <a href="#" className="dropdown-toggle" data-toggle="dropdown" >Shop</a>
                                 <ul className="dropdown-menu">
-                                    <li><a href="shop.html">Shop</a></li>
-                                    <li><a href="shop-single.html">Shop Single</a></li>
-                                    <li><a href="shop-single-thumb-only.html">Shop Single Two</a></li>
+                                    <li><a href="/shop">Shop</a></li>
+                                    <li><a href="/shop">Shop Single</a></li>
+                                    <li><a href="/shop">Shop Single Two</a></li>
                                     <li className="dropdown">
                                         <a href="#" className="dropdown-toggle" data-toggle="dropdown" >Dark Version</a>
                                         <ul className="dropdown-menu">
-                                            <li><a href="shop-dark.html">Shop</a></li>
-                                            <li><a href="shop-single-dark.html">Shop Single</a></li>
-                                            <li><a href="shop-single-thumb-only-dark.html">Shop Single Two</a></li>
+                                            <li><a href="/shop">Shop</a></li>
+                                            <li><a href="/shop">Shop Single</a></li>
+                                            <li><a href="/shop">Shop Single Two</a></li>
                                         </ul>
                                     </li>
                                 </ul>
                             </li>
                             <li><a href="contact.html">Contact Us</a></li>
                             <ul className="nav navbar-nav navbar-center" data-in="fadeInDown" data-out="fadeOutUp">
+                           
                             {loggedIn ? (
-                             <li>
-                                <a href="#" onClick={handleLogout}>
-                                  <i className="fa-solid fa-sign-out-alt"></i> 
-                                </a>
-                             </li>
-                             ) : (
-                              <li>
-                              <NavLink to="/login">
-                              <i class="fa-solid fa-hands"></i>
-                              </NavLink>
-                               </li>
-                                 )}
+                                <li className="dropdown">
+                                    <a href="#" className="dropdown-toggle" data-toggle="dropdown">
+                                        <i className="fa-solid fa-user"></i> Profile
+                                    </a>
+                                    <ul className="dropdown-menu">
+                                        <li>
+                                            <NavLink to="/profile">
+                                                <i className="fa-solid fa-user-circle"></i> Profile
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <a href="#" onClick={handleLogout}>
+                                                <i className="fa-solid fa-sign-out-alt"></i> Logout
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            ) : (
+                                <li>
+                                    <NavLink to="/login">
+                                        <i className="fa-solid fa-hands"></i> Login
+                                    </NavLink>
+                                </li>
+                            )}
                                 </ul>
                         </ul>
                     </div>

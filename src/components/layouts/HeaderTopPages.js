@@ -7,12 +7,12 @@ function HeaderTopPages() {
                     <ul className="item-flex">
                         <li>
                              <a href="tel:+4733378901"> 
-                                <img src="assets/img/icon/6.png" alt="Icon"/> Phone: +4733378901
+                                <img src="/assets/img/icon/6.png" alt="Icon"/> Phone: +4733378901
                             </a>
                         </li>
                         <li>
                             <a href="mailto:name@email.com">
-                                <img src="assets/img/icon/7.png" alt="Icon"/> Email: food@restan.com
+                                <img src="/assets/img/icon/7.png" alt="Icon"/> Email: food@restan.com
                             </a>
                         </li>
                     </ul>
@@ -21,7 +21,7 @@ function HeaderTopPages() {
                     <div className="item-flex">
                         <div className="dropdown">
                             <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="assets/img/icon/flag.png" alt="Image Not Found"/>
+                                <img src="/assets/img/icon/flag.png" alt="Image Not Found"/>
                                 English <i className="fas fa-angle-down"></i>
                             </button>
                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">

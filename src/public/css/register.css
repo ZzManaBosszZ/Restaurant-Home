@@ -1,11 +1,26 @@
-/* General Styles */
+
 .register-page {
+    background-image: url('/public/assets/img/banner/7.jpg'); 
     background-size: cover;
     background-position: center;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+.register-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(3px); 
+    z-index: -1; 
 }
 
 .register-container {
@@ -131,7 +146,7 @@
     justify-content: center;
     color: white;
     text-align: center;
-    line-height: 40px; /* Center icons vertically */
+    line-height: 40px; 
 }
 
 .btn-facebook {
@@ -146,7 +161,7 @@
     background-color: #e1306c;
 }
 
-/* Center align button */
+
 .checkout-button {
     text-align: center;
 }

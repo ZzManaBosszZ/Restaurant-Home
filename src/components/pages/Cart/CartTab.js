@@ -1,7 +1,7 @@
 import LayoutPages from "../../layouts/LayoutPage";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import '../../../public/css/cart.css';
+import "../../../public/css/cart.css";
 
 function CartTab() {
   const [cartItems, setCartItems] = useState([]);
@@ -11,7 +11,7 @@ function CartTab() {
 
   useEffect(() => {
     const loadCartItems = () => {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
       setCartItems(cart);
     };
     loadCartItems();
@@ -19,29 +19,41 @@ function CartTab() {
 
   useEffect(() => {
     if (selectAll) {
-      setSelectedItems(new Set(cartItems.map(item => item.id)));
+      setSelectedItems(new Set(cartItems.map((item) => item.id)));
     } else {
       setSelectedItems(new Set());
     }
   }, [selectAll, cartItems]);
 
   const handleQuantityChange = (id, newQuantity) => {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart = cart.map(item =>
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart = cart.map((item) =>
       item.id === id ? { ...item, quantity: newQuantity } : item
     );
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem("cart", JSON.stringify(cart));
     setCartItems(cart);
+
+    // Nếu sản phẩm đã chọn, vẫn giữ trạng thái đã chọn
+    if (newQuantity > 0) {
+      const newSelectedItems = new Set(selectedItems);
+      newSelectedItems.add(id);
+      setSelectedItems(newSelectedItems);
+    }
   };
 
   const handleRemoveItem = (id) => {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart = cart.filter(item => item.id !== id);
-    localStorage.setItem('cart', JSON.stringify(cart));
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart = cart.filter((item) => item.id !== id);
+    localStorage.setItem("cart", JSON.stringify(cart));
     setCartItems(cart);
+    setSelectedItems((prev) => {
+      const newSelectedItems = new Set(prev);
+      newSelectedItems.delete(id);
+      return newSelectedItems;
+    });
   };
 
-  const handleSelectItem = (id) => {
+  const handleRowClick = (id) => {
     const newSelectedItems = new Set(selectedItems);
     if (newSelectedItems.has(id)) {
       newSelectedItems.delete(id);
@@ -51,25 +63,23 @@ function CartTab() {
     setSelectedItems(newSelectedItems);
   };
 
-  const handleSelectAll = () => {
-    setSelectAll(true);
-  };
-
-  const handleDeselectAll = () => {
-    setSelectAll(false);
+  const handleSelectAllChange = () => {
+    setSelectAll(!selectAll);
   };
 
   const getTotalPrice = () => {
     const total = cartItems
-      .filter(item => selectedItems.has(item.id))
+      .filter((item) => selectedItems.has(item.id))
       .reduce((total, item) => total + item.price * item.quantity, 0);
     return total.toFixed(2);
   };
 
   const handleCheckout = () => {
-    const selectedCartItems = cartItems.filter(item => selectedItems.has(item.id));
-    localStorage.setItem('selectedCartItems', JSON.stringify(selectedCartItems));
-    navigate('/check_out');
+    const selectedCartItems = cartItems.filter((item) =>
+      selectedItems.has(item.id)
+    );
+    localStorage.setItem("selectedCartItems", JSON.stringify(selectedCartItems));
+    navigate("/check_out");
   };
 
   return (
@@ -84,11 +94,10 @@ function CartTab() {
                   <input
                     type="checkbox"
                     checked={selectAll}
-                    onChange={(e) => setSelectAll(e.target.checked)}
+                    onChange={handleSelectAllChange}
                   />
                   Select All Items
                 </label>
-                
               </div>
               <table className="cart-tab-table">
                 <thead>
@@ -102,17 +111,28 @@ function CartTab() {
                   </tr>
                 </thead>
                 <tbody>
-                  {cartItems.map(item => (
-                    <tr key={item.id} className="cart-tab-item">
+                  {cartItems.map((item) => (
+                    <tr
+                      key={item.id}
+                      className={`cart-tab-item ${
+                        selectedItems.has(item.id) ? "selected" : ""
+                      }`}
+                      onClick={() => handleRowClick(item.id)}
+                    >
                       <td className="cart-tab-select">
                         <input
                           type="checkbox"
                           checked={selectedItems.has(item.id)}
-                          onChange={() => handleSelectItem(item.id)}
+                          onChange={() => handleRowClick(item.id)}
+                          onClick={(e) => e.stopPropagation()} // Ngăn sự kiện click trùng
                         />
                       </td>
                       <td className="cart-tab-image">
-                        <img src={item.image} alt={item.name} style={{ width: '100px' }} />
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          style={{ width: "100px" }}
+                        />
                       </td>
                       <td className="cart-tab-name">{item.name}</td>
                       <td className="cart-tab-price">${item.price}</td>
@@ -121,11 +141,21 @@ function CartTab() {
                           type="number"
                           value={item.quantity}
                           min="1"
-                          onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value))}
+                          onChange={(e) =>
+                            handleQuantityChange(item.id, parseInt(e.target.value))
+                          }
+                          onClick={(e) => e.stopPropagation()} // Ngăn sự kiện click trùng
                         />
                       </td>
                       <td className="cart-tab-actions">
-                        <button onClick={() => handleRemoveItem(item.id)}>Remove</button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation(); // Ngăn sự kiện click trùng
+                            handleRemoveItem(item.id);
+                          }}
+                        >
+                          Remove
+                        </button>
                       </td>
                     </tr>
                   ))}

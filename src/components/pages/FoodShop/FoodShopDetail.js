@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import LayoutPages from "../../layouts/LayoutPage";
 import api from '../../../services/api';
 import url from '../../../services/url';
-import {getAccessToken } from '../../../utils/auth';
+import { getAccessToken } from '../../../utils/auth';
 import BreadCrumb from "../../layouts/BreadCrumb";
 import '../../../public/css/foodDetail.css';
 
@@ -14,9 +14,7 @@ function FoodShopDetail() {
     const [reviews, setReviews] = useState([]);
     const [newReview, setNewReview] = useState({ rating: 0, message: '' });
     const [submitError, setSubmitError] = useState('');
-    
-    
-    
+
     const loadData = useCallback(async () => {
         try {
             // Log ID hiện tại để debug
@@ -43,8 +41,6 @@ function FoodShopDetail() {
             console.error("Error fetching food detail or reviews:", error);
         }
     }, [id]);
-    
-
 
     useEffect(() => {
         loadData();
@@ -53,7 +49,6 @@ function FoodShopDetail() {
     if (!foodDetail) {
         return <div className="foodshop-detail-loading">Loading...</div>; 
     }
-    
 
     // Handle add to cart
     const handleAddToCart = () => {
@@ -99,7 +94,6 @@ function FoodShopDetail() {
     };
 
     return (
-
         <LayoutPages showBreadCrumb={false}>
             <BreadCrumb title="Food Detail" path={[
                 { href: "/", label: "Home" },
@@ -147,69 +141,71 @@ function FoodShopDetail() {
                 </div>
 
                 <div className="foodshop-detail-tabs">
-              
                     <div className="nav nav-tabs" id="nav-tab" role="tablist">
                         <button className="tag-review" id="description-tab" data-bs-toggle="tab" data-bs-target="#description-content" type="button" role="tab" aria-controls="description-content" aria-selected="true">
                             Description
                         </button>
-
-
-                        <button className="Tag-review" id="review-tab" data-bs-toggle="tab" data-bs-target="#review-content" type="button" role="tab" aria-controls="review-content" aria-selected="false" >
-                         Review
+                        <button className="Tag-review" id="review-tab" data-bs-toggle="tab" data-bs-target="#review-content" type="button" role="tab" aria-controls="review-content" aria-selected="false">
+                            Review
                         </button>
                     </div>
-                <div className="tab-pane fade" id="review-content" role="tabpanel" aria-labelledby="review-tab">
-                <h4>{reviews.length} review for {foodDetail.name}</h4>
-                <div className="review-items">
-                    {reviews.map(review => (
-                        <div className="item" key={foodDetail.id}>
-                            <div className="info">
-                                <div className="rating">
-                                    {[...Array(5)].map((star, index) => (
-                                        <i key={index} className={`fas fa-star ${index < review.rating ? 'filled' : ''}`}></i>
-                                    ))}
-                                </div>
-                                <div className="review-date">{new Date(review.createdDate).toLocaleDateString()}</div>
-                                <div className="review-author">
-                                    <h5>{review.user?.fullName}</h5>
-                                </div>
-                                <p>{review.message}</p>
+                    <div className="tab-content" id="myTabContent">
+                        <div className="tab-pane fade show active" id="description-content" role="tabpanel" aria-labelledby="description-tab">
+                            <p>{foodDetail.description}</p>
+                        </div>
+                        <div className="tab-pane fade" id="review-content" role="tabpanel" aria-labelledby="review-tab">
+                            <h4>{reviews.length} review for {foodDetail.name}</h4>
+                            <div className="review-items">
+                                {reviews.map(review => (
+                                    <div className="item" key={foodDetail.id}>
+                                        <div className="info">
+                                            <div className="rating">
+                                                {[...Array(5)].map((star, index) => (
+                                                    <i key={index} className={`fas fa-star ${index < review.rating ? 'filled' : ''}`}></i>
+                                                ))}
+                                            </div>
+                                            <div className="review-date">{new Date(review.createdDate).toLocaleDateString()}</div>
+                                            <div className="review-author">
+                                                <h5>{review.user?.fullName}</h5>
+                                            </div>
+                                            <p>{review.message}</p>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                        </div>
-                    ))}
+                                <div className="review-form">
+                                    <h4>Write a Review</h4>
+                                    <form onSubmit={handleReviewSubmit}>
+                                        <div className="rating">
+                                            <span>Your Rating</span>
+                                            {[...Array(5)].map((star, index) => (
+                                                <i
+                                                    key={index}
+                                                    className={`fas fa-star ${index < newReview.rating ? 'filled' : ''}`}
+                                                    onClick={() => setNewReview({ ...newReview, rating: index + 1 })}
+                                                ></i>
+                                            ))}
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Your Review</label>
+                                            <textarea
+                                                className="form-control"
+                                                rows="4"
+                                                value={newReview.message}
+                                                onChange={(e) => setNewReview({ ...newReview, message: e.target.value })}
+                                                required
+                                            />
+                                        </div>
+                                        {submitError && <p className="text-danger">{submitError}</p>}
+                                        <button type="submit" className="btn btn-primary">
+                                            Submit Review
+                                        </button>
+                                    </form>
+                                </div>
+                         </div>
+                    </div>
                 </div>
-                <div className="review-form">
-                    <h4>Write a Review</h4>
-                    <form onSubmit={handleReviewSubmit}>
-                        <div className="rating">
-                            <span>Your Rating</span>
-                            {[...Array(5)].map((star, index) => (
-                                <i
-                                    key={index}
-                                    className={`fas fa-star ${index < newReview.rating ? 'filled' : ''}`}
-                                    onClick={() => setNewReview({ ...newReview, rating: index + 1 })}
-                                ></i>
-                            ))}
-                        </div>
-                        <div className="form-group">
-                            <label>Your Review</label>
-                            <textarea
-                                className="form-control"
-                                rows="4"
-                                value={newReview.message}
-                                onChange={(e) => setNewReview({ ...newReview, message: e.target.value })}
-                                required
-                            />
-                        </div>
-                        {submitError && <p className="text-danger">{submitError}</p>}
-                        <button type="submit" className="btn btn-primary">
-                            Submit Review
-                        </button>
-                    </form>
-                </div>
-            </div>
 
-                </div>
                  <div className="foodshop-detail-related-products">
                     <h3>Related Products</h3>
                     <div className="related-products-carousel">
@@ -247,7 +243,7 @@ function FoodShopDetail() {
                                             <div className="price">
                                                 <span>${food.price}</span>
                                             </div>
-                                            <a href="#" className="cart-btn" onClick={handleAddToCart}>
+                                            <a href="#" className="cart-btn" onClick={() => handleAddToCart(food)}>
                                                 <i className="fas fa-shopping-bag"></i> Add to cart
                                             </a>
                                         </div>

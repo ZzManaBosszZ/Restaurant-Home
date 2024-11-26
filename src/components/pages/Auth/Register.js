@@ -6,7 +6,6 @@ import config from "../../../config/index";
 import '../../../public/css/register.css';
 import api from "../../../services/api";
 import url from "../../../services/url";
-
 function Register() {
     const [formData, setFormData] = useState({
         fullname: '',
@@ -14,15 +13,12 @@ function Register() {
         password: '',
         confirmPassword: ''
     });
-
     const [formErrors, setFormErrors] = useState({});
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
     const [isSubmitting, setIsSubmitting] = useState(false); 
     const [apiError, setApiError] = useState(null); 
-
     const navigate = useNavigate();
-
     const validateForm = () => {
         let errors = {};
         if (formData.fullname === '') {
@@ -43,13 +39,11 @@ function Register() {
         }
         return errors;
     };
-
     const handleRegister = async (e) => {
         e.preventDefault();
         setApiError(null); 
         const errors = validateForm();
         setFormErrors(errors);
-
         if (Object.keys(errors).length === 0) {
             setIsSubmitting(true);
             try {
@@ -69,24 +63,20 @@ function Register() {
             }
         }
     };
-
     const handleChange = (e) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
         });
     };
-
     // Hàm toggle hiển thị mật khẩu cho password
     const handleTogglePassword = () => {
         setShowPassword(!showPassword);
     };
-
     // Hàm toggle hiển thị mật khẩu cho confirmPassword
     const handleToggleConfirmPassword = () => {
         setShowConfirmPassword(!showConfirmPassword);
     };
-
     return (
         <div className="register-page">
             <div className="register-container">
@@ -201,5 +191,4 @@ function Register() {
         </div>
     );
 }
-
 export default Register;

@@ -6,9 +6,8 @@ import api from "../../../services/api";
 import url from "../../../services/url";
 import { getAccessToken } from "../../../utils/auth";
 import LayoutPages from "../../layouts/LayoutPage";
-import BreadCrumb from "../../layouts/BreadCrumb";
 import config from "../../../config";
-import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js"; // Import PayPal SDK
+import Payment from "../../Payment/index";
 import "../../../public/css/checkout.css";
 
 function CheckOut() {
@@ -45,11 +44,6 @@ function CheckOut() {
     loadCartItems();
   }, []);
 
-  const breadcrumbPath = [
-    { href: "/", label: "Home" },
-    { href: "/checkout", label: "Checkout" }
-  ];
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCustomerInfo((prevInfo) => ({ ...prevInfo, [name]: value }));
@@ -67,20 +61,24 @@ function CheckOut() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
+    if (e?.preventDefault) {
+      e.preventDefault(); // Chặn làm mới trang
+    }
+  
     const selectedCartItems =
       JSON.parse(localStorage.getItem("selectedCartItems")) || [];
-
+  
     const createOrderPayload = {
       discount: customerInfo.discount || 0,
       foodQuantities: selectedCartItems.map((item) => ({
         foodId: item.id,
         quantity: item.quantity
-      }))
-      // paymentMethod: selectedPaymentMethod
+      })),
+      paymentMethod: customerInfo.paymentMethod,
+      phone: customerInfo.phone, 
+      address: customerInfo.address, 
     };
-
+  
     try {
       const orderResponse = await api.post(
         url.ORDER.CREATE,
@@ -92,11 +90,12 @@ function CheckOut() {
           }
         }
       );
-
+  
       if (orderResponse.status === 201) {
+        const orderId = orderResponse.data.data.id;
+  
         toast.success("Your order has been created successfully!");
-
-        // Remove selected items from local storage cart
+  
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
         cart = cart.filter(
           (item) =>
@@ -105,13 +104,12 @@ function CheckOut() {
             )
         );
         localStorage.setItem("cart", JSON.stringify(cart));
-
-        // Clear selected items from local storage
+  
         localStorage.removeItem("selectedCartItems");
-
+  
         setTimeout(() => {
-          navigate(config.routes.order); // Navigate to order history page
-        }, 3000);
+          navigate(`/order_confirm/${orderId}`); 
+        }, 1000);
       } else {
         const errorText = await orderResponse.text();
         console.error("Error creating order:", errorText);
@@ -126,31 +124,10 @@ function CheckOut() {
       );
     }
   };
-
-  // PayPal configuration
-  const paypalOptions = {
-    clientId: config.key.PAYPAL_CLIENT_ID, // Replace with your PayPal client ID
-    currency: "USD"
-  };
+  
 
   const handlePayPalSuccess = async (details) => {
-    try {
-      // Call your backend to finalize the order after payment
-      await api.post(
-        url.ORDER.CREATE,
-        { orderId: details.orderID },
-        {
-          headers: {
-            Authorization: `Bearer ${getAccessToken()}`,
-            "Content-Type": "application/json"
-          }
-        }
-      );
-      toast.success("Payment successful!");
-      navigate(config.routes.order); // Navigate to order history page
-    } catch (error) {
-      toast.error("There was an error finalizing your order.");
-    }
+    await handleSubmit();
   };
 
   return (
@@ -203,7 +180,7 @@ function CheckOut() {
                   <option value="card">Credit/Debit Card</option>
                   <option value="bank">Bank Transfer</option>
                   <option value="paypal">PayPal</option>{" "}
-                  {/* Added PayPal option */}
+                 
                 </select>
               </div>
               {customerInfo.paymentMethod === "card" ||
@@ -256,27 +233,12 @@ function CheckOut() {
                 <p>Total: ${totalPrice}</p>
               </div>
               {customerInfo.paymentMethod === "paypal" && (
-                <div className="form-group">
-                  <PayPalScriptProvider options={paypalOptions}>
-                    <PayPalButtons
-                      createOrder={(data, actions) => {
-                        return actions.order.create({
-                          purchase_units: [
-                            {
-                              amount: {
-                                value: totalPrice.toFixed(2)
-                              }
-                            }
-                          ]
-                        });
-                      }}
-                      onApprove={async (data, actions) => {
-                        await actions.order.capture();
-                        handlePayPalSuccess(data);
-                      }}
-                    />
-                  </PayPalScriptProvider>
-                </div>
+                <Payment
+                selectedPaymentMethod={"paypal"}
+                handleEventPayPal={handlePayPalSuccess}
+                onPaymentMethodChange={handlePaymentMethodChange}
+                price={totalPrice}
+              />
               )}
               {customerInfo.paymentMethod !== "paypal" && (
                 <div className="button-container">
