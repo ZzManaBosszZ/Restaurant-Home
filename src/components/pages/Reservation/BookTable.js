@@ -12,7 +12,7 @@ import "../../../public/css/bookTable.css";
 
 function BookTable() {
   const [bookingInfo, setBookingInfo] = useState({
-    full_name: "", // Cập nhật tên thành fullName
+    full_name: "", 
     phone: "",
     email: "",
     date: "",
@@ -74,13 +74,25 @@ function BookTable() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (isSubmitting) return; // Nếu đang submit, không làm gì cả
-
+  
+    if (isSubmitting) return; 
+  
+    const selectedDate = moment(bookingInfo.date, "YYYY-MM-DD");
+    const today = moment().startOf('day');
+    if (!selectedDate.isSameOrAfter(today)) {
+      toast.error("You cannot book a table in the past. Please select a valid date.");
+      return;
+    }
+  
+    if (parseInt(bookingInfo.numberOfPerson, 10) > 20) {
+      toast.error("The number of people cannot exceed 20.");
+      return;
+    }
+  
     setIsSubmitting(true);
-
+  
     const formattedTime = moment(bookingInfo.time, "HH:mm").format("HH:mm:ss");
-
+  
     const orderData = {
       name: bookingInfo.full_name,
       numberOfPerson: bookingInfo.numberOfPerson,
@@ -90,17 +102,16 @@ function BookTable() {
       date: bookingInfo.date,
       menuId: bookingInfo.menuId,
     };
-
+  
     try {
       const response = await api.post("http://localhost:8080/api/v1/any/ordertables", orderData, {
         headers: { Authorization: `Bearer ${getAccessToken()}` },
       });
-
+  
       if (response.status === 200) {
         toast.success("Your table has been booked successfully!");
-        // Lưu thông tin đặt bàn vào local storage hoặc state
         const booking = {
-          id: response.data.data.id, // ID của đơn đặt bàn
+          id: response.data.data.id,
           full_name: bookingInfo.full_name,
           numberOfPerson: bookingInfo.numberOfPerson,
           phone: bookingInfo.phone,
@@ -109,12 +120,11 @@ function BookTable() {
           date: bookingInfo.date,
           menuId: bookingInfo.menuId,
         };
-
-        // Lưu vào local storage
+  
         const existingBookings = JSON.parse(localStorage.getItem("bookings")) || [];
         existingBookings.push(booking);
         localStorage.setItem("bookings", JSON.stringify(existingBookings));
-
+  
         setTimeout(() => {
           navigate(`/booking_confirm/${response.data.data.id}`);
         }, 2000);
@@ -127,8 +137,11 @@ function BookTable() {
       } else {
         toast.error("No response from server. Please try again.");
       }
+    } finally {
+      setIsSubmitting(false);
     }
   };
+  
 
   return (
     <LayoutPages showBreadCrumb={false}>
@@ -166,7 +179,8 @@ function BookTable() {
                 >
                   <option value="">Select a menu</option>
                   {menus.map(menu => (
-                    <option key={menu.id} value={menu.id}>{menu.name}</option>
+                    <option key={menu.id} value={menu.id}>
+                      {menu.name}</option>
                   ))}
                 </select>
               </div>

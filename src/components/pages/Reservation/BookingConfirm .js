@@ -14,7 +14,6 @@ function BookingConfirm() {
 
   const [bookingDetail, setBookingDetail] = useState(null);
 
-  // Hàm tải chi tiết đặt bàn
   const loadBookingDetail = async () => {
     try {
       const response = await api.get(`http://localhost:8080/api/v1/any/ordertables/${id}`);
