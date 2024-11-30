@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import config from '../../config';
 
 function HeaderPages({ onCartUpdate }) { 
   const [cartCount, setCartCount] = useState(0);
@@ -38,7 +39,7 @@ function HeaderPages({ onCartUpdate }) {
             >
               <i className="fa fa-bars"></i>
             </button>
-            <a className="navbar-brand" href="/">
+            <a className="navbar-brand" href={config.routes.home}>
               <img src="/assets/img/logo-light.png" className="logo logo-display" alt="Logo" />
               <img src="/assets/img/logo-light.png" className="logo logo-scrolled" alt="Logo" />
             </a>
@@ -46,28 +47,28 @@ function HeaderPages({ onCartUpdate }) {
           <div className="collapse navbar-collapse" id="navbar-menu">
             <ul className="nav navbar-nav navbar-right">
               <li className="dropdown megamenu-fw">
-                <a href="/">Home</a>
+                <a href={config.routes.home}>Home</a>
               </li>
               <li className="dropdown">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown">Pages</a>
                 <ul className="dropdown-menu">
-                  <li><a href="/about">About Us</a></li>
-                  <li><a href="/chef">Our Chef</a></li>
+                  <li><a href={config.routes.aboutus}>About Us</a></li>
+                  <li><a href={config.routes.chef}>Our Chef</a></li>
                   <li className="dropdown">
                     <a href="#" className="dropdown-toggle" data-toggle="dropdown">Reservation</a>
                     <ul className="dropdown-menu submenu">
-                      <li><a href="/book_table">New</a></li>
-                      <li><a href="/booking_list">View</a></li>
+                      <li><a href={config.routes.bookTable}>New</a></li>
+                      <li><a href={config.routes.bookingList}>View</a></li>
                     </ul>
                   </li>
                   <li><a href="/contact">Contact Us</a></li>
                 </ul>
               </li>
-              <li className="dropdown"><a href="/menu">Menu</a></li>
-              <li className="dropdown"><a href="/blog">Blog</a></li>
-              <li className="dropdown"><a href="/shop">Shop</a></li>
+              <li className="dropdown"><a href={config.routes.menu}>Menu</a></li>
+              <li className="dropdown"><a href={config.routes.blog}>Blog</a></li>
+              <li className="dropdown"><a href={config.routes.shop}>Shop</a></li>
               <li style={{ position: "relative" }}>
-                <a href="/cart">
+                <a href={config.routes.cartTab}>
                   <i className="fas fa-shopping-bag" style={{ color: "white", fontSize: "20px" }}></i>
                   <span style={{
                     position: "absolute",
@@ -88,7 +89,7 @@ function HeaderPages({ onCartUpdate }) {
           <div className="attr-right">
             <div className="attr-nav">
               <ul>
-                <li className="button"><a href="/book_table">Reservation</a></li>
+                <li className="button"><a href={config.routes.bookTable}>Reservation</a></li>
               </ul>
             </div>
           </div>

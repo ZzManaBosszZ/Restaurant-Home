@@ -7,7 +7,7 @@ import url from '../../../services/url';
 function Menu() {
     const [menuFoods, setMenuFoods] = useState([]);
     const [error, setError] = useState(null);
-    const [backgroundImage, setBackgroundImage] = useState('assets/img/banner/3.jpg'); // Ảnh nền mặc định
+    const [backgroundImage, setBackgroundImage] = useState('assets/img/banner/3.jpg'); 
 
     useEffect(() => {
         const loadMenuFoods = async () => {

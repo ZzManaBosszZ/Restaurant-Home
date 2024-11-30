@@ -11,19 +11,34 @@ function FoodShopDetail() {
     const { id } = useParams(); 
     const [foodDetail, setFoodDetail] = useState(null);
     const [relatedFoods, setRelatedFoods] = useState([]);
+    const [reviews, setReviews] = useState([]);
+    const [newReview, setNewReview] = useState({ rating: 0, message: '' });
+    const [submitError, setSubmitError] = useState('');
 
     const loadData = useCallback(async () => {
         try {
-            const response = await api.get(url.FOOD.DETAIL.replace("{}", id), {
-                headers: { Authorization: `Bearer ${getAccessToken()}` }
-            });
-            setFoodDetail(response.data.data);
-            
-            // Load related foods
+            // Log ID hiện tại để debug
+            console.log("Current Food ID:", id);
+    
+            // Gọi API lấy chi tiết món ăn
+            const foodResponse = await api.get(url.FOOD.DETAIL.replace("{}", id));
+            const foodData = foodResponse.data.data;
+            setFoodDetail(foodData);
+    
+            // Sau khi lấy được chi tiết món ăn, gọi API để lấy review
+            if (foodData && foodData.id) {
+                const reviewResponse = await api.get(url.REVIEW.LIST.replace("{}", foodData.id));
+                setReviews(reviewResponse.data.data);
+            } else {
+                console.error("Food not found for ID:", id);
+            }
+    
+            // Lấy danh sách món ăn liên quan
             const relatedResponse = await api.get(url.FOOD.LIST);
-            setRelatedFoods(relatedResponse.data.data.filter(food => food.id !== id));
+            setRelatedFoods(relatedResponse.data.data.filter(food => food.id !== parseInt(id)));
+    
         } catch (error) {
-            console.error("Error fetching food detail:", error);
+            console.error("Error fetching food detail or reviews:", error);
         }
     }, [id]);
 
@@ -46,6 +61,36 @@ function FoodShopDetail() {
         }
         localStorage.setItem('cart', JSON.stringify(cart));
         alert("Item added to cart!");
+    };
+
+    const handleReviewSubmit = async (e) => {
+        e.preventDefault();
+        if (newReview.rating === 0) {
+            setSubmitError("Rating is required.");
+            return;
+        }
+
+        try {
+            const reviewPayload = {              
+                foodId: foodDetail.id,               
+                rating: newReview.rating,
+                message: newReview.message,
+            };
+
+            const response = await api.post(url.REVIEW.CREATE.replace("{}", id), reviewPayload, {
+                headers: { Authorization: `Bearer ${getAccessToken()}` },
+            });
+
+            if (response.status === 200) {
+                setNewReview({ rating: 0, message: '' });
+                setSubmitError('');
+                loadData(); // Reload the reviews after submission
+            } else {
+                setSubmitError("Failed to submit the review.");
+            }
+        } catch (error) {
+            setSubmitError("An error occurred while submitting the review.");
+        }
     };
 
     return (
@@ -109,76 +154,55 @@ function FoodShopDetail() {
                             <p>{foodDetail.description}</p>
                         </div>
                         <div className="tab-pane fade" id="review-content" role="tabpanel" aria-labelledby="review-tab">
-                            <h4>1 review for “{foodDetail.name}”</h4>
+                            <h4>{reviews.length} review for {foodDetail.name}</h4>
                             <div className="review-items">
-                                <div className="item">
-                                    <div className="thumb">
-                                        <img src="assets/img/team/1.jpg" alt="Reviewer" />
+                                {reviews.map(review => (
+                                    <div className="item" key={foodDetail.id}>
+                                        <div className="info">
+                                            <div className="rating">
+                                                {[...Array(5)].map((star, index) => (
+                                                    <i key={index} className={`fas fa-star ${index < review.rating ? 'filled' : ''}`}></i>
+                                                ))}
+                                            </div>
+                                            <div className="review-date">{new Date(review.createdDate).toLocaleDateString()}</div>
+                                            <div className="review-author">
+                                                <h5>{review.user?.fullName}</h5>
+                                            </div>
+                                            <p>{review.message}</p>
+                                        </div>
                                     </div>
-                                    <div className="info">
+                                ))}
+                            </div>
+                                <div className="review-form">
+                                    <h4>Write a Review</h4>
+                                    <form onSubmit={handleReviewSubmit}>
                                         <div className="rating">
-                                            <i className="fas fa-star"></i>
-                                            <i className="fas fa-star"></i>
-                                            <i className="fas fa-star"></i>
-                                            <i className="fas fa-star"></i>
-                                            <i className="fas fa-star-half-alt"></i>
+                                            <span>Your Rating</span>
+                                            {[...Array(5)].map((star, index) => (
+                                                <i
+                                                    key={index}
+                                                    className={`fas fa-star ${index < newReview.rating ? 'filled' : ''}`}
+                                                    onClick={() => setNewReview({ ...newReview, rating: index + 1 })}
+                                                ></i>
+                                            ))}
                                         </div>
-                                        <div className="review-date">April 8, 2021</div>
-                                        <div className="review-author">
-                                            <h5>Aleesha Brown</h5>
+                                        <div className="form-group">
+                                            <label>Your Review</label>
+                                            <textarea
+                                                className="form-control"
+                                                rows="4"
+                                                value={newReview.message}
+                                                onChange={(e) => setNewReview({ ...newReview, message: e.target.value })}
+                                                required
+                                            />
                                         </div>
-                                        <p>Highly recommended. Will purchase more in future.</p>
-                                    </div>
+                                        {submitError && <p className="text-danger">{submitError}</p>}
+                                        <button type="submit" className="btn btn-primary">
+                                            Submit Review
+                                        </button>
+                                    </form>
                                 </div>
-                            </div>
-                            <div className="review-form">
-                                <h4>Add a review</h4>
-                                <div className="rating-select">
-                                    <div className="stars">
-                                        <span>
-                                            <a className="star-1" href="#"><i className="fas fa-star"></i></a>
-                                            <a className="star-2" href="#"><i className="fas fa-star"></i></a>
-                                            <a className="star-3" href="#"><i className="fas fa-star"></i></a>
-                                            <a className="star-4" href="#"><i className="fas fa-star"></i></a>
-                                            <a className="star-5" href="#"><i className="fas fa-star"></i></a>
-                                        </span>
-                                    </div>
-                                </div>
-                                <form action="#" className="contact-form">
-                                    <div className="row">
-                                        <div className="col-lg-12">
-                                            <div className="form-group comments">
-                                                <textarea className="form-control" id="comments" name="comments" placeholder="Tell us about your experience *"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-lg-6">
-                                            <div className="form-group">
-                                                <input className="form-control" id="name" name="name" placeholder="Name" type="text" />
-                                                <span className="alert-error"></span>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-6">
-                                            <div className="form-group">
-                                                <input className="form-control" id="email" name="email" placeholder="Email*" type="email" />
-                                                <span className="alert-error"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-lg-12">
-                                            <button className="submit-review" type="submit" name="submit" id="submit">
-                                                Post Review
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-12 alert-notification">
-                                        <div id="message" className="alert-msg"></div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                         </div>
                     </div>
                 </div>
 

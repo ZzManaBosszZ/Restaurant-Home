@@ -1,6 +1,6 @@
 
-.login-page {
-    background-image: url('/public/assets/img/banner/15.jpg'); 
+.register-page {
+    background-image: url('/public/assets/img/banner/7.jpg'); 
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -10,7 +10,8 @@
     position: relative;
     z-index: 1;
 }
-.login-page::before {
+
+.register-page::before {
     content: '';
     position: absolute;
     top: 0;
@@ -22,36 +23,36 @@
     z-index: -1; 
 }
 
-.login-container {
+.register-container {
     width: 100%;
     max-width: 400px;
     padding: 15px;
 }
 
-.login-card {
+.register-card {
     background: white;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 20px;
 }
 
-.login-header {
+.register-header {
     text-align: center;
     margin-bottom: 20px;
 }
 
-.login-title {
+.register-title {
     font-size: 24px;
     color: #007bff;
     margin: 0;
 }
 
-.login-subtitle {
+.register-subtitle {
     color: #6c757d;
     margin: 0;
 }
 
-.login-form .form-group {
+.register-form .form-group {
     margin-bottom: 15px;
 }
 
@@ -113,7 +114,7 @@
     border-color: #004a9d;
 }
 
-.login-footer {
+.register-footer {
     margin-top: 20px;
 }
 
@@ -126,7 +127,7 @@
     text-decoration: underline;
 }
 
-.social-login {
+.social-register {
     margin-top: 20px;
 }
 
@@ -165,7 +166,7 @@
     text-align: center;
 }
 
-.login-home {
+.register-home {
     display: inline-block;
     padding: 10px 20px;
     font-size: 16px;
@@ -178,6 +179,6 @@
     margin-top: 20px;
 }
 
-.login-home:hover {
+.register-home:hover {
     background-color: #6d4f28;
 }

@@ -11,6 +11,7 @@ import BlogDetail from "../components/pages/Blog/BlogDetail";
 import FoodShop from "../components/pages/FoodShop/Shop";
 import FoodShopDetail from "../components/pages/FoodShop/FoodShopDetail";
 import Login from "../components/pages/Auth/Login";
+import Register from "../components/pages/Auth/Register";
 import ForgotPassWord from "../components/pages/Auth/ForgotPassWord";
 import ResetPassword from "../components/pages/Auth/ResetPassword";
 import CartTab from "../components/pages/Cart/CartTab";
@@ -22,6 +23,8 @@ import BookingList from "../components/pages/Reservation/BookingList";
 import WishlistPage from "../components/pages/FoodShop/WishlistPage";
 import OrderConfirm from "../components/pages/Cart/OrderConfirm";
 import OrderList from "../components/pages/Cart/OrderList";
+import Profile from "../components/pages/Profile";
+import OrderHistory from "../components/pages/OrderHistory";
 
 const publicRoutes = [
     { path: config.routes.login, component: Login },
@@ -44,7 +47,7 @@ const publicRoutes = [
     { path: config.routes.shop, component: FoodShop },
     { path: config.routes.foodShopDetail, component: FoodShopDetail },
     { path: config.routes.wishlistPage, component: WishlistPage},
-    
+    { path: config.routes.review, component: FoodShopDetail},
 
 
 
@@ -60,6 +63,8 @@ const privateRoutes = [
     { path: config.routes.order, component: Order },
     { path: config.routes.orderConfirm, component: OrderConfirm},
     { path: config.routes.orderList, component: OrderList},
+    { path: config.routes.orderHistory, component: OrderHistory }, 
+    { path: config.routes.profile, component: Profile },
     // 
     { path: config.routes.bookTable, component: BookTable},
     { path: config.routes.bookingConfirm, component: BookingConfirm},
@@ -70,7 +75,7 @@ const privateRoutes = [
 
 const authenticationRoutes = [
     { path: config.routes.login, component: Login },
-    // { path: config.routes.register, component: Register },
+    { path: config.routes.register, component: Register },
     { path: config.routes.forgot_password, component: ForgotPassWord },
     { path: config.routes.reset_password, component: ResetPassword },
 

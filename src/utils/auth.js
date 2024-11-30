@@ -14,7 +14,7 @@ export const getAccessToken = () => {
 
 // Remove token from cookie when logging out
 export const removeAccessToken = () => {
-    Cookies.remove("access_token");
+    Cookies.remove('access_token', { path: '/' }); // Ensure the path matches where the cookie was set
 };
 
 // Decode tokens

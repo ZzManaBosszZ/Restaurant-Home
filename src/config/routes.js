@@ -20,6 +20,7 @@ const routes = {
     shop: "/shop",
     foodShopDetail: "/shop-detail/:id",
     wishlistPage: "/wishlist",
+    review: "/review/food/:id",
 
     // Cart
     cartTab: "/cart",
@@ -28,6 +29,8 @@ const routes = {
     orderConfirm: "/order_confirm/:id",
     orderList: "/orderList",
 
+    // Order history
+    orderHistory: "/order-history", 
 
     // Reservation
     bookTable: "/book_table",
@@ -39,6 +42,7 @@ const routes = {
     // Authentication routes
     profile: "/profile",
     login: "/login",
+    register:"/register",
     forgot_password: "/forgot-password",
     reset_password: "/reset-password/:resetToken",
 

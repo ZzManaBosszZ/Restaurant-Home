@@ -6,6 +6,7 @@ const url = {
     // Authentication
     AUTH: {
         LOGIN: "auth/user/signin",
+        SIGNUP: "auth/user/signup",
         CHANGE_PASSWORD: "user/change-password",
         FORGOT_PASSWORD: "auth/user/forgot-password",
         RESET_PASSWORD: "auth/user/reset-password",
@@ -23,7 +24,7 @@ const url = {
 
     FOOD: {
         LIST: "any/food",
-        DETAIL: "food/{}",
+        DETAIL: "any/food/{}",
         CREATE: "food",
         EDIT: "food",
         DELETE: "food",
@@ -47,6 +48,8 @@ const url = {
 
     MENU_FOOD: {
         LIST: "any/menu-food",
+        DETAIL: "menu-food/{}",
+        CREATE: "menu-food",
     },
 
     ORDER: {
@@ -61,11 +64,19 @@ const url = {
         EDIT: "any/ordertables/{}",
     },
 
+    REVIEW: {
+        LIST: 'any/review/food/{}',
+        CREATE: "review",
+    },
+
     WISHLIST :{
         LIST : "wishlist",
-    }
+    },
 
-    
+    USER: {
+        PROFILE: "profile",
+        EDIT: "profile",
+    },
 
 };
 export default url;
