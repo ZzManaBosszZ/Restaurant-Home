@@ -1,8 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { Link, NavLink } from "react-router-dom";
 import config from '../../config';
+import {
+  isLoggedIn,
+  getDecodedToken,
+  removeAccessToken
+} from "../../utils/auth";
 
-function HeaderPages({ onCartUpdate }) { 
+function HeaderPages({ onCartUpdate }) {
+  const loggedIn = isLoggedIn();
   const [cartCount, setCartCount] = useState(0);
+
+  const handleLogout = () => {
+    removeAccessToken();
+    window.location.href = '/login';
+  };
 
   useEffect(() => {
     const updateCartCount = () => {
@@ -24,7 +36,7 @@ function HeaderPages({ onCartUpdate }) {
     if (onCartUpdate) { 
       onCartUpdate(cartCount);
     }
-  }, [cartCount, onCartUpdate]); 
+  }, [cartCount, onCartUpdate]);
 
   return (
     <header>
@@ -83,6 +95,49 @@ function HeaderPages({ onCartUpdate }) {
                     {cartCount}
                   </span>
                 </a>
+              </li>
+              <li className="dropdown">
+                <a href="#" className="dropdown-toggle" data-toggle="dropdown">
+                  <i className="fa-solid fa-user"></i> 
+                </a>
+                {loggedIn && (
+                  <ul className="dropdown-menu">
+                    <li>
+                      <NavLink to="/profile">
+                        <i className="fa-solid fa-user-circle"></i> Profile
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/wishlist">
+                        <i className="fa-solid fa-heart"></i> Your Wishlist
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/orderList">
+                        <i className="fa-solid fa-cart-shopping"></i> Your Orders
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/booking_list">
+                        <i className="fa-solid fa-file-lines"></i> History Booking
+                      </NavLink>
+                    </li>
+                    <li>
+                      <a href="#" onClick={handleLogout}>
+                        <i className="fa-solid fa-sign-out-alt"></i> Logout
+                      </a>
+                    </li>
+                  </ul>
+                )}
+                {!loggedIn && (
+                  <ul className="dropdown-menu">
+                    <li>
+                      <NavLink to="/login">
+                        <i className="fa-solid fa-hands"></i> Login
+                      </NavLink>
+                    </li>
+                  </ul>
+                )}
               </li>
             </ul>
           </div>

@@ -16,7 +16,6 @@ import ForgotPassWord from "../components/pages/Auth/ForgotPassWord";
 import ResetPassword from "../components/pages/Auth/ResetPassword";
 import CartTab from "../components/pages/Cart/CartTab";
 import CheckOut from "../components/pages/Cart/CheckOut";
-import Order from "../components/pages/Cart/Order";
 import BookTable from "../components/pages/Reservation/BookTable";
 import BookingConfirm from "../components/pages/Reservation/BookingConfirm ";
 import BookingList from "../components/pages/Reservation/BookingList";
@@ -60,7 +59,6 @@ const privateRoutes = [
     // Cart
     { path: config.routes.cartTab, component: CartTab },
     { path: config.routes.checkOut, component: CheckOut },
-    { path: config.routes.order, component: Order },
     { path: config.routes.orderConfirm, component: OrderConfirm},
     { path: config.routes.orderList, component: OrderList},
     { path: config.routes.orderHistory, component: OrderHistory }, 

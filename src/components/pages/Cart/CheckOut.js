@@ -224,11 +224,18 @@ function CheckOut() {
                       ).some((selectedItem) => selectedItem.id === item.id)
                     )
                     .map((item) => (
-                      <li key={item.id}>
-                        {item.name} x {item.quantity} - $
-                        {item.price * item.quantity}
+                      <li key={item.id} style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
+                        <img 
+                          src={item.image} 
+                          alt={item.name} 
+                          style={{ width: "50px", height: "50px", marginRight: "10px", borderRadius: "4px" }} 
+                        />
+                        <span>
+                          {item.name} x {item.quantity} - ${item.price * item.quantity}
+                        </span>
                       </li>
                     ))}
+                    
                 </ul>
                 <p>Total: ${totalPrice}</p>
               </div>

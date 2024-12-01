@@ -21,8 +21,8 @@ function BookTable() {
     menuId: [],
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const [menus, setMenus] = useState([]);
+  const [isMenuVisible, setIsMenuVisible] = useState(false); // State to toggle menu visibility
   const navigate = useNavigate();
 
   const breadcrumbPath = [
@@ -50,7 +50,6 @@ function BookTable() {
           headers: { Authorization: `Bearer ${getAccessToken()}` }
         });
         const customerInfo = response.data.data;
-        // Cập nhật thông tin người dùng vào bookingInfo
         setBookingInfo((prevInfo) => ({
           ...prevInfo,
           full_name: customerInfo.full_name || '',
@@ -141,7 +140,10 @@ function BookTable() {
       setIsSubmitting(false);
     }
   };
-  
+
+  const toggleMenuVisibility = () => {
+    setIsMenuVisible(!isMenuVisible);
+  };
 
   return (
     <LayoutPages showBreadCrumb={false}>
@@ -167,8 +169,35 @@ function BookTable() {
                   />
                 </div>
               ))}
+
+              {/* Select Menu Section */}
               <div className="booking-page-form-group">
                 <label className="booking-page-form-label" htmlFor="menuId">Select Menu</label>
+                <a href="#!" id="show-menu-link" onClick={toggleMenuVisibility}>
+                  {isMenuVisible ? "Hide menu list" : "Show menu list"}
+                </a>
+                {isMenuVisible && (
+                  <div className="menu-list-container">
+                    <button
+                      className="close-menu-button"
+                      onClick={toggleMenuVisibility}
+                    >
+                      ×
+                    </button>
+                    <ul className="menu-list">
+                      {menus.map((menu) => (
+                        <li key={menu.id} className="menu-item">
+                          <img
+                            src={menu.image}
+                            alt={menu.name}
+                            className="menu-item-image"
+                          />
+                          <span className="menu-item-name">{menu.name}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
                 <select
                   className="booking-page-form-input"
                   id="menuId"
@@ -178,9 +207,8 @@ function BookTable() {
                   required
                 >
                   <option value="">Select a menu</option>
-                  {menus.map(menu => (
-                    <option key={menu.id} value={menu.id}>
-                      {menu.name}</option>
+                  {menus.map((menu) => (
+                    <option key={menu.id} value={menu.id}>{menu.name}</option>
                   ))}
                 </select>
               </div>
